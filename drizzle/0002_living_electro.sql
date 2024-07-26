@@ -1,1 +1,0 @@
-ALTER TABLE "levels" ALTER COLUMN "stage_id" SET NOT NULL;

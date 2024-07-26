@@ -18,7 +18,10 @@ function StartPage() {
           <p>The Adventure of Learning</p>
         </div>
         <div className="mx-auto flex max-w-sm flex-col items-center space-y-5">
-          <Button className="w-full border border-black bg-green-500 py-7 font-bold uppercase hover:bg-green-300">
+          <Button
+            asChild
+            className="w-full border border-black bg-green-500 py-7 font-bold uppercase hover:bg-green-300"
+          >
             <Link href="character-selection">Start Game</Link>
           </Button>
           <Button className="w-full border border-black bg-white py-7 font-bold uppercase text-black hover:bg-black hover:text-white">

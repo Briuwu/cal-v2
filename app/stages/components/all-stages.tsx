@@ -13,7 +13,7 @@ export const AllStages = async () => {
               {stage.stageName}
             </h1>
           </div>
-          <Levels levels={stage.levels} />
+          <Levels levels={stage.levels} userProgress={stage.userProgress} />
         </div>
       ))}
     </div>

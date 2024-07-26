@@ -1,9 +1,10 @@
 "use server";
 
 import { db } from "@/db";
-import { levels, users } from "@/db/schema";
+import { levels, userProgress, users } from "@/db/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const getAllStages = async () => {
@@ -12,9 +13,11 @@ export const getAllStages = async () => {
       levels: {
         orderBy: (levels, { asc }) => [asc(levels.levelNumber)],
       },
+      userProgress: true,
     },
   });
 
+  revalidatePath("/stages");
   return data;
 };
 
@@ -26,6 +29,7 @@ export const getLevel = async (stageId: number, levelNumber: number) => {
     ),
   });
 
+  revalidatePath("/game");
   return data;
 };
 
@@ -66,12 +70,17 @@ export const handleCompleteLevel = async (
   }
 
   await db
-    .update(levels)
+    .update(userProgress)
     .set({
+      stageId,
+      levelNumber,
       status: "completed",
     })
     .where(
-      and(eq(levels.stageId, stageId), eq(levels.levelNumber, levelNumber)),
+      and(
+        eq(userProgress.userId, userId),
+        eq(userProgress.levelNumber, levelNumber),
+      ),
     );
 };
 
@@ -85,14 +94,12 @@ export const handleUnlockLevel = async (
     throw new Error("You must be logged in to access this resource");
   }
 
-  await db
-    .update(levels)
-    .set({
-      status: "unlocked",
-    })
-    .where(
-      and(eq(levels.stageId, stageId), eq(levels.levelNumber, levelNumber)),
-    );
+  await db.insert(userProgress).values({
+    userId,
+    stageId,
+    levelNumber,
+    status: "unlocked",
+  });
 };
 
 export const handleRewardLevel = async () => {

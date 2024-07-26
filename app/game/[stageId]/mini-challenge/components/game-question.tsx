@@ -9,11 +9,9 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Questions } from "@/types";
@@ -55,7 +53,7 @@ export const GameQuestion = ({ data, onCorrect, onWrong, answer }: Props) => {
 
   return (
     <>
-      <div className="rounded bg-white p-5 opacity-0" id="gameQuestion">
+      <div className="mt-2 rounded bg-white p-5 opacity-0" id="gameQuestion">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
