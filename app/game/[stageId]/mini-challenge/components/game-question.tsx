@@ -72,6 +72,9 @@ export const GameQuestion = ({ data, onCorrect, onWrong, answer }: Props) => {
                       className="mx-auto max-w-80 text-center text-sm"
                     />
                   </FormControl>
+                  <span className="text-center text-sm text-red-500">
+                    TESTING PURPOSE! (answer): {answer}
+                  </span>
                 </FormItem>
               )}
             />
