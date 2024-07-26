@@ -6,9 +6,9 @@ import Link from "next/link";
 function Home() {
   return (
     <main className="container">
-      <div className="grid grid-cols-2 place-items-center">
+      <div className="grid place-items-center gap-10 md:grid-cols-2">
         <div className="flex flex-col gap-4">
-          <h2 className="text-center text-xl font-bold uppercase md:text-left md:text-3xl lg:text-7xl">
+          <h2 className="text-center text-3xl font-bold uppercase md:text-left lg:text-7xl">
             Learn by <br /> doing
           </h2>
           <p className="max-w-md">
@@ -18,7 +18,7 @@ function Home() {
           <SignedIn>
             <Button
               variant={"default"}
-              className="drop-shadow-small border border-black bg-green-300 font-bold uppercase text-black hover:opacity-80"
+              className="border border-black bg-green-300 font-bold uppercase text-black drop-shadow-small hover:opacity-80"
               asChild
             >
               <Link href="character-selection">Continue Playing</Link>
@@ -27,7 +27,7 @@ function Home() {
           <SignedOut>
             <Button
               variant={"default"}
-              className="drop-shadow-small border border-black bg-green-300 font-bold uppercase text-black hover:opacity-80"
+              className="border border-black bg-green-300 font-bold uppercase text-black drop-shadow-small hover:opacity-80"
               asChild
             >
               <Link href="/sign-in">Play Now</Link>

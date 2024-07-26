@@ -1,6 +1,10 @@
 import { CharacterState } from "@/types";
 
-export const getCharacter = (characterState: CharacterState, type?: string) => {
+export const getCharacter = (
+  characterState: CharacterState,
+  size: number,
+  type?: string,
+) => {
   const images = {
     idle: {
       src: "/characters/animations/male_homeless/idle.gif",
@@ -20,8 +24,8 @@ export const getCharacter = (characterState: CharacterState, type?: string) => {
   };
 
   const src = images[characterState].src;
-  const width = images[characterState].width / 2.5;
-  const height = images[characterState].height / 2.5;
+  const width = images[characterState].width / size;
+  const height = images[characterState].height / size;
 
   return {
     src,

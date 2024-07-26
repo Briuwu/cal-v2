@@ -1,5 +1,6 @@
 import { getCharacter } from "@/lib/character";
 import { CharacterState } from "@/types";
+import { useMediaQuery } from "@uidotdev/usehooks";
 import Image from "next/image";
 
 export const Player = ({
@@ -7,7 +8,9 @@ export const Player = ({
 }: {
   characterState: CharacterState;
 }) => {
-  const { src, width, height } = getCharacter(characterState, "homeless");
+  const isLargeDevice = useMediaQuery("only screen and (min-width : 1024px)");
+  let size = isLargeDevice ? 2.5 : 4;
+  const { src, width, height } = getCharacter(characterState, size, "homeless");
 
   return (
     <>
@@ -17,7 +20,7 @@ export const Player = ({
         width={width}
         height={height}
         id="character"
-        className="absolute -left-40 bottom-[105px] z-40"
+        className="absolute -left-20 top-[140px] z-40 md:top-[375px] lg:-left-40 lg:bottom-[105px] lg:top-auto"
       />
     </>
   );
