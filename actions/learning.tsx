@@ -20,16 +20,16 @@ export const handleLearningComplete = async (
   await handleCompleteLevel(stageId, levelNumber);
   await handleUnlockLevel(stageId, levelNumber + 1);
 
-  const data = await db.query.levels.findFirst({
-    where: and(
-      eq(levels.stageId, stageId),
-      eq(levels.levelNumber, levelNumber + 1),
-    ),
-  });
+  // const data = await db.query.levels.findFirst({
+  //   where: and(
+  //     eq(levels.stageId, stageId),
+  //     eq(levels.levelNumber, levelNumber + 1),
+  //   ),
+  // });
 
-  if (!data) {
-    throw new Error("No next level found");
-  }
+  // if (!data) {
+  //   throw new Error("No next level found");
+  // }
 
   redirect(`/game/3/mini-challenge?stageId=1&levelNumber=2`);
 };
