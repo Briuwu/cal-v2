@@ -6,8 +6,9 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { cache } from "react";
 
-export const getAllStages = async () => {
+export const getAllStages = cache(async () => {
   const data = await db.query.stages.findMany({
     with: {
       levels: {
@@ -19,9 +20,9 @@ export const getAllStages = async () => {
 
   revalidatePath("/stages");
   return data;
-};
+});
 
-export const getLevel = async (stageId: number, levelNumber: number) => {
+export const getLevel = cache(async (stageId: number, levelNumber: number) => {
   const data = await db.query.levels.findFirst({
     where: and(
       eq(levels.stageId, Number(stageId)),
@@ -31,9 +32,9 @@ export const getLevel = async (stageId: number, levelNumber: number) => {
 
   revalidatePath("/game");
   return data;
-};
+});
 
-export const nextLevel = async (stageId: number, nextLevel: number) => {
+export const nextLevel = cache(async (stageId: number, nextLevel: number) => {
   const { userId } = auth();
 
   if (!userId) {
@@ -57,52 +58,50 @@ export const nextLevel = async (stageId: number, nextLevel: number) => {
   redirect(
     `/game/${data.id}/${data.type}?stageId=${data.stageId}&levelNumber=${data.levelNumber}`,
   );
-};
+});
 
-export const handleCompleteLevel = async (
-  stageId: number,
-  levelNumber: number,
-) => {
-  const { userId } = auth();
+export const handleCompleteLevel = cache(
+  async (stageId: number, levelNumber: number) => {
+    const { userId } = auth();
 
-  if (!userId) {
-    throw new Error("You must be logged in to access this resource");
-  }
+    if (!userId) {
+      throw new Error("You must be logged in to access this resource");
+    }
 
-  await db
-    .update(userProgress)
-    .set({
+    await db
+      .update(userProgress)
+      .set({
+        stageId,
+        levelNumber,
+        status: "completed",
+      })
+      .where(
+        and(
+          eq(userProgress.userId, userId),
+          eq(userProgress.levelNumber, levelNumber),
+        ),
+      );
+  },
+);
+
+export const handleUnlockLevel = cache(
+  async (stageId: number, levelNumber: number) => {
+    const { userId } = auth();
+
+    if (!userId) {
+      throw new Error("You must be logged in to access this resource");
+    }
+
+    await db.insert(userProgress).values({
+      userId,
       stageId,
       levelNumber,
-      status: "completed",
-    })
-    .where(
-      and(
-        eq(userProgress.userId, userId),
-        eq(userProgress.levelNumber, levelNumber),
-      ),
-    );
-};
+      status: "unlocked",
+    });
+  },
+);
 
-export const handleUnlockLevel = async (
-  stageId: number,
-  levelNumber: number,
-) => {
-  const { userId } = auth();
-
-  if (!userId) {
-    throw new Error("You must be logged in to access this resource");
-  }
-
-  await db.insert(userProgress).values({
-    userId,
-    stageId,
-    levelNumber,
-    status: "unlocked",
-  });
-};
-
-export const handleRewardLevel = async () => {
+export const handleRewardLevel = cache(async () => {
   const { userId } = auth();
 
   if (!userId) {
@@ -128,9 +127,9 @@ export const handleRewardLevel = async () => {
     coins: data.coins + 30,
     xp: data.xp + 50,
   });
-};
+});
 
-export const handleLevelUp = async () => {
+export const handleLevelUp = cache(async () => {
   const { userId } = auth();
 
   if (!userId) {
@@ -157,4 +156,4 @@ export const handleLevelUp = async () => {
       xp: 0,
     });
   }
-};
+});
