@@ -30,6 +30,4 @@ export const handleLearningComplete = async (
   // if (!data) {
   //   throw new Error("No next level found");
   // }
-
-  redirect(`/game/3/mini-challenge?stageId=1&levelNumber=2`);
 };
