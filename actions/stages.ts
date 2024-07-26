@@ -44,7 +44,10 @@ export const nextLevel = cache(async (stageId: number, nextLevel: number) => {
   console.log(stageId, nextLevel);
 
   const data = await db.query.levels.findFirst({
-    where: and(eq(levels.stageId, stageId), eq(levels.levelNumber, nextLevel)),
+    where: and(
+      eq(levels.stageId, Number(stageId)),
+      eq(levels.levelNumber, Number(nextLevel)),
+    ),
   });
 
   if (!data) {
@@ -52,8 +55,8 @@ export const nextLevel = cache(async (stageId: number, nextLevel: number) => {
   }
 
   await handleRewardLevel();
-  await handleCompleteLevel(stageId, nextLevel - 1);
-  await handleUnlockLevel(stageId, nextLevel);
+  await handleCompleteLevel(Number(stageId), Number(nextLevel) - 1);
+  await handleUnlockLevel(Number(stageId), Number(nextLevel));
 
   redirect(
     `/game/${data.id}/${data.type}?stageId=${data.stageId}&levelNumber=${data.levelNumber}`,
@@ -78,7 +81,7 @@ export const handleCompleteLevel = cache(
       .where(
         and(
           eq(userProgress.userId, userId),
-          eq(userProgress.levelNumber, levelNumber),
+          eq(userProgress.levelNumber, Number(levelNumber)),
         ),
       );
   },

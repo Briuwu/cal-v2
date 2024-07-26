@@ -16,8 +16,8 @@ export const handleLearningComplete = cache(
       throw new Error("You must be logged in to access this resource");
     }
 
-    await handleCompleteLevel(stageId, levelNumber);
-    await handleUnlockLevel(stageId, levelNumber + 1);
+    await handleCompleteLevel(stageId, Number(levelNumber));
+    await handleUnlockLevel(stageId, Number(levelNumber) + 1);
 
     // const data = await db.query.levels.findFirst({
     //   where: and(
