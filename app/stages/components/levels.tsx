@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 import { levels, userProgress as userProgressData } from "@/db/schema";
+import { auth } from "@clerk/nextjs/server";
 
 type Props = {
   levels: (typeof levels.$inferSelect)[];
@@ -10,6 +11,7 @@ type Props = {
 };
 
 export const Levels = ({ levels, userProgress }: Props) => {
+  const { userId } = auth();
   const displayLevels = levels.map((level) => {
     let imgSrc;
     switch (level.type) {
@@ -28,7 +30,9 @@ export const Levels = ({ levels, userProgress }: Props) => {
     }
 
     const progress = userProgress.find(
-      (progress) => progress.levelNumber === level.levelNumber,
+      (progress) =>
+        progress.levelNumber === level.levelNumber &&
+        progress.userId === userId,
     );
 
     if (progress) {
