@@ -4,7 +4,7 @@ import { useAnimate } from "framer-motion";
 
 import { levels } from "@/db/schema";
 import { GameQuestion } from "./game-question";
-import { Player } from "../../components/player";
+import { Player } from "@/app/game/[challengeId]/components/player";
 import { CharacterState } from "@/types";
 import Image from "next/image";
 import { nextLevel } from "@/actions/stages";

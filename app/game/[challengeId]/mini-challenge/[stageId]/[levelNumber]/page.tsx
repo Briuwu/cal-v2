@@ -7,13 +7,13 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
 async function ChallengePage({
-  searchParams,
+  params,
 }: {
-  searchParams: { levelNumber: number; stageId: number };
+  params: { levelNumber: number; stageId: number };
 }) {
   const level = await getLevel(
-    Number(searchParams.stageId),
-    Number(searchParams.levelNumber),
+    Number(params.stageId),
+    Number(params.levelNumber),
   );
 
   if (!level) {

@@ -48,7 +48,7 @@ export const Levels = ({ levels, userProgress }: Props) => {
             />
           )}
           <Link
-            href={`/game/${level.id}/${level.type}?stageId=${level.stageId}&levelNumber=${level.levelNumber}`}
+            href={`/game/${level.id}/${level.type}/${level.stageId}/${level.levelNumber}`}
             aria-disabled={progress.status === "completed"}
             className={cn(
               "relative",

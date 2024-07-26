@@ -58,9 +58,8 @@ export const nextLevel = cache(async (stageId: number, nextLevel: number) => {
   await handleCompleteLevel(Number(stageId), Number(nextLevel) - 1);
   await handleUnlockLevel(Number(stageId), Number(nextLevel));
 
-  redirect(
-    `/game/${data.id}/${data.type}?stageId=${data.stageId}&levelNumber=${data.levelNumber}`,
-  );
+  revalidatePath("/game");
+  redirect(`/game/${data.id}/${data.type}/${data.stageId}/${data.levelNumber}`);
 });
 
 export const handleCompleteLevel = cache(
