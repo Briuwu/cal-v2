@@ -46,8 +46,8 @@ export const createProfile = async (selectedCharcter: number) => {
     .insert(userProgress)
     .values({
       userId,
-      levelNumber: 1,
-      stageId: 2,
+      levelNumber: 2,
+      stageId: 1,
       status: "unlocked",
     })
     .execute();
