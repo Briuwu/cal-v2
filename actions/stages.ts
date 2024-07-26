@@ -81,8 +81,7 @@ export const handleCompleteLevel = async (
         eq(userProgress.userId, userId),
         eq(userProgress.levelNumber, levelNumber),
       ),
-    )
-    .execute();
+    );
 };
 
 export const handleUnlockLevel = async (
@@ -95,15 +94,12 @@ export const handleUnlockLevel = async (
     throw new Error("You must be logged in to access this resource");
   }
 
-  await db
-    .insert(userProgress)
-    .values({
-      userId,
-      stageId,
-      levelNumber,
-      status: "unlocked",
-    })
-    .execute();
+  await db.insert(userProgress).values({
+    userId,
+    stageId,
+    levelNumber,
+    status: "unlocked",
+  });
 };
 
 export const handleRewardLevel = async () => {
