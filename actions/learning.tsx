@@ -31,7 +31,5 @@ export const handleLearningComplete = async (
     throw new Error("No next level found");
   }
 
-  redirect(
-    `/game/${data.id}/${data.type}?stageId=${data.stageId}&levelNumber=${data.levelNumber}`,
-  );
+  redirect(`/game/3/mini-challenge?stageId=1&levelNumber=2`);
 };
