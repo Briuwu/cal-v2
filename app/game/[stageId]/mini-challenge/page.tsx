@@ -11,7 +11,10 @@ async function ChallengePage({
 }: {
   searchParams: { levelNumber: number; stageId: number };
 }) {
-  const level = await getLevel(searchParams.stageId, searchParams.levelNumber);
+  const level = await getLevel(
+    Number(searchParams.stageId),
+    Number(searchParams.levelNumber),
+  );
 
   if (!level) {
     redirect("/stages");
