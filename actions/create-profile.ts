@@ -42,6 +42,15 @@ export const createProfile = async (selectedCharcter: number) => {
       status: "completed",
     })
     .execute();
+  await db
+    .insert(userProgress)
+    .values({
+      userId,
+      levelNumber: 1,
+      stageId: 2,
+      status: "unlocked",
+    })
+    .execute();
 
   redirect("/stages");
 };
