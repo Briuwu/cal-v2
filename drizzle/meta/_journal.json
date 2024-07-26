@@ -8,6 +8,20 @@
       "when": 1721907313505,
       "tag": "0000_loose_pandemic",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1721908950228,
+      "tag": "0001_flowery_sersi",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1721922701114,
+      "tag": "0002_living_electro",
+      "breakpoints": true
     }
   ]
 }

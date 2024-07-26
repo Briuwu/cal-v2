@@ -1,4 +1,10 @@
+import { AllStages } from "./components/all-stages";
+
 const StagesPage = () => {
-  return <div>StagesPage</div>;
+  return (
+    <main className="p-5">
+      <AllStages />
+    </main>
+  );
 };
 export default StagesPage;
