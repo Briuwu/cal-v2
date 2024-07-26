@@ -39,7 +39,7 @@ export const createProfile = async (selectedCharcter: number) => {
       userId,
       levelNumber: 1,
       stageId: 1,
-      status: "unlocked",
+      status: "completed",
     })
     .execute();
 
