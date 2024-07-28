@@ -21,6 +21,11 @@ export const getCharacter = (
       width: 181,
       height: 323,
     },
+    attack: {
+      src: "/characters/animations/male_homeless/attack.gif",
+      width: 293,
+      height: 295,
+    },
   };
 
   const src = images[characterState].src;

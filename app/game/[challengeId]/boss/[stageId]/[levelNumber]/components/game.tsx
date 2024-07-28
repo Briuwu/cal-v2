@@ -6,10 +6,11 @@ import { useAnimate } from "framer-motion";
 import { levels } from "@/db/schema";
 import { GameQuestion } from "./game-question";
 import { Player } from "@/app/game/[challengeId]/components/player";
-import { CharacterState } from "@/types";
+import { BossState, CharacterState } from "@/types";
 import Image from "next/image";
 import { nextLevel } from "@/actions/stages";
 import { GameOver } from "./game-over";
+import { Boss } from "./boss";
 
 type Props = {
   level: typeof levels.$inferSelect;
@@ -32,12 +33,14 @@ export const Game = ({ level }: Props) => {
   const [lifes, setLifes] = useState(5);
   const [questionIdx, setQuestionIdx] = useState(0);
   const [characterState, setCharacterState] = useState<CharacterState>("walk");
+  const [bossState, setBossState] = useState<BossState>("idle");
 
   const questions = level.questions!;
 
   useEffect(() => {
     setIsAnimating(true);
     const animateCharacter = async () => {
+      setBossState("idle");
       await animate(
         "#character",
         { x: isLargeDevice ? 200 : 90 },
@@ -63,20 +66,36 @@ export const Game = ({ level }: Props) => {
     }
   };
 
+  let xAttack = isSmallDevice ? 300 : isMediumDevice ? 500 : 800;
+  let durationAttack = isSmallDevice ? 2 : 3.5;
+
+  let xOriginal = isSmallDevice ? 80 : 160;
   const handleCorrect = async () => {
     setIsAnimating(true);
     if (questionIdx < level.questions?.length! - 1) {
+      setCharacterState("running");
+      await animate("#character", { x: xAttack }, { duration: durationAttack });
+      setCharacterState("attack");
+      setBossState("hurt");
+      await animate("#character", { scaleX: -1 }, { duration: 0.5 });
+      setCharacterState("running");
+      setBossState("idle");
+      await animate(
+        "#character",
+        { x: xOriginal },
+        { duration: durationAttack },
+      );
+      setCharacterState("idle");
+      await animate("#character", { scaleX: 1 }, { duration: 0.5 });
       setQuestionIdx(questionIdx + 1);
     }
 
     if (questionIdx === level.questions?.length! - 1) {
-      {
-        await animate("#gameQuestion", { opacity: 0 }, { duration: 1 });
-        await animate("#gameCompleted", { opacity: 1 }, { duration: 1 });
-        setCharacterState("running");
-        await animate("#character", { x }, { duration });
-        await nextLevel(level.stageId, Number(level.levelNumber) + 1);
-      }
+      await animate("#gameQuestion", { opacity: 0 }, { duration: 1 });
+      await animate("#gameCompleted", { opacity: 1 }, { duration: 1 });
+      setCharacterState("running");
+      await animate("#character", { x }, { duration });
+      await nextLevel(level.stageId, Number(level.levelNumber) + 1);
     }
     setIsAnimating(false);
   };
@@ -95,6 +114,7 @@ export const Game = ({ level }: Props) => {
         isAnimating={isAnimating}
       />
       <Player characterState={characterState} />
+      <Boss bossState={bossState} />
       <div>
         <div className="bottom-4 left-4 flex lg:absolute">
           {lifes > 0 &&

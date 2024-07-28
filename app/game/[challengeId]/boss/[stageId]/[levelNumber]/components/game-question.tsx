@@ -60,7 +60,10 @@ export const GameQuestion = ({
 
   return (
     <>
-      <div className="mt-2 rounded bg-white p-5 opacity-0" id="gameQuestion">
+      <div
+        className="relative z-20 mt-2 rounded bg-white p-5 opacity-0"
+        id="gameQuestion"
+      >
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -97,7 +100,7 @@ export const GameQuestion = ({
       </div>
       <h2
         id="gameCompleted"
-        className="flex flex-col items-center justify-center gap-2 rounded bg-white p-5 text-center font-bold uppercase opacity-0"
+        className="z-1 absolute left-4 right-4 top-16 flex flex-col items-center justify-center gap-2 rounded bg-white p-5 text-center font-bold uppercase opacity-0"
       >
         Game Complete! Proceeding to next level...{" "}
         <Loader className="animate-spin" />
