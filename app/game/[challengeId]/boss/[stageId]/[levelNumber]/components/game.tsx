@@ -12,21 +12,13 @@ import { GameQuestion } from "@/app/game/[challengeId]/components/game-question"
 import { Player } from "@/app/game/[challengeId]/components/player";
 import { GameOver } from "@/app/game/[challengeId]/components/game-over";
 import { Boss } from "./boss";
+import { sleep } from "@/lib/utils";
 
 type Props = {
   level: typeof levels.$inferSelect;
 };
 
 export const Game = ({ level }: Props) => {
-  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
-  const isMediumDevice = useMediaQuery(
-    "only screen and (min-width : 769px) and (max-width : 992px)",
-  );
-  const isLargeDevice = useMediaQuery("only screen and (min-width : 1024px)");
-
-  let x = isSmallDevice ? 450 : isMediumDevice ? 600 : 1150;
-  let duration = isSmallDevice ? 5 : isMediumDevice ? 7 : 10;
-
   const [scope, animate] = useAnimate();
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -35,6 +27,12 @@ export const Game = ({ level }: Props) => {
   const [questionIdx, setQuestionIdx] = useState(0);
   const [characterState, setCharacterState] = useState<CharacterState>("walk");
   const [bossState, setBossState] = useState<BossState>("idle");
+
+  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
+  const isMediumDevice = useMediaQuery(
+    "only screen and (min-width : 769px) and (max-width : 992px)",
+  );
+  const isLargeDevice = useMediaQuery("only screen and (min-width : 1024px)");
 
   const questions = level.questions!;
 
@@ -57,7 +55,20 @@ export const Game = ({ level }: Props) => {
 
   let currentQuestion = questions[questionIdx];
 
-  const handleWrong = () => {
+  const handleWrong = async () => {
+    setIsAnimating(true);
+    let xBossPosition = isSmallDevice ? 225 : isMediumDevice ? 400 : 600;
+    let xBossOriginal = isSmallDevice ? 20 : 40;
+    await animate("#boss", { x: -xBossPosition }, { duration: 3 });
+    setBossState("attack");
+    setCharacterState("hurt");
+    await sleep(1000);
+    await animate("#boss", { scaleX: -1 }, { duration: 0.5 });
+    setCharacterState("idle");
+    setBossState("idle");
+    await animate("#boss", { x: -xBossOriginal }, { duration: 3 });
+    await animate("#boss", { scaleX: 1 }, { duration: 0.5 });
+
     if (lifes > 0) {
       setLifes(lifes - 1);
     }
@@ -65,33 +76,33 @@ export const Game = ({ level }: Props) => {
     if (lifes === 1) {
       setGameOver(true);
     }
+    setIsAnimating(false);
   };
 
-  let xAttack = isSmallDevice ? 300 : isMediumDevice ? 500 : 800;
-  let durationAttack = isSmallDevice ? 2 : 3.5;
-
-  let xOriginal = isSmallDevice ? 80 : 160;
   const handleCorrect = async () => {
     setIsAnimating(true);
+    setCharacterState("running");
+    let xCharacterPosition = isSmallDevice ? 300 : isMediumDevice ? 500 : 800;
+    let xCharacterOriginal = isSmallDevice ? 80 : 160;
+    await animate("#character", { x: xCharacterPosition }, { duration: 2.5 });
+    setCharacterState("attack");
+    setBossState("hurt");
+    await sleep(1000);
+    await animate("#character", { scaleX: -1 }, { duration: 0.5 });
+    setCharacterState("running");
+    setBossState("idle");
+    await animate("#character", { x: xCharacterOriginal }, { duration: 2.5 });
+    setCharacterState("idle");
+    await animate("#character", { scaleX: 1 }, { duration: 0.5 });
+
     if (questionIdx < level.questions?.length! - 1) {
-      setCharacterState("running");
-      await animate("#character", { x: xAttack }, { duration: durationAttack });
-      setCharacterState("attack");
-      setBossState("hurt");
-      await animate("#character", { scaleX: -1 }, { duration: 0.5 });
-      setCharacterState("running");
-      setBossState("idle");
-      await animate(
-        "#character",
-        { x: xOriginal },
-        { duration: durationAttack },
-      );
-      setCharacterState("idle");
-      await animate("#character", { scaleX: 1 }, { duration: 0.5 });
       setQuestionIdx(questionIdx + 1);
     }
 
     if (questionIdx === level.questions?.length! - 1) {
+      let x = isSmallDevice ? 450 : isMediumDevice ? 600 : 1150;
+      let duration = isSmallDevice ? 5 : isMediumDevice ? 7 : 8;
+      setBossState("death");
       await animate("#gameQuestion", { opacity: 0 }, { duration: 1 });
       await animate("#gameCompleted", { opacity: 1 }, { duration: 1 });
       setCharacterState("running");

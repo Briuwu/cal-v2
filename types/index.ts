@@ -5,6 +5,6 @@ export type Questions = {
   xp: number;
 };
 
-export type CharacterState = "idle" | "running" | "walk" | "attack";
+export type CharacterState = "idle" | "running" | "walk" | "attack" | "hurt";
 
 export type BossState = "idle" | "hurt" | "death" | "attack";
