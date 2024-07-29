@@ -1,8 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { SignOutButton } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-function StartPage() {
+async function StartPage() {
+  const { userId } = auth();
+
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
+  const user = await currentUser();
+
+  if (!user) {
+    redirect("/sign-in");
+  }
+
   return (
     <main
       style={{

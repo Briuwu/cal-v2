@@ -16,18 +16,22 @@ export const handleLearningComplete = cache(
       throw new Error("You must be logged in to access this resource");
     }
 
-    await handleCompleteLevel(stageId, Number(levelNumber));
-    await handleUnlockLevel(stageId, Number(levelNumber) + 1);
+    await handleCompleteLevel(Number(stageId), Number(levelNumber));
+    await handleUnlockLevel(Number(stageId), Number(levelNumber) + 1);
 
-    // const data = await db.query.levels.findFirst({
-    //   where: and(
-    //     eq(levels.stageId, stageId),
-    //     eq(levels.levelNumber, levelNumber + 1),
-    //   ),
-    // });
+    const data = await db.query.levels.findFirst({
+      where: and(
+        eq(levels.stageId, Number(stageId)),
+        eq(levels.levelNumber, Number(levelNumber) + 1),
+      ),
+    });
 
-    // if (!data) {
-    //   throw new Error("No next level found");
-    // }
+    if (!data) {
+      throw new Error("No next level found");
+    }
+
+    redirect(
+      `/game/${data.id}/${data.type}/${data.stageId}/${data.levelNumber}`,
+    );
   },
 );

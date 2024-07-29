@@ -2,14 +2,15 @@
 import { useState, useEffect } from "react";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useAnimate } from "framer-motion";
+import Image from "next/image";
 
 import { levels } from "@/db/schema";
-import { GameQuestion } from "./game-question";
-import { Player } from "@/app/game/[challengeId]/components/player";
 import { BossState, CharacterState } from "@/types";
-import Image from "next/image";
 import { nextLevel } from "@/actions/stages";
-import { GameOver } from "./game-over";
+
+import { GameQuestion } from "@/app/game/[challengeId]/components/game-question";
+import { Player } from "@/app/game/[challengeId]/components/player";
+import { GameOver } from "@/app/game/[challengeId]/components/game-over";
 import { Boss } from "./boss";
 
 type Props = {

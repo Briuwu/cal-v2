@@ -35,13 +35,6 @@ export const createProfile = cache(async (selectedCharcter: number) => {
     userId,
     levelNumber: 1,
     stageId: 1,
-    status: "completed",
-  });
-
-  await db.insert(userProgress).values({
-    userId,
-    levelNumber: 2,
-    stageId: 1,
     status: "unlocked",
   });
 

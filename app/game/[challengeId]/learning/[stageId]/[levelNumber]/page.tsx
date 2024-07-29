@@ -1,12 +1,9 @@
 import { NextButton } from "./components/next-button";
 
 function LearningPage({
-  searchParams: { stageId, levelNumber },
+  params: { stageId, levelNumber },
 }: {
-  searchParams: {
-    stageId: number;
-    levelNumber: number;
-  };
+  params: { stageId: number; levelNumber: number };
 }) {
   return (
     <main className="grid min-h-dvh place-content-center">

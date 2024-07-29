@@ -10,12 +10,10 @@ export const NextButton = ({
   stageId: number;
   levelNumber: number;
 }) => {
-  const router = useRouter();
   return (
     <Button
       onClick={async () => {
-        await handleLearningComplete(Number(stageId), Number(levelNumber));
-        router.push("/game/3/mini-challenge?stageId=1&levelNumber=2");
+        await handleLearningComplete(stageId, levelNumber);
       }}
     >
       Proceed to Next Level

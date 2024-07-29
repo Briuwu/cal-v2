@@ -4,18 +4,26 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 import { useAnimate } from "framer-motion";
 
 import { levels } from "@/db/schema";
-import { GameQuestion } from "./game-question";
+import { GameQuestion } from "@/app/game/[challengeId]/components/game-question";
 import { Player } from "@/app/game/[challengeId]/components/player";
 import { CharacterState } from "@/types";
 import Image from "next/image";
 import { nextLevel } from "@/actions/stages";
-import { GameOver } from "./game-over";
+import { GameOver } from "@/app/game/[challengeId]/components/game-over";
 
 type Props = {
   level: typeof levels.$inferSelect;
 };
 
 export const Game = ({ level }: Props) => {
+  const [scope, animate] = useAnimate();
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const [gameOver, setGameOver] = useState(false);
+  const [lifes, setLifes] = useState(5);
+  const [questionIdx, setQuestionIdx] = useState(0);
+  const [characterState, setCharacterState] = useState<CharacterState>("walk");
+
   const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
   const isMediumDevice = useMediaQuery(
     "only screen and (min-width : 769px) and (max-width : 992px)",
@@ -24,14 +32,6 @@ export const Game = ({ level }: Props) => {
 
   let x = isSmallDevice ? 450 : isMediumDevice ? 600 : 1150;
   let duration = isSmallDevice ? 5 : isMediumDevice ? 7 : 10;
-
-  const [scope, animate] = useAnimate();
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  const [gameOver, setGameOver] = useState(false);
-  const [lifes, setLifes] = useState(5);
-  const [questionIdx, setQuestionIdx] = useState(0);
-  const [characterState, setCharacterState] = useState<CharacterState>("walk");
 
   const questions = level.questions!;
 
@@ -63,8 +63,26 @@ export const Game = ({ level }: Props) => {
     }
   };
 
+  let xPosition = Array.from({ length: questions.length }).reduce(
+    (acc: number[], _, idx) => {
+      const incrementValue = isSmallDevice ? 100 : 250;
+      if (idx === 0) {
+        acc.push(incrementValue + 25);
+      } else {
+        acc.push(acc[idx - 1] + incrementValue);
+      }
+
+      return acc;
+    },
+    [] as number[],
+  );
+
   const handleCorrect = async () => {
     setIsAnimating(true);
+    setCharacterState("walk");
+    await animate("#character", { x: xPosition[questionIdx] }, { duration: 2 });
+    setCharacterState("idle");
+
     if (questionIdx < level.questions?.length! - 1) {
       setQuestionIdx(questionIdx + 1);
     }
@@ -73,8 +91,6 @@ export const Game = ({ level }: Props) => {
       {
         await animate("#gameQuestion", { opacity: 0 }, { duration: 1 });
         await animate("#gameCompleted", { opacity: 1 }, { duration: 1 });
-        setCharacterState("running");
-        await animate("#character", { x }, { duration });
         await nextLevel(level.stageId, Number(level.levelNumber) + 1);
       }
     }
