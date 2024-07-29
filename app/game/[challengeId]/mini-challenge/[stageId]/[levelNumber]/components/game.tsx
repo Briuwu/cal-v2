@@ -25,13 +25,7 @@ export const Game = ({ level }: Props) => {
   const [characterState, setCharacterState] = useState<CharacterState>("walk");
 
   const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
-  const isMediumDevice = useMediaQuery(
-    "only screen and (min-width : 769px) and (max-width : 992px)",
-  );
   const isLargeDevice = useMediaQuery("only screen and (min-width : 1024px)");
-
-  let x = isSmallDevice ? 450 : isMediumDevice ? 600 : 1150;
-  let duration = isSmallDevice ? 5 : isMediumDevice ? 7 : 10;
 
   const questions = level.questions!;
 
