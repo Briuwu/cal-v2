@@ -8,3 +8,5 @@ export type Questions = {
 export type CharacterState = "idle" | "running" | "walk" | "attack" | "hurt";
 
 export type BossState = "idle" | "hurt" | "death" | "attack";
+
+export type TreasureState = "open" | "closed";

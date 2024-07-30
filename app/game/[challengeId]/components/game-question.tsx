@@ -61,7 +61,7 @@ export const GameQuestion = ({
   return (
     <>
       <div
-        className="relative z-20 mt-2 rounded bg-white p-5 opacity-0"
+        className="relative z-20 mt-2 rounded-md bg-white p-5 opacity-0"
         id="gameQuestion"
       >
         <Form {...form}>
