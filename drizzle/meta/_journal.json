@@ -8,6 +8,13 @@
       "when": 1721961387759,
       "tag": "0000_fast_gravity",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1722221852186,
+      "tag": "0001_flashy_scarlet_witch",
+      "breakpoints": true
     }
   ]
 }

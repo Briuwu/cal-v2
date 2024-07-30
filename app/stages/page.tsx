@@ -18,13 +18,6 @@ const StagesPage = async () => {
     redirect("/sign-in");
   }
 
-  const hasCharacter = await db.query.users.findFirst({
-    where: eq(users.email, user.emailAddresses[0].emailAddress),
-  });
-
-  if (!hasCharacter) {
-    redirect("/character-selection");
-  }
   return (
     <main className="p-5">
       <AllStages />

@@ -26,12 +26,6 @@ export const StagesAside = () => {
       icon: "/stages/achievements-icon.png",
       active: pathname === "/stages/achievements",
     },
-    {
-      label: "Daily Quests",
-      link: "/stages/daily-quests",
-      icon: "/stages/daily-quest-icon.png",
-      active: pathname === "/stages/daily-quests",
-    },
   ];
   return (
     <aside className="sticky left-0 hidden w-[300px] border-r-2 border-black p-5 lg:block">

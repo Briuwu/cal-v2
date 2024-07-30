@@ -1,4 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-  
+
+@layer components {
+  .dialogue-radius {
+    border-radius: 70% 30% 73% 27% / 42% 58% 42% 58%;
+  }
+}

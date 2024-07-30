@@ -17,7 +17,6 @@ export const users = pgTable("users", {
   email: text("email").notNull().unique(),
   coins: integer("coins").notNull().default(0),
   xp: integer("xp").notNull().default(0),
-  activeLevel: integer("active_level").notNull().default(1),
   currentLevel: integer("current_level").notNull().default(1),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
