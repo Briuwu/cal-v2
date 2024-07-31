@@ -35,33 +35,42 @@ export const getLevel = cache(async (stageId: number, levelNumber: number) => {
   return data;
 });
 
-export const nextLevel = cache(async (stageId: number, nextLevel: number) => {
-  const { userId } = auth();
+export const nextLevel = cache(
+  async (stageId: number, nextLevel: number, isReward?: boolean) => {
+    const { userId } = auth();
 
-  if (!userId) {
-    throw new Error("You must be logged in to access this resource");
-  }
+    if (!userId) {
+      throw new Error("You must be logged in to access this resource");
+    }
 
-  console.log(stageId, nextLevel);
+    console.log(stageId, nextLevel);
 
-  const data = await db.query.levels.findFirst({
-    where: and(
-      eq(levels.stageId, Number(stageId)),
-      eq(levels.levelNumber, Number(nextLevel)),
-    ),
-  });
+    const data = await db.query.levels.findFirst({
+      where: and(
+        eq(levels.stageId, Number(stageId)),
+        eq(levels.levelNumber, Number(nextLevel)),
+      ),
+    });
 
-  if (!data) {
-    throw new Error("No next level found");
-  }
+    if (!data) {
+      throw new Error("No next level found");
+    }
 
-  await handleRewardLevel();
-  await handleCompleteLevel(Number(stageId), Number(nextLevel) - 1);
-  await handleUnlockLevel(Number(stageId), Number(nextLevel));
+    await handleRewardLevel();
+    if (isReward) {
+      await handleCompleteLevel(Number(stageId) - 1, Number(nextLevel) - 1);
+      await handleUnlockLevel(Number(stageId), Number(nextLevel));
+    } else {
+      await handleCompleteLevel(Number(stageId), Number(nextLevel) - 1);
+      await handleUnlockLevel(Number(stageId), Number(nextLevel));
+    }
 
-  revalidatePath("/game");
-  redirect(`/game/${data.id}/${data.type}/${data.stageId}/${data.levelNumber}`);
-});
+    revalidatePath("/game");
+    redirect(
+      `/game/${data.id}/${data.type}/${data.stageId}/${data.levelNumber}`,
+    );
+  },
+);
 
 export const handleCompleteLevel = cache(
   async (stageId: number, levelNumber: number) => {

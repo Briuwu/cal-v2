@@ -26,10 +26,13 @@ export const handleRewardLevel = cache(async () => {
     throw new Error("No user found");
   }
 
-  await db.update(users).set({
-    coins: data.coins + 30,
-    xp: data.xp + 50,
-  });
+  await db
+    .update(users)
+    .set({
+      coins: data.coins + 30,
+      xp: data.xp + 50,
+    })
+    .where(eq(users.email, user.emailAddresses[0].emailAddress));
   await handleLevelUp();
 });
 

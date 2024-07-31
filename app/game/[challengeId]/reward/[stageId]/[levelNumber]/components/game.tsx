@@ -56,7 +56,11 @@ export const Game = ({ level }: Props) => {
     setCharacterState("running");
     let characterPosition = isSmallDevice ? 700 : isLargeDevice ? 1250 : 750;
     await animate("#character", { x: characterPosition }, { duration: 4 });
-    await nextLevel(Number(level.stageId) + 1, Number(level.levelNumber) + 1);
+    await nextLevel(
+      Number(level.stageId) + 1,
+      Number(level.levelNumber) + 1,
+      true,
+    );
 
     setIsAnimating(false);
   };
@@ -69,9 +73,9 @@ export const Game = ({ level }: Props) => {
       <Player characterState={characterState} />
       <Treasure />
       <Button
-        disabled={isAnimating || openChest}
+        disabled={isAnimating}
         id="openBtn"
-        className="absolute right-1/2 top-[150px] z-40 translate-x-1/2 text-xs hover:bg-opacity-50 md:top-[375px] lg:bottom-[170px] lg:top-auto lg:text-base"
+        className="absolute right-1/2 top-[150px] z-[99] translate-x-1/2 text-xs hover:bg-opacity-50 md:top-[375px] lg:bottom-[170px] lg:top-auto lg:text-base"
         onClick={handleOpenChest}
       >
         Open Chest
