@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { getProfile } from "@/actions/profile";
+import { dialogues as dataDialogues } from "@/lib/dialogues";
 
 async function LearningPage({
   params,
@@ -27,6 +28,8 @@ async function LearningPage({
     redirect("/stages");
   }
 
+  const dialogues = dataDialogues[level.name as keyof typeof dataDialogues];
+
   return (
     <main className="grid min-h-dvh place-content-center bg-green-300">
       <Button asChild>
@@ -36,10 +39,11 @@ async function LearningPage({
         </Link>
       </Button>
       <div className="relative max-w-[375px] overflow-hidden border-2 border-black md:max-w-[768px] lg:max-w-full">
-        <Image src="/stages/bg-1.png" alt="" width={925} height={660} />
+        <Image src={level.stage.stageBgUrl} alt="" width={925} height={660} />
         <Game
           level={level}
           characterType={profile.selectedCharacter.characterType}
+          dialogues={dialogues}
         />
       </div>
     </main>

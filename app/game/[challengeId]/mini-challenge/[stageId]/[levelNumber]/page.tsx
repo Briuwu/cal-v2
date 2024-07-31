@@ -38,7 +38,7 @@ async function ChallengePage({
         </Link>
       </Button>
       <div className="relative max-w-[375px] overflow-hidden border-2 border-black md:max-w-[768px] lg:max-w-full">
-        <Image src="/stages/bg-1.png" alt="" width={925} height={660} />
+        <Image src={level.stage.stageBgUrl} alt="" width={925} height={660} />
         <Game
           level={level}
           characterType={profile.selectedCharacter.characterType}

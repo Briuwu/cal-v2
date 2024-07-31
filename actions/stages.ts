@@ -29,6 +29,9 @@ export const getLevel = cache(async (stageId: number, levelNumber: number) => {
       eq(levels.stageId, Number(stageId)),
       eq(levels.levelNumber, Number(levelNumber)),
     ),
+    with: {
+      stage: true,
+    },
   });
 
   revalidatePath("/game");
