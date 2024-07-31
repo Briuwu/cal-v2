@@ -18,11 +18,32 @@ export const users = pgTable("users", {
   coins: integer("coins").notNull().default(0),
   xp: integer("xp").notNull().default(0),
   currentLevel: integer("current_level").notNull().default(1),
+  selectedCharacter: integer("selected_character")
+    .references(() => characters.id)
+    .notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-export const usersRelations = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ many, one }) => ({
   userProgress: many(userProgress),
+  selectedCharacter: one(characters, {
+    fields: [users.selectedCharacter],
+    references: [characters.id],
+  }),
+}));
+
+export const characters = pgTable("characters", {
+  id: serial("id").primaryKey(),
+  characterName: text("character_name").notNull().unique(),
+  characterType: integer("character_type").notNull().unique(),
+  characterSrc: text("character_src").notNull(),
+});
+
+export const charactersRelations = relations(characters, ({ one }) => ({
+  users: one(users, {
+    fields: [characters.id],
+    references: [users.selectedCharacter],
+  }),
 }));
 
 export const stagesEnum = pgEnum("stages_enum", [

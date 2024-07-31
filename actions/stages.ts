@@ -43,8 +43,6 @@ export const nextLevel = cache(
       throw new Error("You must be logged in to access this resource");
     }
 
-    console.log(stageId, nextLevel);
-
     const data = await db.query.levels.findFirst({
       where: and(
         eq(levels.stageId, Number(stageId)),

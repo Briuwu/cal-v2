@@ -14,9 +14,10 @@ import { Rewards } from "./rewards";
 
 type Props = {
   level: typeof levels.$inferSelect;
+  characterType: number;
 };
 
-export const Game = ({ level }: Props) => {
+export const Game = ({ level, characterType }: Props) => {
   const [scope, animate] = useAnimate();
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -70,7 +71,7 @@ export const Game = ({ level }: Props) => {
       ref={scope}
       className="z-20 overflow-hidden lg:absolute lg:inset-0 lg:p-4"
     >
-      <Player characterState={characterState} />
+      <Player characterState={characterState} characterType={characterType} />
       <Treasure />
       <Button
         disabled={isAnimating}

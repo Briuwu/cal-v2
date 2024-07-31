@@ -13,9 +13,10 @@ import { GameOver } from "@/app/game/[challengeId]/components/game-over";
 
 type Props = {
   level: typeof levels.$inferSelect;
+  characterType: number;
 };
 
-export const Game = ({ level }: Props) => {
+export const Game = ({ level, characterType }: Props) => {
   const [scope, animate] = useAnimate();
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -104,7 +105,7 @@ export const Game = ({ level }: Props) => {
         answer={currentQuestion.answer}
         isAnimating={isAnimating}
       />
-      <Player characterState={characterState} />
+      <Player characterState={characterState} characterType={characterType} />
       <div>
         <div className="bottom-4 left-4 flex lg:absolute">
           {lifes > 0 &&

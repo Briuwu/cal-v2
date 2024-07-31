@@ -18,6 +18,15 @@ const StagesPage = async () => {
     redirect("/sign-in");
   }
 
+  const hasCharacter = await db
+    .select()
+    .from(users)
+    .where(eq(users.userId, user.id));
+
+  if (hasCharacter.length === 0) {
+    redirect("/start");
+  }
+
   return (
     <main className="p-5">
       <AllStages />

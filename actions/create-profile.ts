@@ -25,6 +25,7 @@ export const createProfile = cache(async (selectedCharcter: number) => {
     coins: 0,
     currentLevel: 1,
     userId,
+    selectedCharacter: selectedCharcter,
   });
 
   if (!userData) {

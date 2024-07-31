@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+import { getProfile } from "@/actions/profile";
 
 async function BossPage({
   params,
@@ -16,7 +17,9 @@ async function BossPage({
     Number(params.levelNumber),
   );
 
-  if (!level) {
+  const profile = await getProfile();
+
+  if (!level || !profile) {
     redirect("/stages");
   }
 
@@ -34,7 +37,10 @@ async function BossPage({
       </Button>
       <div className="relative max-w-[375px] overflow-hidden border-2 border-black md:max-w-[768px] lg:max-w-full">
         <Image src="/stages/bg-1.png" alt="" width={925} height={660} />
-        <Game level={level} />
+        <Game
+          level={level}
+          characterType={profile.selectedCharacter.characterType}
+        />
       </div>
     </main>
   );

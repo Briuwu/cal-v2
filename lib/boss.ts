@@ -3,9 +3,9 @@ import { BossState } from "@/types";
 export const getBoss = (bossState: BossState, size: number) => {
   const images = {
     idle: {
-      src: "/boss/centipede/idle.gif",
-      width: 158,
-      height: 120,
+      src: "/boss/centipede/test.gif",
+      width: 332,
+      height: 242,
     },
     hurt: {
       src: "/boss/centipede/hurt.gif",

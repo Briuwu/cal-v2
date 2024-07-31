@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export const Boss = ({ bossState }: { bossState: BossState }) => {
   const isSmallDevice = useMediaQuery("only screen and (max-width : 1024px)");
-  let size = isSmallDevice ? 2 : 1;
+  let size = isSmallDevice ? 2 : 1.5;
 
   const { src, width, height } = getBoss(bossState, size);
 

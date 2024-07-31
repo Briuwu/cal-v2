@@ -1,33 +1,37 @@
-import { CharacterState } from "@/types";
+import { Characters, CharacterState } from "@/types";
 
 export const getCharacter = (
   characterState: CharacterState,
   size: number,
-  type?: string,
+  type: number,
 ) => {
-  const images = {
+  const characterType = type === 0 ? "male_homeless" : "female_homeless";
+  const images: Record<
+    CharacterState,
+    { src: string; width: number; height: number }
+  > = {
     idle: {
-      src: "/characters/animations/male_homeless/idle.gif",
+      src: `/characters/animations/${characterType}/idle.gif`,
       width: 193,
       height: 328,
     },
     running: {
-      src: "/characters/animations/male_homeless/run.gif",
+      src: `/characters/animations/${characterType}/run.gif`,
       width: 248,
       height: 292,
     },
     walk: {
-      src: "/characters/animations/male_homeless/walk.gif",
+      src: `/characters/animations/${characterType}/walk.gif`,
       width: 181,
       height: 323,
     },
     attack: {
-      src: "/characters/animations/male_homeless/attack.gif",
+      src: `/characters/animations/${characterType}/attack.gif`,
       width: 293,
       height: 295,
     },
     hurt: {
-      src: "/characters/animations/male_homeless/hurt.gif",
+      src: `/characters/animations/${characterType}/hurt.gif`,
       width: 226,
       height: 287,
     },
