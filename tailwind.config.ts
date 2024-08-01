@@ -19,6 +19,9 @@ const config = {
       },
     },
     extend: {
+      scale: {
+        "-1": "-1",
+      },
       dropShadow: {
         small: "5px 5px 0 black",
         medium: "10px 10px 0 black",
