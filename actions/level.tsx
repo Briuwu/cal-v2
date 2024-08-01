@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { cache } from "react";
 
 export const handleRewardLevel = cache(async () => {
@@ -99,4 +100,6 @@ export const onClueUse = cache(async () => {
   } else {
     throw new Error("Not enough coins");
   }
+
+  revalidatePath("/game");
 });
