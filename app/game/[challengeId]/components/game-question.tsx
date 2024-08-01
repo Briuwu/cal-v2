@@ -116,6 +116,7 @@ export const GameQuestion = ({
           variant={"ghost"}
           onClick={handleClueShow}
           className="gap-2 text-xs"
+          disabled={showClue}
         >
           <CircleHelp className="w-5" />
           Show Clue
