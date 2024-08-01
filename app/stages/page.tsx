@@ -28,7 +28,7 @@ const StagesPage = async () => {
   }
 
   return (
-    <main className="p-5">
+    <main className="py-5">
       <AllStages />
     </main>
   );

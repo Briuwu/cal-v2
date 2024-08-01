@@ -54,18 +54,22 @@ export const Game = ({ level, characterType, dialogues }: Props) => {
       setDialogueIdx(dialogueIdx + 1);
     } else {
       setIsDialogue(false);
+      let x = isSmallDevice ? 450 : isMediumDevice ? 600 : 1150;
+      setNPCState("idle");
+      setCharacterState("walk");
+      await animate("#character", { x }, { duration: 3 });
       await nextLevel(level.stageId, level.levelNumber + 1);
     }
   };
 
   const handleTalk = async () => {
+    await animate("#talkBtn", { opacity: 0 }, { duration: 0.5 });
     let xCharacterPosition = isSmallDevice ? 250 : isMediumDevice ? 450 : 750;
     setCharacterState("walk");
     await animate("#character", { x: xCharacterPosition }, { duration: 2.5 });
     setCharacterState("idle");
     setNPCState("dialogue");
     setIsDialogue(true);
-    await animate("#talkBtn", { opacity: 0 }, { duration: 0.5 });
   };
   return (
     <div
@@ -83,6 +87,7 @@ export const Game = ({ level, characterType, dialogues }: Props) => {
         onClick={handleTalk}
         id="talkBtn"
         className="absolute right-1/2 top-20 z-[99] translate-x-1/2 bg-white text-xs font-bold uppercase text-black md:text-base"
+        disabled={isAnimating}
       >
         Talk
       </Button>
