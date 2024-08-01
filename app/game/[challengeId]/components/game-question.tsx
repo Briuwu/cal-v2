@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader } from "lucide-react";
+import { CircleHelp, Loader } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -16,6 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Questions } from "@/types";
 import { toast } from "sonner";
+import { useState } from "react";
+import { onClueUse } from "@/actions/level";
 
 const formSchema = z.object({
   answer: z.string().min(2),
@@ -36,6 +38,7 @@ export const GameQuestion = ({
   answer,
   isAnimating,
 }: Props) => {
+  const [showClue, setShowClue] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,6 +47,7 @@ export const GameQuestion = ({
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setShowClue(false);
     let sanitizedAnswer = values.answer.toLowerCase().replace(/\s/g, "");
     let sanitizedCorrectAnswer = answer.toLowerCase().replace(/\s/g, "");
 
@@ -57,6 +61,15 @@ export const GameQuestion = ({
       toast.error("Wrong answer!");
     }
   }
+
+  const handleClueShow = async () => {
+    try {
+      await onClueUse();
+      setShowClue(true);
+    } catch (error) {
+      toast.error("Not enough coins");
+    }
+  };
 
   return (
     <>
@@ -77,7 +90,9 @@ export const GameQuestion = ({
                   <FormLabel className="text-sm">{data.question}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter your answer"
+                      placeholder={
+                        showClue ? `clue: ${data.clue}` : "Enter answer here..."
+                      }
                       {...field}
                       className="mx-auto max-w-80 text-center text-sm"
                       disabled={isAnimating}
@@ -97,6 +112,14 @@ export const GameQuestion = ({
             </Button>
           </form>
         </Form>
+        <Button
+          variant={"ghost"}
+          onClick={handleClueShow}
+          className="gap-2 text-xs"
+        >
+          <CircleHelp className="w-5" />
+          Show Clue
+        </Button>
       </div>
       <h2
         id="gameCompleted"

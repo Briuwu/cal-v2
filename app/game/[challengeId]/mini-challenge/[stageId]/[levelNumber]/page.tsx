@@ -42,6 +42,7 @@ async function ChallengePage({
         <Game
           level={level}
           characterType={profile.selectedCharacter.characterType}
+          coins={profile.coins}
         />
       </div>
     </main>

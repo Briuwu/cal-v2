@@ -1,8 +1,7 @@
 export type Questions = {
   question: string;
   answer: string;
-  coins: number;
-  xp: number;
+  clue: string;
 };
 
 export type Characters = "male_homeless" | "female_homeless";

@@ -67,3 +67,36 @@ export const handleLevelUp = cache(async () => {
       .where(eq(users.email, user.emailAddresses[0].emailAddress));
   }
 });
+
+export const onClueUse = cache(async () => {
+  const { userId } = auth();
+
+  if (!userId) {
+    throw new Error("You must be logged in to access this resource");
+  }
+
+  const user = await currentUser();
+
+  if (!user) {
+    throw new Error("No user found");
+  }
+
+  const data = await db.query.users.findFirst({
+    where: eq(users.email, user.emailAddresses[0].emailAddress),
+  });
+
+  if (!data) {
+    throw new Error("No user found");
+  }
+
+  if (data.coins >= 10) {
+    await db
+      .update(users)
+      .set({
+        coins: data.coins - 10,
+      })
+      .where(eq(users.email, user.emailAddresses[0].emailAddress));
+  } else {
+    throw new Error("Not enough coins");
+  }
+});
