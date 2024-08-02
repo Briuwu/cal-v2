@@ -37,7 +37,7 @@ export const MobileMenu = () => {
   ];
   return (
     <Sheet>
-      <SheetTrigger className="block md:hidden">
+      <SheetTrigger className="block lg:hidden">
         <Menu />
       </SheetTrigger>
       <SheetContent>

@@ -20,9 +20,6 @@ export const CSS_DIALOGUES = [
     text: "The clues you seek are woven into the fabric of the digital world. To decipher them, you must understand how to style and position elements. CSS is the key to unlocking these secrets.",
   },
   {
-    text: "Level One: Unveiling the Power of CSS",
-  },
-  {
     name: "Wanderer",
     text: "Let's begin your training. Imagine the digital world as a vast desert landscape. The elements on a webpage are like the scattered settlements within it. CSS allows you to control their appearance, just as builders use tools to shape their structures.",
   },
@@ -33,9 +30,6 @@ export const CSS_DIALOGUES = [
   {
     name: "Wanderer",
     text: "We can change the color, font size, and other visual aspects of elements using CSS.This code transforms all paragraph elements (<p>) on the page. It sets their text color to blue and increases the font size to 24 pixels.",
-  },
-  {
-    text: "Level Two: Mastering the Elements",
   },
   {
     name: "Wanderer",
@@ -74,9 +68,6 @@ export const CSS_DIALOGUES = [
     text: "This code increases the font size of the element with the ID 'heading.'",
   },
   {
-    text: "Level Three: Shaping the Landscape",
-  },
-  {
     name: "Wanderer",
     text: "Now that you can target elements, let's control their position on the page. Imagine arranging buildings within a settlement. CSS offers tools for precise positioning.",
   },
@@ -111,9 +102,6 @@ export const CSS_DIALOGUES = [
   {
     name: "Wanderer",
     text: "This code positions an element with the class 'element' absolutely, placing it 20 pixels from the top and 30 pixels from the left of its container",
-  },
-  {
-    text: "Level Four: Mastering the Digital Terrain",
   },
   {
     name: "Wanderer",
@@ -282,9 +270,6 @@ export const CSS_DIALOGUES = [
   {
     name: "Wanderer",
     text: "Wanderer: With these tools, you can build intricate digital structures. Remember, practice is key to mastering these skills.",
-  },
-  {
-    text: "The Wanderer smiles faintly.",
   },
   {
     name: "Wanderer",

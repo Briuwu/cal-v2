@@ -26,7 +26,7 @@ async function CharacterSelectionPage() {
     redirect("/stages");
   }
   return (
-    <main className="grid min-h-dvh place-content-center">
+    <main className="grid min-h-dvh place-content-center py-5">
       <div className="space-y-10">
         <h1 className="text-center text-xl font-bold uppercase md:text-2xl lg:text-5xl">
           Character Selection
