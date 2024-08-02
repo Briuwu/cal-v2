@@ -8,13 +8,13 @@ import { revalidatePath } from "next/cache";
 import { cache } from "react";
 
 export const handleRewardLevel = cache(async () => {
-  const { userId } = auth();
+  const userId = handleAuth();
 
   if (!userId) {
     throw new Error("You must be logged in to access this resource");
   }
 
-  const user = await currentUser();
+  const user = await handleCurrentUser();
 
   if (!user) {
     throw new Error("No user found");
@@ -39,13 +39,13 @@ export const handleRewardLevel = cache(async () => {
 });
 
 export const handleLevelUp = cache(async () => {
-  const { userId } = auth();
+  const userId = handleCurrentUser();
 
   if (!userId) {
     throw new Error("You must be logged in to access this resource");
   }
 
-  const user = await currentUser();
+  const user = await handleCurrentUser();
 
   if (!user) {
     throw new Error("No user found");
@@ -71,8 +71,6 @@ export const handleLevelUp = cache(async () => {
 });
 
 export const onClueUse = cache(async () => {
-  const userId = handleAuth();
-
   const user = await handleCurrentUser();
 
   const data = await db.query.users.findFirst({

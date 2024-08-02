@@ -7,13 +7,13 @@ import { handleCompleteLevel, handleUnlockLevel } from "./stages";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 import { handleAuth } from "@/lib/auth";
+import { handleRewardLevel } from "./level";
 
 export const handleLearningComplete = cache(
   async (stageId: number, levelNumber: number) => {
-    const userId = handleAuth();
-
     await handleCompleteLevel(Number(stageId), Number(levelNumber));
     await handleUnlockLevel(Number(stageId), Number(levelNumber) + 1);
+    await handleRewardLevel();
 
     const data = await db.query.levels.findFirst({
       where: and(

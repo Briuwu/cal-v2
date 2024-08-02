@@ -5,7 +5,24 @@ export const getCharacter = (
   size: number,
   type: number,
 ) => {
-  const characterType = type === 0 ? "male_homeless" : "female_homeless";
+  let characterType;
+  switch (type) {
+    case 1:
+      characterType = "male_homeless";
+      break;
+    case 2:
+      characterType = "female_homeless";
+      break;
+    case 3:
+      characterType = "fighter";
+      break;
+    case 4:
+      characterType = "samurai";
+      break;
+    case 5:
+      characterType = "shinobi";
+      break;
+  }
   const images: Record<
     CharacterState,
     { src: string; width: number; height: number }

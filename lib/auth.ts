@@ -1,4 +1,5 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export const handleAuth = () => {
   let isOffline = false;
@@ -10,7 +11,7 @@ export const handleAuth = () => {
     const { userId } = auth();
 
     if (!userId) {
-      throw new Error("User not found");
+      redirect("/");
     }
 
     return userId;
@@ -37,7 +38,7 @@ export const handleCurrentUser = async () => {
     let user = await currentUser();
 
     if (!user) {
-      throw new Error("User not found");
+      redirect("/");
     }
 
     return user;

@@ -1,6 +1,13 @@
 import Image from "next/image";
 
-export const Rewards = () => {
+type Props = {
+  reward: {
+    stageId: number;
+    coins: number;
+    level: number;
+  };
+};
+export const Rewards = ({ reward }: Props) => {
   return (
     <div
       id="rewards"
@@ -15,7 +22,7 @@ export const Rewards = () => {
           className="w-5 md:w-7 lg:w-10"
         />
         <span className="text-xs font-bold uppercase text-white md:text-sm lg:text-base">
-          +100 coins
+          +{reward.coins} coins
         </span>
       </div>
       <div className="flex items-center gap-3">
@@ -27,7 +34,7 @@ export const Rewards = () => {
           className="w-5 md:w-7 lg:w-10"
         />
         <span className="text-xs font-bold uppercase text-white md:text-sm lg:text-base">
-          +5 levels
+          +{reward.level} level
         </span>
       </div>
     </div>

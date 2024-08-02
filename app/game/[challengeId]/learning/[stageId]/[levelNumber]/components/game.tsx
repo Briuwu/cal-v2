@@ -10,6 +10,7 @@ import { Dialogue } from "./dialogue";
 import { nextLevel } from "@/actions/stages";
 import { NPC } from "../../../../components/NPC";
 import { Button } from "@/components/ui/button";
+import { handleLearningComplete } from "@/actions/learning";
 
 type Props = {
   level: typeof levels.$inferSelect;
@@ -43,6 +44,7 @@ export const Game = ({ level, characterType, dialogues }: Props) => {
         { duration: 3 },
       );
       setCharacterState("idle");
+      await animate("#talkBtn", { opacity: 1 }, { duration: 0.5 });
     };
 
     animateCharacter();
@@ -58,7 +60,7 @@ export const Game = ({ level, characterType, dialogues }: Props) => {
       setNPCState("idle");
       setCharacterState("walk");
       await animate("#character", { x }, { duration: 3 });
-      await nextLevel(level.stageId, level.levelNumber + 1);
+      await handleLearningComplete(level.stageId, level.levelNumber);
     }
   };
 
@@ -86,7 +88,7 @@ export const Game = ({ level, characterType, dialogues }: Props) => {
       <Button
         onClick={handleTalk}
         id="talkBtn"
-        className="absolute right-1/2 top-20 z-[99] translate-x-1/2 bg-white text-xs font-bold uppercase text-black md:text-base"
+        className="absolute right-1/2 top-20 z-[99] translate-x-1/2 bg-white text-xs font-bold uppercase text-black opacity-0 md:text-base"
         disabled={isAnimating}
       >
         Talk

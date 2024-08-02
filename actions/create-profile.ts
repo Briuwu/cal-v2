@@ -1,6 +1,6 @@
 "use server";
 import { db } from "@/db/index";
-import { userProgress, users } from "@/db/schema";
+import { userCharacters, userProgress, users } from "@/db/schema";
 import { handleAuth, handleCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { cache } from "react";
@@ -29,6 +29,11 @@ export const createProfile = cache(async (selectedCharacter: number) => {
     levelNumber: 1,
     stageId: 1,
     status: "unlocked",
+  });
+
+  await db.insert(userCharacters).values({
+    userId,
+    characterId: selectedCharacter,
   });
 
   redirect("/stages");

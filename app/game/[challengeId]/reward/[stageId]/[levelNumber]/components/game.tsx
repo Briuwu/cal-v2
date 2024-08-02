@@ -11,11 +11,42 @@ import { nextLevel } from "@/actions/stages";
 import { Treasure } from "./treasure";
 import { Button } from "@/components/ui/button";
 import { Rewards } from "./rewards";
+import { handleRewardChest } from "@/actions/reward";
 
 type Props = {
   level: typeof levels.$inferSelect;
   characterType: number;
 };
+
+let rewards = [
+  {
+    stageId: 1,
+    coins: 100,
+    level: 3,
+  },
+  {
+    stageId: 2,
+    coins: 200,
+    level: 5,
+    hasCharacter: 4,
+  },
+  {
+    stageId: 3,
+    coins: 300,
+    level: 5,
+  },
+  {
+    stageId: 4,
+    coins: 800,
+    level: 5,
+  },
+  {
+    stageId: 5,
+    coins: 1500,
+    level: 10,
+    hasCharacter: 5,
+  },
+];
 
 export const Game = ({ level, characterType }: Props) => {
   const [scope, animate] = useAnimate();
@@ -27,6 +58,12 @@ export const Game = ({ level, characterType }: Props) => {
 
   const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
   const isLargeDevice = useMediaQuery("only screen and (min-width : 1024px)");
+
+  const currentReward = rewards.find(
+    (reward) => reward.stageId === Number(level.stageId),
+  );
+
+  console.log(currentReward);
 
   useEffect(() => {
     setIsAnimating(true);
@@ -57,6 +94,11 @@ export const Game = ({ level, characterType }: Props) => {
     setCharacterState("running");
     let characterPosition = isSmallDevice ? 700 : isLargeDevice ? 1250 : 750;
     await animate("#character", { x: characterPosition }, { duration: 4 });
+    await handleRewardChest(
+      currentReward?.coins!,
+      currentReward?.level!,
+      currentReward?.hasCharacter,
+    );
     await nextLevel(
       Number(level.stageId) + 1,
       Number(level.levelNumber) + 1,
@@ -76,12 +118,12 @@ export const Game = ({ level, characterType }: Props) => {
       <Button
         disabled={isAnimating}
         id="openBtn"
-        className="absolute right-1/2 top-[150px] z-[99] translate-x-1/2 text-xs hover:bg-opacity-50 md:top-[375px] lg:bottom-[170px] lg:top-auto lg:text-base"
+        className="absolute right-1/2 top-[130px] z-[99] translate-x-1/2 text-xs hover:bg-opacity-50 md:top-[375px] lg:bottom-[190px] lg:top-auto lg:text-base"
         onClick={handleOpenChest}
       >
         Open Chest
       </Button>
-      <Rewards />
+      <Rewards reward={currentReward!} />
       <div>
         <div className="bottom-4 left-4 flex lg:absolute">
           {lifes > 0 &&
