@@ -38,12 +38,12 @@ async function ShopPage() {
       isPurchaseable: true,
     },
     {
-      price: "unlocks after clearing stage 2",
-      description: "A samurai that can fight for you.",
+      price: "unlocks after clearing stage 3",
+      description: "A shinobi that can fight for you.",
     },
     {
       price: "unlocks after clearing stage 5",
-      description: "A shinobi that can fight for you.",
+      description: "A samurai that can fight for you.",
     },
   ];
 
@@ -58,6 +58,8 @@ async function ShopPage() {
     };
   });
 
+  console.log(characters);
+
   return (
     <main>
       <div className="mb-5">
@@ -69,10 +71,13 @@ async function ShopPage() {
           game.
         </p>
       </div>
-      <div className="grid gap-x-10 gap-y-32 md:grid-cols-2">
+      <div className="grid gap-10 md:grid-cols-2">
         {charactersWithDetails.map((character) => (
-          <div key={character.id} className="space-y-1">
-            <div className="grid h-full place-content-center rounded border">
+          <div
+            key={character.id}
+            className="flex flex-col gap-1 border p-2 shadow"
+          >
+            <div className="h-full self-center justify-self-end">
               <Image
                 src={character.characterSrc}
                 alt={character.characterName}

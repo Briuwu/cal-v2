@@ -5,8 +5,10 @@ import { users } from "@/db/schema";
 import { handleAuth } from "@/lib/auth";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
+import { cache } from "react";
 
-export const getProfile = async () => {
+export const getProfile = cache(async () => {
   const userId = handleAuth();
 
   const data = await db.query.users.findFirst({
@@ -17,4 +19,14 @@ export const getProfile = async () => {
   });
 
   return data;
-};
+});
+
+export const getLeaderboardProfiles = cache(async () => {
+  const data = await db.query.users.findMany({
+    orderBy: (users, { desc }) => [desc(users.currentLevel)],
+    limit: 10,
+  });
+
+  revalidatePath("/stages/leaderboard");
+  return data;
+});

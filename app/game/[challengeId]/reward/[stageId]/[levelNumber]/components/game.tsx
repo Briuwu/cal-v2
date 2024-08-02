@@ -28,12 +28,12 @@ let rewards = [
     stageId: 2,
     coins: 200,
     level: 5,
-    hasCharacter: 4,
   },
   {
     stageId: 3,
     coins: 300,
     level: 5,
+    hasCharacter: 4,
   },
   {
     stageId: 4,

@@ -17,20 +17,34 @@ import {
 import { createProfile } from "@/actions/create-profile";
 
 import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
 
 export const CharacterSelect = () => {
+  const [username, setUsername] = useState("");
   const [selectedCharacter, setSelectedCharacter] = useState<1 | 2>();
 
   const handleConfirmSelection = async () => {
+    if (!username) {
+      toast.error("Please enter a username");
+      return;
+    }
+
     if (!selectedCharacter) {
       toast.error("Please select a character");
       return;
     }
     toast.success("Character confirmed successfully");
-    await createProfile(selectedCharacter);
+    await createProfile(selectedCharacter, username);
   };
+
   return (
     <div className="grid items-center gap-5">
+      <Input
+        placeholder="Username"
+        className="text-center md:col-span-full"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <Button
           className={cn(

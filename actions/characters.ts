@@ -7,7 +7,9 @@ import { revalidatePath } from "next/cache";
 import { cache } from "react";
 
 export const getAllCharacters = cache(async () => {
-  return await db.query.characters.findMany();
+  return await db.query.characters.findMany({
+    orderBy: (characters, { asc }) => [asc(characters.id)],
+  });
 });
 
 export const getOwnedCharacters = cache(async () => {
