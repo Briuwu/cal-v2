@@ -2,6 +2,7 @@ import { getProfile } from "@/actions/profile";
 import { Progress } from "@/components/ui/progress";
 import { UserButton } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import { MobileMenu } from "./mobile-menu";
 
 export const StagesNavbar = async () => {
   const profile = await getProfile();
@@ -12,7 +13,7 @@ export const StagesNavbar = async () => {
 
   return (
     <header className="border-b-2 border-black py-5">
-      <div className="container flex items-center justify-center gap-4 md:justify-end">
+      <div className="container flex items-center justify-end gap-4">
         <div className="grid w-full max-w-52 gap-1">
           <div className="flex items-center gap-2 text-sm font-bold uppercase">
             <span>xp:</span>
@@ -31,6 +32,7 @@ export const StagesNavbar = async () => {
         </div>
 
         <UserButton />
+        <MobileMenu />
       </div>
     </header>
   );
