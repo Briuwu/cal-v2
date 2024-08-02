@@ -64,6 +64,7 @@ export const GameQuestion = ({
 
   const handleClueShow = async () => {
     try {
+      toast.success("Clue used!");
       await onClueUse();
       setShowClue(true);
     } catch (error) {
@@ -115,7 +116,7 @@ export const GameQuestion = ({
         <Button
           variant={"ghost"}
           onClick={handleClueShow}
-          className="gap-2 text-xs"
+          className="transform gap-2 text-xs transition-all hover:scale-105 active:scale-95"
           disabled={showClue}
         >
           <CircleHelp className="w-5" />

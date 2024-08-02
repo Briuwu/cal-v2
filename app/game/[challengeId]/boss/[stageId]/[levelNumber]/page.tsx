@@ -39,7 +39,8 @@ async function BossPage({
         <Image src={level.stage.stageBgUrl} alt="" width={925} height={660} />
         <Game
           level={level}
-          characterType={profile.selectedCharacter.characterType}
+          characterType={profile.selectedCharacter.id}
+          coins={profile.coins}
         />
       </div>
     </main>

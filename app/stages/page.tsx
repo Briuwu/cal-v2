@@ -1,18 +1,18 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { AllStages } from "./components/all-stages";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { users } from "@/db/schema";
 import { db } from "@/db";
+import { handleAuth, handleCurrentUser } from "@/lib/auth";
 
 const StagesPage = async () => {
-  const { userId } = auth();
+  const userId = handleAuth();
 
   if (!userId) {
     redirect("/sign-in");
   }
 
-  const user = await currentUser();
+  const user = await handleCurrentUser();
 
   if (!user) {
     redirect("/sign-in");
@@ -28,7 +28,7 @@ const StagesPage = async () => {
   }
 
   return (
-    <main className="py-5">
+    <main>
       <AllStages />
     </main>
   );

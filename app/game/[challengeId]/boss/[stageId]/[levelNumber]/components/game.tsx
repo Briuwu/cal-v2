@@ -17,9 +17,10 @@ import { sleep } from "@/lib/utils";
 type Props = {
   level: typeof levels.$inferSelect;
   characterType: number;
+  coins: number;
 };
 
-export const Game = ({ level, characterType }: Props) => {
+export const Game = ({ level, characterType, coins }: Props) => {
   const [scope, animate] = useAnimate();
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -129,11 +130,30 @@ export const Game = ({ level, characterType }: Props) => {
       <Player characterState={characterState} characterType={characterType} />
       <Boss bossState={bossState} />
       <div>
-        <div className="bottom-4 left-4 flex lg:absolute">
-          {lifes > 0 &&
-            Array.from({ length: lifes }).map((_, idx) => (
-              <Image key={idx} src="/heart.png" alt="" width={50} height={50} />
-            ))}
+        <div className="bottom-4 left-4 lg:absolute">
+          <div className="flex items-center">
+            {lifes > 0 &&
+              Array.from({ length: lifes }).map((_, idx) => (
+                <Image
+                  key={idx}
+                  src="/heart.png"
+                  alt=""
+                  width={50}
+                  height={50}
+                  className="w-10"
+                />
+              ))}
+          </div>
+          <div className="flex items-center gap-2">
+            <Image
+              src="/coins.png"
+              alt=""
+              width={43}
+              height={43}
+              className="w-10"
+            />
+            <span className="text-xl text-white">{coins}</span>
+          </div>
         </div>
         <div className="bottom-4 right-4 lg:absolute">
           <span className="text-xl text-white">

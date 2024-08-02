@@ -30,12 +30,13 @@ export const usersRelations = relations(users, ({ many, one }) => ({
     fields: [users.selectedCharacter],
     references: [characters.id],
   }),
+  usersAchievements: many(usersAchievements),
+  userCharacters: many(userCharacters),
 }));
 
 export const characters = pgTable("characters", {
   id: serial("id").primaryKey(),
   characterName: text("character_name").notNull().unique(),
-  characterType: integer("character_type").notNull().unique(),
   characterSrc: text("character_src").notNull(),
 });
 
@@ -43,6 +44,31 @@ export const charactersRelations = relations(characters, ({ one }) => ({
   users: one(users, {
     fields: [characters.id],
     references: [users.selectedCharacter],
+  }),
+}));
+
+export const userCharacters = pgTable("user_characters", {
+  id: serial("id").primaryKey(),
+  userId: text("user_id")
+    .references(() => users.userId, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    })
+    .notNull(),
+  characterId: integer("character_id")
+    .references(() => characters.id)
+    .notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const userCharactersRelations = relations(userCharacters, ({ one }) => ({
+  user: one(users, {
+    fields: [userCharacters.userId],
+    references: [users.userId],
+  }),
+  character: one(characters, {
+    fields: [userCharacters.characterId],
+    references: [characters.id],
   }),
 }));
 
@@ -133,3 +159,39 @@ export const userProgressRelations = relations(userProgress, ({ one }) => ({
     references: [stages.id],
   }),
 }));
+
+export const achievements = pgTable("achievements", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull().unique(),
+  description: text("description").notNull(),
+  xp: integer("xp").notNull(),
+  coins: integer("coins").notNull(),
+});
+
+export const usersAchievements = pgTable("users_achievements", {
+  id: serial("id").primaryKey(),
+  userId: text("user_id")
+    .references(() => users.userId, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    })
+    .notNull(),
+  achievementId: integer("achievement_id")
+    .references(() => achievements.id)
+    .notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const usersAchievementsRelations = relations(
+  usersAchievements,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [usersAchievements.userId],
+      references: [users.userId],
+    }),
+    achievement: one(achievements, {
+      fields: [usersAchievements.achievementId],
+      references: [achievements.id],
+    }),
+  }),
+);

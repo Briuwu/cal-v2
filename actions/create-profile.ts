@@ -1,22 +1,14 @@
 "use server";
 import { db } from "@/db/index";
 import { userProgress, users } from "@/db/schema";
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { handleAuth, handleCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 
-export const createProfile = cache(async (selectedCharcter: number) => {
-  const { userId } = auth();
+export const createProfile = cache(async (selectedCharacter: number) => {
+  const userId = handleAuth();
 
-  if (!userId) {
-    throw new Error("User not found");
-  }
-
-  const user = await currentUser();
-
-  if (!user) {
-    throw new Error("User not found");
-  }
+  const user = await handleCurrentUser();
 
   const userData = await db.insert(users).values({
     username: user?.fullName! || user?.emailAddresses[0].emailAddress,
@@ -25,7 +17,7 @@ export const createProfile = cache(async (selectedCharcter: number) => {
     coins: 0,
     currentLevel: 1,
     userId,
-    selectedCharacter: selectedCharcter,
+    selectedCharacter,
   });
 
   if (!userData) {

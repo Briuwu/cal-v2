@@ -1,18 +1,18 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { CharacterSelect } from "./components/character-select";
 import { redirect } from "next/navigation";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { handleAuth, handleCurrentUser } from "@/lib/auth";
 
 async function CharacterSelectionPage() {
-  const { userId } = auth();
+  const userId = handleAuth();
 
   if (!userId) {
     redirect("/sign-in");
   }
 
-  const user = await currentUser();
+  const user = await handleCurrentUser();
 
   if (!user) {
     redirect("/sign-in");

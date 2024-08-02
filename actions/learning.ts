@@ -1,20 +1,16 @@
 "use server";
 
 import { db } from "@/db";
-import { levels, userProgress } from "@/db/schema";
-import { auth } from "@clerk/nextjs/server";
+import { levels } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
 import { handleCompleteLevel, handleUnlockLevel } from "./stages";
 import { redirect } from "next/navigation";
 import { cache } from "react";
+import { handleAuth } from "@/lib/auth";
 
 export const handleLearningComplete = cache(
   async (stageId: number, levelNumber: number) => {
-    const { userId } = auth();
-
-    if (!userId) {
-      throw new Error("You must be logged in to access this resource");
-    }
+    const userId = handleAuth();
 
     await handleCompleteLevel(Number(stageId), Number(levelNumber));
     await handleUnlockLevel(Number(stageId), Number(levelNumber) + 1);

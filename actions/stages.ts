@@ -8,6 +8,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 import { handleRewardLevel } from "./level";
+import { handleAuth } from "@/lib/auth";
 
 export const getAllStages = cache(async () => {
   const data = await db.query.stages.findMany({
@@ -40,12 +41,6 @@ export const getLevel = cache(async (stageId: number, levelNumber: number) => {
 
 export const nextLevel = cache(
   async (stageId: number, nextLevel: number, isReward?: boolean) => {
-    const { userId } = auth();
-
-    if (!userId) {
-      throw new Error("You must be logged in to access this resource");
-    }
-
     const data = await db.query.levels.findFirst({
       where: and(
         eq(levels.stageId, Number(stageId)),
@@ -75,11 +70,7 @@ export const nextLevel = cache(
 
 export const handleCompleteLevel = cache(
   async (stageId: number, levelNumber: number) => {
-    const { userId } = auth();
-
-    if (!userId) {
-      throw new Error("You must be logged in to access this resource");
-    }
+    const userId = handleAuth();
 
     await db
       .update(userProgress)
@@ -99,11 +90,7 @@ export const handleCompleteLevel = cache(
 
 export const handleUnlockLevel = cache(
   async (stageId: number, levelNumber: number) => {
-    const { userId } = auth();
-
-    if (!userId) {
-      throw new Error("You must be logged in to access this resource");
-    }
+    const userId = handleAuth();
 
     await db.insert(userProgress).values({
       userId,

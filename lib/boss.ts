@@ -3,24 +3,24 @@ import { BossState } from "@/types";
 export const getBoss = (bossState: BossState, size: number) => {
   const images = {
     idle: {
-      src: "/boss/centipede/test.gif",
+      src: "/boss/centipede/idle.gif",
       width: 332,
       height: 242,
     },
     hurt: {
       src: "/boss/centipede/hurt.gif",
-      width: 156,
-      height: 117,
+      width: 296,
+      height: 228,
     },
     death: {
       src: "/boss/centipede/death.gif",
-      width: 202,
-      height: 117,
+      width: 406,
+      height: 224,
     },
     attack: {
       src: "/boss/centipede/attack.gif",
-      width: 218,
-      height: 143,
+      width: 429,
+      height: 280,
     },
   };
 

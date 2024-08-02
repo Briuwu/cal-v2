@@ -26,6 +26,12 @@ export const StagesAside = () => {
       icon: "/stages/achievements-icon.png",
       active: pathname === "/stages/achievements",
     },
+    {
+      label: "Shop",
+      link: "/stages/shop",
+      icon: "/stages/cart.png",
+      active: pathname === "/stages/shop",
+    },
   ];
   return (
     <aside className="sticky left-0 hidden w-[300px] border-r-2 border-black p-5 lg:block">
@@ -40,7 +46,7 @@ export const StagesAside = () => {
                 asChild
                 variant={"ghost"}
                 className={cn(
-                  "w-full justify-start gap-2",
+                  "w-full justify-start gap-2 p-0",
                   choice.active && "font-bold",
                 )}
               >
@@ -48,11 +54,13 @@ export const StagesAside = () => {
                   <Image
                     src={choice.icon}
                     alt=""
-                    width={40}
+                    width={30}
                     height={30}
-                    className="object-contain"
+                    className="object-contain pl-2"
                   />
-                  <Link href={choice.link}>{choice.label}</Link>
+                  <Link className="w-full p-2" href={choice.link}>
+                    {choice.label}
+                  </Link>
                 </span>
               </Button>
             </li>

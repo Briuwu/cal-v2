@@ -1,6 +1,7 @@
 "use server";
 import { db } from "@/db";
 import { users } from "@/db/schema";
+import { handleAuth, handleCurrentUser } from "@/lib/auth";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
@@ -70,17 +71,9 @@ export const handleLevelUp = cache(async () => {
 });
 
 export const onClueUse = cache(async () => {
-  const { userId } = auth();
+  const userId = handleAuth();
 
-  if (!userId) {
-    throw new Error("You must be logged in to access this resource");
-  }
-
-  const user = await currentUser();
-
-  if (!user) {
-    throw new Error("No user found");
-  }
+  const user = await handleCurrentUser();
 
   const data = await db.query.users.findFirst({
     where: eq(users.email, user.emailAddresses[0].emailAddress),

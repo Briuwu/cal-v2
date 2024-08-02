@@ -42,7 +42,7 @@ async function LearningPage({
         <Image src={level.stage.stageBgUrl} alt="" width={925} height={660} />
         <Game
           level={level}
-          characterType={profile.selectedCharacter.characterType}
+          characterType={profile.selectedCharacter.id}
           dialogues={dialogues}
         />
       </div>
