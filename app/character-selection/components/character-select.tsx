@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -20,6 +20,7 @@ import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 
 export const CharacterSelect = () => {
+  const [isPending, startTransition] = useTransition();
   const [username, setUsername] = useState("");
   const [selectedCharacter, setSelectedCharacter] = useState<1 | 2>();
 
@@ -33,8 +34,16 @@ export const CharacterSelect = () => {
       toast.error("Please select a character");
       return;
     }
-    toast.success("Character confirmed successfully");
-    await createProfile(selectedCharacter, username);
+    startTransition(async () => {
+      try {
+        await createProfile(selectedCharacter, username);
+        toast.success("Character confirmed successfully");
+      } catch (error) {
+        if (error instanceof Error) {
+          toast.error(error.message);
+        }
+      }
+    });
   };
 
   return (
@@ -47,6 +56,7 @@ export const CharacterSelect = () => {
       />
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <Button
+          disabled={isPending}
           className={cn(
             "h-auto border-2 p-10",
             selectedCharacter === 1 && "bg-gray-200",
@@ -62,6 +72,7 @@ export const CharacterSelect = () => {
           />
         </Button>
         <Button
+          disabled={isPending}
           className={cn(
             "h-auto border-2 p-10",
             selectedCharacter === 2 && "bg-gray-200",
@@ -80,7 +91,10 @@ export const CharacterSelect = () => {
       {selectedCharacter && (
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button className="uppercase hover:bg-opacity-80">
+            <Button
+              className="uppercase hover:bg-opacity-80"
+              disabled={isPending}
+            >
               Confirm Selection
             </Button>
           </AlertDialogTrigger>
