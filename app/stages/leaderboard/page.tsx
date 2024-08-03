@@ -16,7 +16,7 @@ async function LeaderboardPage() {
   return (
     <div className="py-28">
       <TopThree topThreePlayers={topThreePlayers} />
-      <div className="mt-20">
+      <div className="mt-20 space-y-10">
         {restOfThePlayers.map((player, index) => (
           <div
             key={player.id}
