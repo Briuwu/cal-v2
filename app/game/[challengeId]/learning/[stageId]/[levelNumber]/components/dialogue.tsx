@@ -19,15 +19,17 @@ type Props = {
   };
   onNextDialogue: () => void;
   onSkipDialogue: () => void;
+  playerName: string;
 };
 export const Dialogue = ({
   dialogue,
   onNextDialogue,
   onSkipDialogue,
+  playerName,
 }: Props) => {
   return (
     <div className="flex flex-col gap-2 rounded-md bg-white p-4 text-sm md:text-base">
-      <p className="font-bold uppercase">{dialogue.name}</p>
+      <p className="font-bold uppercase">{playerName}</p>
       <hr />
       <p className="text-black/75">{dialogue.text}</p>
       <div className="flex items-center justify-between text-xs">

@@ -19,9 +19,15 @@ type Props = {
     name: string;
     text: string;
   }[];
+  playerName: string;
 };
 
-export const Game = ({ level, characterType, dialogues }: Props) => {
+export const Game = ({
+  level,
+  characterType,
+  dialogues,
+  playerName,
+}: Props) => {
   const [scope, animate] = useAnimate();
   const [isAnimating, setIsAnimating] = useState(false);
   const [isDialogue, setIsDialogue] = useState(false);
@@ -93,6 +99,7 @@ export const Game = ({ level, characterType, dialogues }: Props) => {
           dialogue={dialogues[dialogueIdx]}
           onNextDialogue={handleNextDialogue}
           onSkipDialogue={handleSkipDialogue}
+          playerName={playerName}
         />
       )}
       <Button

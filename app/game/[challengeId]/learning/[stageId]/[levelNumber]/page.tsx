@@ -44,6 +44,7 @@ async function LearningPage({
           level={level}
           characterType={profile.selectedCharacter.id}
           dialogues={dialogues}
+          playerName={profile.username}
         />
       </div>
     </main>

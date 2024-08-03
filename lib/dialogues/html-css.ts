@@ -4,7 +4,7 @@ export const HTMLCSS_DIALOGUES = [
     text: " Welcome, traveler. I am the Forest Guardian, keeper of ancient lore and protector of this realm. Your quest for your brother leads you deep into the heart of Nemorosa. I can aid you, but first, you must learn the language of the web.",
   },
   {
-    name: "Player",
+    name: "player",
     text: "I seek my brother, lost in these woods. I'll learn anything to find him.",
   },
   {
@@ -149,7 +149,7 @@ export const HTMLCSS_DIALOGUES = [
     text: "Your journey has just begun. Continue exploring the digital realm, and I'll be here to guide you further.",
   },
   {
-    name: "Player",
+    name: "player",
     text: "Thank you, I will use this knowledge wisely.",
   },
 ];
