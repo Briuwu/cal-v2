@@ -25,6 +25,10 @@ export const CharacterSelect = () => {
   const [selectedCharacter, setSelectedCharacter] = useState<1 | 2>();
 
   const handleConfirmSelection = async () => {
+    if (username.length < 3) {
+      toast.error("Username must be at least 3 characters long");
+      return;
+    }
     if (!username) {
       toast.error("Please enter a username");
       return;

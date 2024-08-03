@@ -40,10 +40,12 @@ async function ShopPage() {
     {
       price: "unlocks after clearing stage 3",
       description: "A shinobi that can fight for you.",
+      isPurchaseable: false,
     },
     {
       price: "unlocks after clearing stage 5",
       description: "A samurai that can fight for you.",
+      isPurchaseable: false,
     },
   ];
 
@@ -97,7 +99,9 @@ async function ShopPage() {
                 {character.details.description}
               </p>
               <BuyButton
-                isPurchaseable={character.details.isPurchaseable}
+                isPurchaseable={
+                  character.owned || character.details.isPurchaseable
+                }
                 selected={character.selected}
                 characterId={character.id}
                 coins={character.details.price}

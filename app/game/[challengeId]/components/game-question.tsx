@@ -120,7 +120,7 @@ export const GameQuestion = ({
           disabled={showClue}
         >
           <CircleHelp className="w-5" />
-          Show Clue
+          Show Clue<span className="text-yellow-500">(10 coins)</span>
         </Button>
       </div>
       <h2

@@ -5,6 +5,7 @@ type Props = {
     stageId: number;
     coins: number;
     level: number;
+    hasCharacter?: number;
   };
 };
 export const Rewards = ({ reward }: Props) => {
@@ -37,6 +38,20 @@ export const Rewards = ({ reward }: Props) => {
           +{reward.level} level
         </span>
       </div>
+      {reward.hasCharacter && (
+        <div className="flex items-center gap-3">
+          <Image
+            src="/shirt.png"
+            alt=""
+            width={42}
+            height={44}
+            className="w-5 md:w-7 lg:w-10"
+          />
+          <span className="text-xs font-bold uppercase text-white md:text-sm lg:text-base">
+            +New Character added
+          </span>
+        </div>
+      )}
     </div>
   );
 };
