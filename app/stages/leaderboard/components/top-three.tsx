@@ -1,5 +1,6 @@
+import { getPlayerCharacter } from "@/actions/profile";
 import { cn } from "@/lib/utils";
-import { Leaderboard } from "@/types";
+import { Leaderboard, UserCharacters } from "@/types";
 import Image from "next/image";
 
 type Props = {
@@ -10,6 +11,9 @@ export const TopThree = async ({ topThreePlayers }: Props) => {
   return (
     <div className="grid gap-5 md:grid-cols-3">
       {topThreePlayers.map(async (player, index) => {
+        const playerCharacter = await getPlayerCharacter(
+          player.selectedCharacter,
+        );
         return (
           <div
             key={player.id}
@@ -29,7 +33,7 @@ export const TopThree = async ({ topThreePlayers }: Props) => {
                 alt=""
                 width={100}
                 height={100}
-                className="absolute -top-16 right-1/2 hidden w-20 translate-x-1/2 md:block"
+                className="absolute -top-16 right-1/2 w-20 translate-x-1/2"
               />
             )}
             <Image
@@ -43,6 +47,13 @@ export const TopThree = async ({ topThreePlayers }: Props) => {
               <p className="font-bold">{player.username}</p>
               <p>lvl: {player.currentLevel}</p>
             </div>
+            <Image
+              src={playerCharacter?.characterSrc!}
+              alt=""
+              width={180}
+              height={304}
+              className="mx-auto w-20 object-contain"
+            />
           </div>
         );
       })}

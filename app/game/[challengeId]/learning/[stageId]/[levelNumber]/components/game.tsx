@@ -64,6 +64,15 @@ export const Game = ({ level, characterType, dialogues }: Props) => {
     }
   };
 
+  const handleSkipDialogue = async () => {
+    setIsDialogue(false);
+    let x = isSmallDevice ? 450 : isMediumDevice ? 600 : 1150;
+    setNPCState("idle");
+    setCharacterState("walk");
+    await animate("#character", { x }, { duration: 3 });
+    await handleLearningComplete(level.stageId, level.levelNumber);
+  };
+
   const handleTalk = async () => {
     await animate("#talkBtn", { opacity: 0 }, { duration: 0.5 });
     let xCharacterPosition = isSmallDevice ? 250 : isMediumDevice ? 450 : 750;
@@ -83,6 +92,7 @@ export const Game = ({ level, characterType, dialogues }: Props) => {
         <Dialogue
           dialogue={dialogues[dialogueIdx]}
           onNextDialogue={handleNextDialogue}
+          onSkipDialogue={handleSkipDialogue}
         />
       )}
       <Button

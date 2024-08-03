@@ -12,7 +12,6 @@ async function LeaderboardPage() {
 
   const topThreePlayers = leaderboard.slice(0, 3);
   const restOfThePlayers = leaderboard.slice(3);
-
   return (
     <div className="py-28">
       <TopThree topThreePlayers={topThreePlayers} />

@@ -1,4 +1,4 @@
-import { users } from "@/db/schema";
+import { userCharacters, users } from "@/db/schema";
 
 export type Questions = {
   question: string;
@@ -7,6 +7,8 @@ export type Questions = {
 };
 
 export type Leaderboard = typeof users.$inferSelect;
+
+export type UserCharacters = typeof userCharacters.$inferSelect;
 
 export type Characters = "male_homeless" | "female_homeless";
 

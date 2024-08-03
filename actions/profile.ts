@@ -1,8 +1,8 @@
 "use server";
 
 import { db } from "@/db";
-import { users } from "@/db/schema";
-import { handleAuth, handleCurrentUser } from "@/lib/auth";
+import { characters, users } from "@/db/schema";
+import { handleAuth } from "@/lib/auth";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { cache } from "react";
@@ -27,5 +27,13 @@ export const getLeaderboardProfiles = cache(async () => {
   });
 
   revalidatePath("/stages/leaderboard");
+  return data;
+});
+
+export const getPlayerCharacter = cache(async (characterId: number) => {
+  const data = await db.query.characters.findFirst({
+    where: eq(characters.id, characterId),
+  });
+
   return data;
 });
