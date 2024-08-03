@@ -91,7 +91,7 @@ async function ShopPage() {
             <div className="space-y-1">
               <>
                 <p className="font-bold uppercase">
-                  Cost:
+                  Cost:{" "}
                   <span className="text-yellow-400">
                     {character.details.price}
                   </span>
