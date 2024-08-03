@@ -65,6 +65,7 @@ export const handleBuyCharacter = cache(
         .update(users)
         .set({
           selectedCharacter: characterData.id,
+          coins: profileData.coins - coins,
         })
         .where(eq(users.userId, userId));
     }
