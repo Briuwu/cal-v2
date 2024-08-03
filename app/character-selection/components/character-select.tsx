@@ -40,7 +40,7 @@ export const CharacterSelect = () => {
         toast.success("Character confirmed successfully");
       } catch (error) {
         if (error instanceof Error) {
-          toast.error(error.message);
+          toast.error("Username already exists! Please try another one.");
         }
       }
     });

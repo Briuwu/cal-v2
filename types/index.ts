@@ -1,8 +1,12 @@
+import { users } from "@/db/schema";
+
 export type Questions = {
   question: string;
   answer: string;
   clue: string;
 };
+
+export type Leaderboard = typeof users.$inferSelect;
 
 export type Characters = "male_homeless" | "female_homeless";
 

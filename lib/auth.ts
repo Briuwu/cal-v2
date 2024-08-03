@@ -32,6 +32,7 @@ export const handleCurrentUser = async () => {
           emailAddress: "offline_user@email.com",
         },
       ],
+      imageUrl: "/avatar.png",
     };
     return user;
   } else {

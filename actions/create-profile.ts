@@ -2,6 +2,7 @@
 import { db } from "@/db/index";
 import { userCharacters, userProgress, users } from "@/db/schema";
 import { handleAuth, handleCurrentUser } from "@/lib/auth";
+import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 
@@ -19,6 +20,7 @@ export const createProfile = cache(
       currentLevel: 1,
       userId,
       selectedCharacter,
+      avatar: user?.imageUrl,
     });
 
     if (!userData) {

@@ -21,6 +21,7 @@ export const users = pgTable("users", {
   selectedCharacter: integer("selected_character")
     .references(() => characters.id)
     .notNull(),
+  avatar: text("avatar"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -73,11 +74,11 @@ export const userCharactersRelations = relations(userCharacters, ({ one }) => ({
 }));
 
 export const stagesEnum = pgEnum("stages_enum", [
-  "HTML",
-  "CSS",
-  "HTML & CSS",
-  "JAVASCRIPT",
-  "HTML, CSS & JAVASCRIPT",
+  "HTML - Doomsdale Town",
+  "CSS - Terraquill",
+  "HTML & CSS - Nemorosa",
+  "JAVASCRIPT - Rimegate",
+  "HTML, CSS & JAVASCRIPT - Sunfire Isle",
 ]);
 
 export const stages = pgTable("stages", {
