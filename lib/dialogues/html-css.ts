@@ -12,9 +12,6 @@ export const HTMLCSS_DIALOGUES = [
     text: "Knowledge is your greatest weapon in this realm. To navigate the digital paths, you must master CSS.",
   },
   {
-    text: "Level One: Inline Styles",
-  },
-  {
     name: "Forest Guardian",
     text: "The quickest way to style an element is by applying styles directly to it using the style attribute",
   },
@@ -126,9 +123,6 @@ export const HTMLCSS_DIALOGUES = [
   {
     name: "Forest Guardian",
     text: "Image dimensions: width and height properties.",
-  },
-  {
-    text: "Explanation: This code sets the dimensions of an image to 200 pixels wide and 150 pixels high and the other image is set to 400 pixels wide and 300 pixels high.",
   },
   {
     name: "Forest Guardian",
