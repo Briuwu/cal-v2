@@ -29,7 +29,9 @@ export const Dialogue = ({
 }: Props) => {
   return (
     <div className="flex flex-col gap-2 rounded-md bg-white p-4 text-sm md:text-base">
-      <p className="font-bold uppercase">{playerName}</p>
+      <p className="font-bold uppercase">
+        {dialogue.name === "player" ? playerName : dialogue.name}
+      </p>
       <hr />
       <p className="text-black/75">{dialogue.text}</p>
       <div className="flex items-center justify-between text-xs">
