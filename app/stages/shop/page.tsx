@@ -38,12 +38,12 @@ async function ShopPage() {
       isPurchaseable: true,
     },
     {
-      price: "unlocks after clearing stage 3",
+      price: "clear stage 3 to get for free",
       description: "A shinobi that can fight for you.",
       isPurchaseable: false,
     },
     {
-      price: "unlocks after clearing stage 5",
+      price: "clear stage 5 to get for free",
       description: "A samurai that can fight for you.",
       isPurchaseable: false,
     },
@@ -89,15 +89,17 @@ async function ShopPage() {
               />
             </div>
             <div className="space-y-1">
-              <p className="font-bold uppercase">
-                Cost:{" "}
-                <span className="text-yellow-400">
-                  {character.details.price}
-                </span>
-              </p>
-              <p className="text-sm opacity-80">
-                {character.details.description}
-              </p>
+              <>
+                <p className="font-bold uppercase">
+                  Cost:
+                  <span className="text-yellow-400">
+                    {character.details.price}
+                  </span>
+                </p>
+                <p className="text-sm opacity-80">
+                  {character.details.description}
+                </p>
+              </>
               <BuyButton
                 isPurchaseable={
                   character.owned || character.details.isPurchaseable
