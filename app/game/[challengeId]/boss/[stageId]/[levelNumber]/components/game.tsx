@@ -109,7 +109,7 @@ export const Game = ({ level, characterType, coins }: Props) => {
       await animate("#gameCompleted", { opacity: 1 }, { duration: 1 });
       setCharacterState("running");
       await animate("#character", { x }, { duration });
-      await nextLevel(level.stageId, Number(level.levelNumber) + 1);
+      await nextLevel(Number(level.stageId), Number(level.levelNumber) + 1);
     }
     setIsAnimating(false);
   };

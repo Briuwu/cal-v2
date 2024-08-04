@@ -118,7 +118,7 @@ export const Game = ({ level, characterType }: Props) => {
       <Button
         disabled={isAnimating}
         id="openBtn"
-        className="absolute right-1/2 top-[130px] z-[99] translate-x-1/2 text-xs hover:bg-opacity-50 md:top-[375px] lg:bottom-[190px] lg:top-auto lg:text-base"
+        className="absolute right-1/2 top-[100px] z-[99] translate-x-1/2 text-xs hover:bg-opacity-50 md:top-[375px] lg:bottom-[190px] lg:top-auto lg:text-base"
         onClick={handleOpenChest}
       >
         Open Chest

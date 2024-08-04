@@ -38,7 +38,7 @@ async function LearningPage({
           Go Back
         </Link>
       </Button>
-      <div className="relative max-w-[375px] overflow-hidden border-2 border-black md:max-w-[768px] lg:max-w-full">
+      <div className="relative max-w-[320px] overflow-hidden border-2 border-black md:max-w-[768px] lg:max-w-full">
         <Image src={level.stage.stageBgUrl} alt="" width={925} height={660} />
         <Game
           level={level}

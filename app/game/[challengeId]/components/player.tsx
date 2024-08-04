@@ -27,7 +27,7 @@ export const Player = ({
         width={width}
         height={height}
         id="character"
-        className="absolute -left-20 top-[140px] z-40 md:top-[375px] lg:-left-40 lg:bottom-[105px] lg:top-auto"
+        className="absolute -left-20 top-[110px] z-40 md:top-[375px] lg:-left-40 lg:bottom-[105px] lg:top-auto"
         unoptimized
       />
     </>

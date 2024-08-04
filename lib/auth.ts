@@ -1,4 +1,4 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser, User } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 export const handleAuth = () => {
@@ -25,8 +25,8 @@ export const handleCurrentUser = async () => {
     let user = {
       id: "offline_userId_123",
       fullName: "offlineUser1",
-      first_name: "offline",
-      last_name: "user",
+      firstName: "offline",
+      lastName: "user",
       emailAddresses: [
         {
           emailAddress: "offline_user@email.com",

@@ -23,7 +23,7 @@ export const NPC = ({
         width={width}
         height={height}
         id="npc"
-        className="scale-x--1 absolute right-20 top-[140px] z-40 md:top-[375px] lg:bottom-[105px] lg:right-40 lg:top-auto"
+        className="absolute right-20 top-[110px] z-40 scale-x--1 md:top-[375px] lg:bottom-[105px] lg:right-40 lg:top-auto"
         unoptimized
       />
     </>
