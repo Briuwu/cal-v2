@@ -1,9 +1,9 @@
 "use server";
 import { db } from "@/db";
-import { users } from "@/db/schema";
+import { userProgress, users } from "@/db/schema";
 import { handleAuth, handleCurrentUser } from "@/lib/auth";
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { cache } from "react";
 

@@ -52,7 +52,6 @@ export const nextLevel = cache(
       throw new Error("No next level found");
     }
 
-    await handleRewardLevel();
     if (isReward) {
       await handleCompleteLevel(Number(stageId) - 1, Number(nextLevel) - 1);
       await handleUnlockLevel(Number(stageId), Number(nextLevel));
@@ -60,6 +59,8 @@ export const nextLevel = cache(
       await handleCompleteLevel(Number(stageId), Number(nextLevel) - 1);
       await handleUnlockLevel(Number(stageId), Number(nextLevel));
     }
+
+    await handleRewardLevel();
 
     revalidatePath("/game");
     redirect(
