@@ -92,9 +92,6 @@ export const JS_DIALOGUES = [
     text: "• Functions:",
   },
   {
-    text: "o Functions are reusable blocks of code that perform specific tasks.",
-  },
-  {
     name: "Snow Guardian",
     text: "o They can take inputs (parameters) and produce outputs (return values).",
   },
@@ -371,7 +368,8 @@ export const JS_DIALOGUES = [
     text: "Mastery requires dedication. Soon, you will be ready to face the ultimate challenge.",
   },
   {
-    text: "A fierce blizzard engulfs you, and a monstrous ice creature emerges.(Naka Italicized itong sentence boss)",
+    name: "Snow Guardian",
+    text: "A fierce blizzard engulfs you, and a monstrous ice creature emerges.",
   },
   {
     name: "Snow Guardian",
