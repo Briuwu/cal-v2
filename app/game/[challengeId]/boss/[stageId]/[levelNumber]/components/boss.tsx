@@ -3,11 +3,17 @@ import { BossState } from "@/types";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import Image from "next/image";
 
-export const Boss = ({ bossState }: { bossState: BossState }) => {
+export const Boss = ({
+  bossState,
+  bossName,
+}: {
+  bossState: BossState;
+  bossName: string;
+}) => {
   const isSmallDevice = useMediaQuery("only screen and (max-width : 1024px)");
   let size = isSmallDevice ? 2.75 : 1.75;
 
-  const { src, width, height } = getBoss(bossState, size);
+  const { src, width, height } = getBoss(bossState, size, bossName);
 
   return (
     <>

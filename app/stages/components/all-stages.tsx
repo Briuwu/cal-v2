@@ -22,14 +22,18 @@ export const AllStages = async () => {
       {stagesWithColors.map((stage) => (
         <div key={stage.id} className="space-y-5">
           <div
+            style={{
+              backgroundImage: `url(${stage.stageBgUrl})`,
+            }}
             className={cn(
-              "rounded-md border-2 border-black p-10 text-white",
+              "relative rounded-md border-2 border-black bg-cover bg-center p-10 text-white",
               stage.color,
             )}
           >
-            <h1 className="text-lg font-bold md:text-xl lg:text-2xl">
+            <h1 className="relative z-20 text-lg font-bold md:text-xl lg:text-2xl">
               {stage.stageName}
             </h1>
+            <div className="absolute inset-0 bg-black/20" />
           </div>
           <Levels levels={stage.levels} userProgress={stage.userProgress} />
         </div>

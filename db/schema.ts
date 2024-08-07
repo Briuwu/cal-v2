@@ -167,6 +167,7 @@ export const achievements = pgTable("achievements", {
   description: text("description").notNull(),
   xp: integer("xp").notNull(),
   coins: integer("coins").notNull(),
+  rewardedAt: integer("rewarded_at").references(() => levels.levelNumber),
 });
 
 export const usersAchievements = pgTable("users_achievements", {

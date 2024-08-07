@@ -1,24 +1,29 @@
 import { BossState } from "@/types";
 
-export const getBoss = (bossState: BossState, size: number) => {
+export const getBoss = (
+  bossState: BossState,
+  size: number,
+  bossName: string,
+) => {
+  const boss = bossName.toLowerCase();
   const images = {
     idle: {
-      src: "/boss/centipede/idle.gif",
+      src: `/boss/${boss}/idle.gif`,
       width: 332,
       height: 242,
     },
     hurt: {
-      src: "/boss/centipede/hurt.gif",
+      src: `/boss/${boss}/hurt.gif`,
       width: 296,
       height: 228,
     },
     death: {
-      src: "/boss/centipede/death.gif",
+      src: `/boss/${boss}/death.gif`,
       width: 406,
       height: 224,
     },
     attack: {
-      src: "/boss/centipede/attack.gif",
+      src: `/boss/${boss}/attack.gif`,
       width: 429,
       height: 280,
     },

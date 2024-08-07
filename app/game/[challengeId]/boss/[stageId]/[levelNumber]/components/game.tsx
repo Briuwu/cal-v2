@@ -128,7 +128,7 @@ export const Game = ({ level, characterType, coins }: Props) => {
         isAnimating={isAnimating}
       />
       <Player characterState={characterState} characterType={characterType} />
-      <Boss bossState={bossState} />
+      <Boss bossState={bossState} bossName={level.description} />
       <div>
         <div className="bottom-4 left-4 lg:absolute">
           <div className="flex items-center">

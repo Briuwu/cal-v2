@@ -63,9 +63,9 @@ export const Game = ({ level, characterType, coins }: Props) => {
     (acc: number[], _, idx) => {
       const incrementValue = isSmallDevice ? 100 : 250;
       if (idx === 0) {
-        acc.push(incrementValue + 25);
+        acc.push(incrementValue + 50);
       } else {
-        acc.push(acc[idx - 1] + incrementValue);
+        acc.push(acc[idx - 1] + incrementValue - 50);
       }
 
       return acc;
