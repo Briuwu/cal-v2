@@ -11,7 +11,7 @@ export const Boss = ({
   bossName: string;
 }) => {
   const isSmallDevice = useMediaQuery("only screen and (max-width : 1024px)");
-  let size = isSmallDevice ? 2.75 : 1.75;
+  let size = isSmallDevice ? 2.8 : 2;
 
   const { src, width, height } = getBoss(bossState, size, bossName);
 

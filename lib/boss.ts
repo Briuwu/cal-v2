@@ -10,22 +10,27 @@ export const getBoss = (
     idle: {
       src: `/boss/${boss}/idle.gif`,
       width: 332,
-      height: 242,
+      height: 247,
     },
     hurt: {
       src: `/boss/${boss}/hurt.gif`,
-      width: 296,
-      height: 228,
+      width: 299,
+      height: 239,
     },
     death: {
       src: `/boss/${boss}/death.gif`,
-      width: 406,
-      height: 224,
+      width: 392,
+      height: 240,
     },
     attack: {
       src: `/boss/${boss}/attack.gif`,
-      width: 429,
-      height: 280,
+      width: 426,
+      height: 276,
+    },
+    walk: {
+      src: `/boss/${boss}/walk.gif`,
+      width: 332,
+      height: 247,
     },
   };
 

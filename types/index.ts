@@ -12,10 +12,16 @@ export type UserCharacters = typeof userCharacters.$inferSelect;
 
 export type Characters = "male_homeless" | "female_homeless";
 
-export type CharacterState = "idle" | "running" | "walk" | "attack" | "hurt";
+export type CharacterState =
+  | "idle"
+  | "running"
+  | "walk"
+  | "attack"
+  | "hurt"
+  | "attack-2";
 
 export type NPCState = "idle" | "dialogue";
 
-export type BossState = "idle" | "hurt" | "death" | "attack";
+export type BossState = "idle" | "hurt" | "death" | "attack" | "walk";
 
 export type TreasureState = "open" | "closed";

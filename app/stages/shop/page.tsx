@@ -38,13 +38,13 @@ async function ShopPage() {
       isPurchaseable: true,
     },
     {
-      price: "clear stage 3 to get for free",
-      description: "A shinobi that can fight for you.",
+      price: "clear stage 5 to get for free",
+      description: "A samurai that can fight for you.",
       isPurchaseable: false,
     },
     {
-      price: "clear stage 5 to get for free",
-      description: "A samurai that can fight for you.",
+      price: "clear stage 3 to get for free",
+      description: "A shinobi that can fight for you.",
       isPurchaseable: false,
     },
   ];

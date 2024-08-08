@@ -13,6 +13,18 @@ export const Player = ({
 }) => {
   const isLargeDevice = useMediaQuery("only screen and (min-width : 1024px)");
   let size = isLargeDevice ? 2.5 : 3.95;
+  if (
+    (characterType >= 3 && characterState === "idle") ||
+    characterState === "walk" ||
+    characterState === "hurt"
+  ) {
+    size = isLargeDevice ? 3 : 5;
+  }
+
+  if (characterState === "attack-2" || characterState === "attack") {
+    size = isLargeDevice ? 2 : 4.5;
+  }
+
   const { src, width, height } = getCharacter(
     characterState,
     size,
@@ -27,7 +39,7 @@ export const Player = ({
         width={width}
         height={height}
         id="character"
-        className="absolute -left-20 top-[110px] z-40 md:top-[375px] lg:-left-40 lg:bottom-[105px] lg:top-auto"
+        className="absolute -left-20 top-[105px] z-40 md:top-[375px] lg:-left-40 lg:bottom-[105px] lg:top-auto"
         unoptimized
       />
     </>

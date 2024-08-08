@@ -52,6 +52,11 @@ export const getCharacter = (
       width: 226,
       height: 287,
     },
+    "attack-2": {
+      src: `/characters/animations/${characterType}/attack-2.gif`,
+      width: 358,
+      height: 342,
+    },
   };
 
   const src = images[characterState].src;

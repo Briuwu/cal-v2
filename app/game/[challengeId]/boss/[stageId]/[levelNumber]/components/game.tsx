@@ -59,16 +59,18 @@ export const Game = ({ level, characterType, coins }: Props) => {
 
   const handleWrong = async () => {
     setIsAnimating(true);
-    let xBossPosition = isSmallDevice ? 225 : isMediumDevice ? 400 : 600;
+    let xBossPosition = isSmallDevice ? 150 : isMediumDevice ? 400 : 600;
     let xBossOriginal = isSmallDevice ? 20 : 40;
+    setBossState("walk");
     await animate("#boss", { x: -xBossPosition }, { duration: 3 });
     setBossState("attack");
     setCharacterState("hurt");
     await sleep(1000);
     await animate("#boss", { scaleX: -1 }, { duration: 0.5 });
     setCharacterState("idle");
-    setBossState("idle");
+    setBossState("walk");
     await animate("#boss", { x: -xBossOriginal }, { duration: 3 });
+    setBossState("idle");
     await animate("#boss", { scaleX: 1 }, { duration: 0.5 });
 
     if (lifes > 0) {
@@ -85,9 +87,13 @@ export const Game = ({ level, characterType, coins }: Props) => {
     setIsAnimating(true);
     setCharacterState("running");
     let xCharacterPosition = isSmallDevice ? 300 : isMediumDevice ? 500 : 800;
-    let xCharacterOriginal = isSmallDevice ? 80 : 160;
+    let xCharacterOriginal = isSmallDevice ? 80 : 170;
     await animate("#character", { x: xCharacterPosition }, { duration: 2.5 });
-    setCharacterState("attack");
+    if (questionIdx % 2 === 0 && characterType >= 3) {
+      setCharacterState("attack-2");
+    } else {
+      setCharacterState("attack");
+    }
     setBossState("hurt");
     await sleep(1000);
     await animate("#character", { scaleX: -1 }, { duration: 0.5 });
@@ -113,6 +119,8 @@ export const Game = ({ level, characterType, coins }: Props) => {
     }
     setIsAnimating(false);
   };
+
+  console.log(level.description);
 
   return (
     <div
