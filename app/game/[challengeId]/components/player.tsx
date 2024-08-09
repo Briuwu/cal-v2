@@ -12,11 +12,12 @@ export const Player = ({
   characterType: number;
 }) => {
   const isLargeDevice = useMediaQuery("only screen and (min-width : 1024px)");
-  let size = isLargeDevice ? 2.5 : 3.95;
+  let size = isLargeDevice ? 2.25 : 3.95;
   if (
-    (characterType >= 3 && characterState === "idle") ||
-    characterState === "walk" ||
-    characterState === "hurt"
+    characterType === 3 &&
+    (characterState === "idle" ||
+      characterState === "walk" ||
+      characterState === "hurt")
   ) {
     size = isLargeDevice ? 3 : 5;
   }
