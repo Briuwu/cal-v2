@@ -18,7 +18,8 @@ export type CharacterState =
   | "walk"
   | "attack"
   | "hurt"
-  | "attack-2";
+  | "attack-2"
+  | "dead";
 
 export type NPCState = "idle" | "dialogue";
 

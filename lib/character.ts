@@ -57,6 +57,11 @@ export const getCharacter = (
       width: 358,
       height: 342,
     },
+    dead: {
+      src: `/characters/animations/${characterType}/dead.gif`,
+      width: 226,
+      height: 287,
+    },
   };
 
   const src = images[characterState].src;

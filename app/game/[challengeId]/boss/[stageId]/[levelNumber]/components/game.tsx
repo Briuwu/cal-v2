@@ -78,6 +78,8 @@ export const Game = ({ level, characterType, coins }: Props) => {
     }
 
     if (lifes === 1) {
+      setCharacterState("dead");
+      await sleep(1000);
       setGameOver(true);
     }
     setIsAnimating(false);
@@ -96,6 +98,7 @@ export const Game = ({ level, characterType, coins }: Props) => {
     }
     setBossState("hurt");
     await sleep(1000);
+    setCharacterState("idle");
     await animate("#character", { scaleX: -1 }, { duration: 0.5 });
     setCharacterState("running");
     setBossState("idle");
