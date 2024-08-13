@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Ctrl + Alt + Learn
 
-First, run the development server:
+The name "Ctrl+Alt+Learn" is a playful nod to the familiar keyboard shortcuts used in computing. "Ctrl+Alt+Delete" is a well-known command for restarting or troubleshooting a computer, symbolizing a fresh start or a solution to a problem. In the context of this platform, "Ctrl+Alt+Learn" signifies a fresh and engaging approach to learning web development.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The "Ctrl+Alt+Learn: A web based 2D gamified learning platform" aims to address the challenges in teaching web development by creating an engaging and effective learning experience through gamification.
+## Objectives
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 🎮 Gamification and Progression System
+- 🏫 Progressive Skill Building
+- 🌏 Visually Appealing 2D Game World
+- 📚 Comprehensive Learning Resources
+- 🥳 Achievements and Milestones
+- 🔐 Save/Load System
+- 🧑‍🤝‍🧑 Character Selection
+- 👤 PVP Functionality
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Screenshots
 
-## Learn More
+### The Landing Page
+![Landing Page](./public/screenshots/home.png)
 
-To learn more about Next.js, take a look at the following resources:
+### The Start Page
+![Start Game](./public/screenshots/start.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### The Stage Selection Page
+![Stage Selection](./public/screenshots/start.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### The Dialogue Page
+![Dialogue Game](./public/screenshots/dialogue.png)
 
-## Deploy on Vercel
+### The Boss Page
+![Boss Game](./public/screenshots/boss.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### The Reward Page
+![Reward Game](./public/screenshots/reward.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### The Leaderboard Page
+![Leaderboard Game](./public/screenshots/leaderboard.png)
+
+### The Shop Page
+![Shop Game](./public/screenshots/shop.png)
+
+
+## Authors
+### Main Developer (me)
+- Github: [@briuwu](https://www.github.com/briuwu)
+- Instagram: [_briuwu](https://www.instagram.com/_briuwu/)
+
+
