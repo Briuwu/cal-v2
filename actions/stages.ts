@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db";
-import { levels, userProgress, users } from "@/db/schema";
+import { achievements, levels, userProgress, users } from "@/db/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 import { cache } from "react";
 import { handleRewardLevel } from "./level";
 import { handleAuth } from "@/lib/auth";
+import { handleAchievementComplete } from "./achievements";
 
 export const getAllStages = cache(async () => {
   const data = await db.query.stages.findMany({
@@ -72,6 +73,27 @@ export const nextLevel = cache(
 export const handleCompleteLevel = cache(
   async (stageId: number, levelNumber: number) => {
     const userId = handleAuth();
+
+    const achievement = await db.query.achievements.findFirst({
+      where: eq(achievements.rewardedAt, levelNumber),
+    });
+
+    if (achievement) {
+      const currentUser = await db.query.users.findFirst({
+        where: eq(users.userId, userId),
+      });
+
+      if (!currentUser) {
+        throw new Error("User not found");
+      }
+
+      await handleAchievementComplete(achievement.id);
+
+      await db.update(users).set({
+        coins: currentUser.coins + achievement.coins,
+        currentLevel: currentUser.currentLevel + achievement.lvl,
+      });
+    }
 
     await db
       .update(userProgress)

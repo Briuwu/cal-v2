@@ -165,7 +165,7 @@ export const achievements = pgTable("achievements", {
   id: serial("id").primaryKey(),
   name: text("name").notNull().unique(),
   description: text("description").notNull(),
-  xp: integer("xp").notNull(),
+  lvl: integer("xp").notNull(),
   coins: integer("coins").notNull(),
   rewardedAt: integer("rewarded_at").references(() => levels.levelNumber),
 });
