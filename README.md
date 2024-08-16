@@ -25,7 +25,7 @@ The "Ctrl+Alt+Learn: A web based 2D gamified learning platform" aims to address 
 ![Start Game](./public/screenshots/start.png)
 
 ### The Stage Selection Page
-![Stage Selection](./public/screenshots/start.png)
+![Stage Selection](./public/screenshots/stage-selection.png)
 
 ### The Dialogue Page
 ![Dialogue Game](./public/screenshots/dialogue.png)
