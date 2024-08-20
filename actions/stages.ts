@@ -89,10 +89,13 @@ export const handleCompleteLevel = cache(
 
       await handleAchievementComplete(achievement.id);
 
-      await db.update(users).set({
-        coins: currentUser.coins + achievement.coins,
-        currentLevel: currentUser.currentLevel + achievement.lvl,
-      });
+      await db
+        .update(users)
+        .set({
+          coins: currentUser.coins + achievement.coins,
+          currentLevel: currentUser.currentLevel + achievement.lvl,
+        })
+        .where(eq(users.userId, userId));
     }
 
     await db
