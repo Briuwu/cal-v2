@@ -65,7 +65,7 @@ export const Game = ({ level, characterType, coins }: Props) => {
       if (idx === 0) {
         acc.push(incrementValue + 50);
       } else {
-        acc.push(acc[idx - 1] + incrementValue - 50);
+        acc.push(acc[idx - 1] + incrementValue - 25);
       }
 
       return acc;

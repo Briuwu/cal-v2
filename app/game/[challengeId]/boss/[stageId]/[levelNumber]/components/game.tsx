@@ -87,7 +87,7 @@ export const Game = ({ level, characterType, coins }: Props) => {
 
   const handleCorrect = async () => {
     setIsAnimating(true);
-    setCharacterState("running");
+    setCharacterState("walk");
     let xCharacterPosition = isSmallDevice ? 300 : isMediumDevice ? 500 : 800;
     let xCharacterOriginal = isSmallDevice ? 80 : 170;
     await animate("#character", { x: xCharacterPosition }, { duration: 2.5 });
@@ -100,7 +100,7 @@ export const Game = ({ level, characterType, coins }: Props) => {
     await sleep(1000);
     setCharacterState("idle");
     await animate("#character", { scaleX: -1 }, { duration: 0.5 });
-    setCharacterState("running");
+    setCharacterState("walk");
     setBossState("idle");
     await animate("#character", { x: xCharacterOriginal }, { duration: 2.5 });
     setCharacterState("idle");
