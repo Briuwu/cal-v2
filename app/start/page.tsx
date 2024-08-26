@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
+import { db } from "@/db";
+import { users } from "@/db/schema";
 import { handleAuth, handleCurrentUser } from "@/lib/auth";
 import { SignOutButton } from "@clerk/nextjs";
+import { eq } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -11,12 +14,19 @@ async function StartPage() {
     redirect("/sign-in");
   }
 
-  const user = await handleCurrentUser();
+  const user = await db.query.users.findFirst({
+    where: eq(users.userId, userId),
+  });
 
   if (!user) {
     redirect("/sign-in");
   }
 
+  console.log(user);
+
+  let pvpLocked = user.currentLevel < 30;
+
+  console.log(pvpLocked);
   return (
     <main
       style={{
@@ -38,12 +48,24 @@ async function StartPage() {
           >
             <Link href="character-selection">Start Game</Link>
           </Button>
-          <Button className="w-full border border-black bg-white py-7 font-bold uppercase text-black hover:bg-black hover:text-white">
-            PVP
-          </Button>
-          <Button className="w-full border border-black bg-white py-7 font-bold uppercase text-black hover:bg-black hover:text-white">
-            Leaderboard
-          </Button>
+          {pvpLocked ? (
+            <Button
+              disabled={pvpLocked}
+              className="w-full border border-black bg-white py-7 font-bold uppercase text-black hover:bg-black hover:text-white"
+            >
+              PvP (Speed Run) requires level 30
+            </Button>
+          ) : (
+            <Button
+              asChild
+              disabled={pvpLocked}
+              className="w-full border border-black bg-white py-7 font-bold uppercase text-black hover:bg-black hover:text-white"
+            >
+              <Link href="/pvp" aria-disabled={pvpLocked}>
+                PvP (Speed Run)
+              </Link>
+            </Button>
+          )}
           <Button
             asChild
             className="w-full border border-black bg-red-500 py-7 font-bold uppercase hover:bg-red-300"

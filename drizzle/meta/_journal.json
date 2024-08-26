@@ -36,6 +36,13 @@
       "when": 1723080487512,
       "tag": "0004_chilly_kinsey_walden",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1724636440379,
+      "tag": "0005_stale_taskmaster",
+      "breakpoints": true
     }
   ]
 }

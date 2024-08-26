@@ -197,3 +197,31 @@ export const usersAchievementsRelations = relations(
     }),
   }),
 );
+
+export const pvpQuestions = pgTable("pvp_questions", {
+  id: serial("id").primaryKey(),
+  question: text("question").notNull(),
+  answer: text("answer").notNull(),
+  options: jsonb("options").$type<string[]>().notNull(),
+});
+
+export const pvpLeaderboard = pgTable("pvp_leaderboard", {
+  id: serial("id").primaryKey(),
+  userId: text("user_id")
+    .references(() => users.userId, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    })
+    .notNull(),
+  time: integer("time").notNull(),
+  score: integer("score").notNull(),
+  totalPoints: integer("total_points").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const pvpLeaderboardRelations = relations(pvpLeaderboard, ({ one }) => ({
+  user: one(users, {
+    fields: [pvpLeaderboard.userId],
+    references: [users.userId],
+  }),
+}));
