@@ -34,8 +34,8 @@ export const StagesAside = () => {
     },
   ];
   return (
-    <aside className="sticky left-0 hidden h-full w-[300px] border-r-2 border-black p-5 lg:block">
-      <nav>
+    <aside className="relative hidden h-full w-[300px] border-r-2 border-black p-5 lg:block">
+      <nav className="sticky top-3">
         <ul className="space-y-3">
           {choices.map((choice) => (
             <li

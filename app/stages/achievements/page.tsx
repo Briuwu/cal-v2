@@ -65,7 +65,7 @@ async function AchievementPage() {
                   </span>
                 ) : (
                   <span className="rounded-full bg-red-500 p-2 text-xs uppercase text-white">
-                    Incomplete
+                    Locked
                   </span>
                 )}
               </div>

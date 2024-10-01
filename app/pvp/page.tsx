@@ -37,8 +37,6 @@ async function PVPPage() {
 
   const leaderboard = await getPvpLeaderboard();
 
-  console.log(leaderboard);
-
   const getUsername = async (userId: string) => {
     const user = await db.query.users.findFirst({
       where: eq(users.userId, userId),
