@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -9,52 +10,80 @@ const steps = [
   {
     title: "Welcome to CTRL + ALT + LEARN",
     description:
-      "Discover how our app can revolutionize your workflow and boost productivity.",
-    image: "/placeholder.svg?height=400&width=400",
+      "An immersive and engaging web-based 2D learning gamified platform that enhances your Web Development Skills!",
+    image: "./onboarding/get-started.png",
   },
   {
-    title: "Create Your Profile",
+    title: "Create Your Character",
     description:
-      "Set up your personal profile to get the most out of our tailored features.",
-    image: "/placeholder.svg?height=400&width=400",
+      "Choose a character that represents you and create a username to get started.",
+    image: "./onboarding/creation.png",
   },
   {
-    title: "Explore Key Features",
+    title: "Stage Selections",
     description:
-      "Learn about the powerful tools and features that will enhance your experience.",
-    image: "/placeholder.svg?height=400&width=400",
+      "After creating your character, you will be able to select a stage to start your learning journey. The starting point has been set to the first stage.",
+    image: "./onboarding/stages.png",
   },
   {
-    title: "Connect and Collaborate",
+    title: "Learning the materials",
     description:
-      "Discover how to connect with team members and collaborate effectively.",
-    image: "/placeholder.svg?height=400&width=400",
+      "Every stage has a set of materials that you need to learn in order to progress to the next stage of the game. You can learn the materials by reading the content.",
+    image: "./onboarding/learning.png",
   },
   {
-    title: "Connect and Collaborate",
+    title: "Adventure Time!",
     description:
-      "Discover how to connect with team members and collaborate effectively.",
-    image: "/placeholder.svg?height=400&width=400",
+      "After learning the materials, you will be able to start the adventure. The adventure will test your knowledge on the materials you have learned. You have 5 lives and everytime you answer a question wrong, you will lose a life.",
+    image: "./onboarding/adventure.png",
   },
   {
-    title: "Connect and Collaborate",
+    title: "Boss Fight!",
     description:
-      "Discover how to connect with team members and collaborate effectively.",
-    image: "/placeholder.svg?height=400&width=400",
+      "After completing the adventure, you will face a boss fight. The boss fight will test your knowledge on the materials you have learned in the stage.",
+    image: "./onboarding/boss.png",
   },
   {
-    title: "Connect and Collaborate",
+    title: "The Rewards!",
     description:
-      "Discover how to connect with team members and collaborate effectively.",
-    image: "/placeholder.svg?height=400&width=400",
+      "After defeating the boss, you will be rewarded with coins and experience points. You can use the coins to buy different characters in the shop.",
+    image: "./onboarding/reward.png",
+  },
+  {
+    title: "The Leaderboard Rankings!",
+    description:
+      "You can check your ranking on the leaderboard to see how you are doing compared to other players.",
+    image: "./onboarding/leaderboard.png",
+  },
+  {
+    title: "Achievements you can earn!",
+    description:
+      "You can earn achievements by completing certain tasks in the game. Achievements will give you coins and experience points.",
+    image: "./onboarding/achievements.png",
+  },
+  {
+    title: "Shop to used your coins!",
+    description:
+      "You can use the coins you have earned to buy different characters that you can use in the game.",
+    image: "./onboarding/shop.png",
+  },
+  {
+    title: "Ready to get started?",
+    description:
+      "Click the Get Started button to create your character and start your learning journey!",
+    image: "./onboarding/get-started.png",
   },
 ];
 
 export default function Onboard() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
 
   const handleNext = () => {
     setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    if (currentStep === steps.length - 1) {
+      router.push("/character-selection");
+    }
   };
 
   const handlePrevious = () => {
@@ -73,7 +102,7 @@ export default function Onboard() {
           <img
             src={steps[currentStep].image}
             alt={`Step ${currentStep + 1}`}
-            className="mx-auto h-64 w-64 object-cover"
+            className="mx-auto w-[600px] border object-contain"
           />
           <h2 className="text-3xl font-bold">{steps[currentStep].title}</h2>
           <p className="text-muted-foreground text-xl">
@@ -89,10 +118,7 @@ export default function Onboard() {
         >
           <ArrowLeft className="mr-2 h-4 w-4" /> Previous
         </Button>
-        <Button
-          onClick={handleNext}
-          disabled={currentStep === steps.length - 1}
-        >
+        <Button onClick={handleNext}>
           {currentStep === steps.length - 1 ? "Get Started" : "Next"}{" "}
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
