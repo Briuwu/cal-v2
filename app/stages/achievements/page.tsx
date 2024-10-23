@@ -5,8 +5,10 @@ import {
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
+import ACHIEVEMENTS from "@/lib/constants/achievements.json";
+
 async function AchievementPage() {
-  const achievements = await getAllAchievements();
+  const achievements = ACHIEVEMENTS;
   const userAchievements = await getUserAchievements();
 
   const completedAchievements = userAchievements.map(
@@ -44,7 +46,7 @@ async function AchievementPage() {
                       + {achievement.coins}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1">
+                  {/* <div className="flex items-center gap-1">
                     <Image
                       alt=""
                       src="/xp.png"
@@ -53,9 +55,9 @@ async function AchievementPage() {
                       className="w-5 object-contain"
                     />
                     <span className="text-yellow-500">
-                      + {achievement.lvl} levels
+                      + {achievement.rewarded_at} levels
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div>

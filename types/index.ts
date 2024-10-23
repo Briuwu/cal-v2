@@ -26,3 +26,23 @@ export type NPCState = "idle" | "dialogue";
 export type BossState = "idle" | "hurt" | "death" | "attack" | "walk";
 
 export type TreasureState = "open" | "closed";
+
+export type LevelsType = "learning" | "mini-challenge" | "boss" | "reward";
+
+export type LevelsName = "html" | "css" | "htmlcss" | "js" | "htmlcssjs";
+
+export type LevelsQuestions = {
+  question: string;
+  answer: string;
+  clue: string;
+}[];
+
+export type Levels = {
+  id: number;
+  stage_id: number;
+  type: LevelsType;
+  name: LevelsName;
+  description: string;
+  questions: LevelsQuestions | null;
+  level_number: number;
+};

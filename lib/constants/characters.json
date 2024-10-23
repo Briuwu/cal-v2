@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "character_name": "male_homeless",
+    "character_src": "/characters/male_beginner.png"
+  },
+  {
+    "id": 2,
+    "character_name": "female_homeless",
+    "character_src": "/characters/female_beginner.png"
+  },
+  {
+    "id": 3,
+    "character_name": "fighter",
+    "character_src": "/characters/fighter.png"
+  },
+  {
+    "id": 4,
+    "character_name": "samurai",
+    "character_src": "/characters/samurai.png"
+  },
+  {
+    "id": 5,
+    "character_name": "shinobi",
+    "character_src": "/characters/shinobi.png"
+  }
+]

@@ -78,16 +78,30 @@ const steps = [
 export default function Onboard() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false); // Disable button
 
   const handleNext = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
-    if (currentStep === steps.length - 1) {
-      router.push("/character-selection");
+    if (!isButtonDisabled) {
+      setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+      if (currentStep === steps.length - 1) {
+        router.push("/character-selection");
+      }
+      // Disable button temporarily after clicking
+      setIsButtonDisabled(true);
+      setTimeout(() => {
+        setIsButtonDisabled(false); // Re-enable button after 1 second
+      }, 1000);
     }
   };
 
   const handlePrevious = () => {
-    setCurrentStep((prev) => Math.max(prev - 1, 0));
+    if (!isButtonDisabled) {
+      setCurrentStep((prev) => Math.max(prev - 1, 0));
+      setIsButtonDisabled(true);
+      setTimeout(() => {
+        setIsButtonDisabled(false); // Re-enable button after 1 second
+      }, 1000);
+    }
   };
 
   const progress = ((currentStep + 1) / steps.length) * 100;
@@ -113,12 +127,15 @@ export default function Onboard() {
       <footer className="flex justify-between p-4">
         <Button
           onClick={handlePrevious}
-          disabled={currentStep === 0}
+          disabled={currentStep === 0 || isButtonDisabled} // Disable if at start or waiting for delay
           variant="outline"
         >
           <ArrowLeft className="mr-2 h-4 w-4" /> Previous
         </Button>
-        <Button onClick={handleNext}>
+        <Button
+          onClick={handleNext}
+          disabled={isButtonDisabled} // Disable after click for a while
+        >
           {currentStep === steps.length - 1 ? "Get Started" : "Next"}{" "}
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
