@@ -78,6 +78,24 @@ export const Player = ({
   if (characterType === 6 && characterState === "attack-2") {
     size = isLargeDevice ? 1.5 : 2.5;
   }
+  if (
+    characterType === 6 ||
+    (characterType === 7 && characterState === "idle")
+  ) {
+    size = isLargeDevice ? 2.5 : 4;
+  }
+
+  if (characterType === 7 && characterState === "walk") {
+    size = isLargeDevice ? 3 : 4.5;
+  }
+
+  if (characterType === 7 && characterState === "attack") {
+    size = isLargeDevice ? 1.75 : 2.5;
+  }
+
+  if (characterType === 7 && characterState === "attack-2") {
+    size = isLargeDevice ? 1.5 : 2.65;
+  }
 
   const { src, width, height } = getCharacter(
     characterState,
