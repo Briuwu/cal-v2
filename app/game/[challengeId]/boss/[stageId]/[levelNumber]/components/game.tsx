@@ -59,17 +59,17 @@ export const Game = ({ level, characterType, coins }: Props) => {
 
   const handleWrong = async () => {
     setIsAnimating(true);
-    let xBossPosition = isSmallDevice ? 150 : isMediumDevice ? 400 : 600;
-    let xBossOriginal = isSmallDevice ? 20 : 40;
+    let xBossPosition = isSmallDevice ? 150 : isMediumDevice ? 400 : 500;
+    let xBossOriginal = isSmallDevice ? 10 : 30;
     setBossState("walk");
-    await animate("#boss", { x: -xBossPosition }, { duration: 3 });
+    await animate("#boss", { x: -xBossPosition }, { duration: 2 });
     setBossState("attack");
     setCharacterState("hurt");
     await sleep(1000);
     await animate("#boss", { scaleX: -1 }, { duration: 0.5 });
     setCharacterState("idle");
     setBossState("walk");
-    await animate("#boss", { x: -xBossOriginal }, { duration: 3 });
+    await animate("#boss", { x: -xBossOriginal }, { duration: 2 });
     setBossState("idle");
     await animate("#boss", { scaleX: 1 }, { duration: 0.5 });
 
@@ -88,9 +88,9 @@ export const Game = ({ level, characterType, coins }: Props) => {
   const handleCorrect = async () => {
     setIsAnimating(true);
     setCharacterState("walk");
-    let xCharacterPosition = isSmallDevice ? 300 : isMediumDevice ? 500 : 800;
+    let xCharacterPosition = isSmallDevice ? 200 : isMediumDevice ? 500 : 700;
     let xCharacterOriginal = isSmallDevice ? 80 : 170;
-    await animate("#character", { x: xCharacterPosition }, { duration: 2.5 });
+    await animate("#character", { x: xCharacterPosition }, { duration: 2 });
     if (questionIdx % 2 === 0 && characterType >= 3) {
       setCharacterState("attack-2");
     } else {
@@ -102,7 +102,7 @@ export const Game = ({ level, characterType, coins }: Props) => {
     await animate("#character", { scaleX: -1 }, { duration: 0.5 });
     setCharacterState("walk");
     setBossState("idle");
-    await animate("#character", { x: xCharacterOriginal }, { duration: 2.5 });
+    await animate("#character", { x: xCharacterOriginal }, { duration: 2 });
     setCharacterState("idle");
     await animate("#character", { scaleX: 1 }, { duration: 0.5 });
 

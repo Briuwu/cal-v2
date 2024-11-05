@@ -1,6 +1,5 @@
 import { getAllCharacters, getOwnedCharacters } from "@/actions/characters";
 import { getProfile } from "@/actions/profile";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { BuyButton } from "./components/buy-button";
 import { handleAuth } from "@/lib/auth";
@@ -46,6 +45,16 @@ async function ShopPage() {
       price: "clear stage 3 to get for free",
       description: "A shinobi that can fight for you.",
       isPurchaseable: false,
+    },
+    {
+      price: 1000,
+      description: "A lightning mage that can cast spells.",
+      isPurchaseable: true,
+    },
+    {
+      price: 700,
+      description: "A fire mage that can cast spells.",
+      isPurchaseable: true,
     },
   ];
 

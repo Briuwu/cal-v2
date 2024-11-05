@@ -1,3 +1,4 @@
+"use client";
 import { getBoss } from "@/lib/boss";
 import { BossState } from "@/types";
 import { useMediaQuery } from "@uidotdev/usehooks";
@@ -23,7 +24,7 @@ export const Boss = ({
         width={width}
         height={height}
         id="boss"
-        className="absolute right-5 top-[100px] md:right-10 md:top-[390px] lg:bottom-[110px] lg:top-auto"
+        className="absolute right-5 top-[100px] md:right-40 md:top-[390px] lg:bottom-[110px] lg:top-auto"
         unoptimized
       />
     </>

@@ -64,7 +64,19 @@ export const Player = ({
     (characterState === "attack-2" || characterState === "attack") &&
     characterType === 1
   ) {
-    size = isLargeDevice ? 2 : 4.8;
+    size = isLargeDevice ? 2.5 : 3.5;
+  }
+
+  if (characterType === 6 && characterState === "walk") {
+    size = isLargeDevice ? 3.35 : 5;
+  }
+
+  if (characterType === 6 && characterState === "attack") {
+    size = isLargeDevice ? 1.25 : 1.85;
+  }
+
+  if (characterType === 6 && characterState === "attack-2") {
+    size = isLargeDevice ? 1.5 : 2.5;
   }
 
   const { src, width, height } = getCharacter(
@@ -83,6 +95,7 @@ export const Player = ({
         id="character"
         className="absolute -left-20 top-[105px] z-40 md:top-[375px] lg:-left-40 lg:bottom-[105px] lg:top-auto"
         unoptimized
+        priority
       />
     </>
   );

@@ -22,6 +22,12 @@ export const getCharacter = (
     case 5:
       characterType = "shinobi";
       break;
+    case 6:
+      characterType = "lightning_mage";
+      break;
+    case 7:
+      characterType = "fire_mage";
+      break;
   }
   const images: Record<
     CharacterState,
