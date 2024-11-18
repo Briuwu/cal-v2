@@ -11,6 +11,7 @@ import { nextLevel } from "@/actions/stages";
 import { NPC } from "../../../../components/NPC";
 import { Button } from "@/components/ui/button";
 import { handleLearningComplete } from "@/actions/learning";
+import { useGlobalAudioPlayer } from "react-use-audio-player";
 
 type Props = {
   level: typeof levels.$inferSelect;
@@ -20,6 +21,15 @@ type Props = {
     text: string;
   }[];
   playerName: string;
+  stageId: number;
+};
+
+const audioBg = {
+  1: "/audio/learning-stage-1.mp3",
+  2: "/audio/learning-stage-2.mp3",
+  3: "/audio/learning-stage-3.mp3",
+  4: "/audio/learning-stage-4.mp3",
+  5: "/audio/learning-stage-5.mp3",
 };
 
 export const Game = ({
@@ -27,7 +37,9 @@ export const Game = ({
   characterType,
   dialogues,
   playerName,
+  stageId,
 }: Props) => {
+  const { load } = useGlobalAudioPlayer();
   const [scope, animate] = useAnimate();
   const [isAnimating, setIsAnimating] = useState(false);
   const [isDialogue, setIsDialogue] = useState(false);
@@ -43,6 +55,10 @@ export const Game = ({
 
   useEffect(() => {
     setIsAnimating(true);
+    load(audioBg[stageId as keyof typeof audioBg], {
+      loop: true,
+      autoplay: true,
+    });
     const animateCharacter = async () => {
       await animate(
         "#character",

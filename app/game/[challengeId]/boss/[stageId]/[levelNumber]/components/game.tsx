@@ -22,8 +22,16 @@ type Props = {
   stageId: number;
 };
 
+const audioBg = {
+  1: "/audio/stage-1-boss.mp3",
+  2: "/audio/stage-2-boss.mp3",
+  3: "/audio/stage-3-boss.mp3",
+  4: "/audio/stage-4-boss.mp3",
+  5: "/audio/stage-5-boss.mp3",
+};
+
 export const Game = ({ level, characterType, coins, stageId }: Props) => {
-  const { load } = useAudioPlayer();
+  const { load, stop } = useGlobalAudioPlayer();
   const [scope, animate] = useAnimate();
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -43,6 +51,11 @@ export const Game = ({ level, characterType, coins, stageId }: Props) => {
 
   useEffect(() => {
     setIsAnimating(true);
+    stop();
+    load(audioBg[stageId as keyof typeof audioBg], {
+      loop: true,
+      autoplay: true,
+    });
 
     const animateCharacter = async () => {
       setBossState("idle");

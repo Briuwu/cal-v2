@@ -37,7 +37,11 @@ async function RewardPage({
       </Button>
       <div className="relative max-w-[375px] overflow-hidden border-2 border-black md:max-w-[768px] lg:max-w-full">
         <Image src={level.stage.stageBgUrl} alt="" width={925} height={660} />
-        <Game level={level} characterType={profile.selectedCharacter.id} />
+        <Game
+          level={level}
+          characterType={profile.selectedCharacter.id}
+          stageId={Number(params.stageId)}
+        />
       </div>
     </main>
   );

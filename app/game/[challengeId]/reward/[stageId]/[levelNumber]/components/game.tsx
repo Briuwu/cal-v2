@@ -12,10 +12,12 @@ import { Treasure } from "./treasure";
 import { Button } from "@/components/ui/button";
 import { Rewards } from "./rewards";
 import { handleRewardChest } from "@/actions/reward";
+import { useGlobalAudioPlayer } from "react-use-audio-player";
 
 type Props = {
   level: typeof levels.$inferSelect;
   characterType: number;
+  stageId: number;
 };
 
 let rewards = [
@@ -48,7 +50,16 @@ let rewards = [
   },
 ];
 
-export const Game = ({ level, characterType }: Props) => {
+const audioBg = {
+  1: "/audio/stage-1.mp3",
+  2: "/audio/stage-2.mp3",
+  3: "/audio/stage-3.mp3",
+  4: "/audio/stage-4.mp3",
+  5: "/audio/stage-5.mp3",
+};
+
+export const Game = ({ level, characterType, stageId }: Props) => {
+  const { load } = useGlobalAudioPlayer();
   const [scope, animate] = useAnimate();
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -67,6 +78,12 @@ export const Game = ({ level, characterType }: Props) => {
 
   useEffect(() => {
     setIsAnimating(true);
+
+    load(audioBg[stageId as keyof typeof audioBg], {
+      loop: true,
+      autoplay: true,
+    });
+
     const animateCharacter = async () => {
       await animate(
         "#character",

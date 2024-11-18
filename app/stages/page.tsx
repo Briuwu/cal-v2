@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { users } from "@/db/schema";
 import { db } from "@/db";
 import { handleAuth, handleCurrentUser } from "@/lib/auth";
+import { AudioPlayer } from "@/components/audio-player";
 
 const StagesPage = async () => {
   const userId = handleAuth();
@@ -29,6 +30,7 @@ const StagesPage = async () => {
 
   return (
     <main>
+      <AudioPlayer audioId={2} />
       <AllStages />
     </main>
   );
