@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useAnimate } from "framer-motion";
 import Image from "next/image";
+import { useAudioPlayer, useGlobalAudioPlayer } from "react-use-audio-player";
 
 import { levels } from "@/db/schema";
 import { BossState, CharacterState } from "@/types";
@@ -18,9 +19,11 @@ type Props = {
   level: typeof levels.$inferSelect;
   characterType: number;
   coins: number;
+  stageId: number;
 };
 
-export const Game = ({ level, characterType, coins }: Props) => {
+export const Game = ({ level, characterType, coins, stageId }: Props) => {
+  const { load } = useAudioPlayer();
   const [scope, animate] = useAnimate();
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -40,6 +43,7 @@ export const Game = ({ level, characterType, coins }: Props) => {
 
   useEffect(() => {
     setIsAnimating(true);
+
     const animateCharacter = async () => {
       setBossState("idle");
       await animate(

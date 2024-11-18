@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { getProfile } from "@/actions/profile";
 import { Guidebook } from "@/app/game/[challengeId]/components/guidebook";
+import { BackButton } from "@/components/back-btn";
 
 async function ChallengePage({
   params,
@@ -31,12 +32,7 @@ async function ChallengePage({
   return (
     <main className="grid min-h-dvh place-content-center bg-green-300">
       <div className="flex items-center justify-between">
-        <Button asChild>
-          <Link href="/stages" className="left-0 top-0 m-4 text-sm lg:absolute">
-            <ChevronLeft className="w-5" />
-            Go Back
-          </Link>
-        </Button>
+        <BackButton />
         <Guidebook stageName={level.name} />
       </div>
       <div className="relative max-w-[320px] overflow-hidden border-2 border-black md:max-w-[768px] lg:max-w-full">
@@ -45,6 +41,7 @@ async function ChallengePage({
           level={level}
           characterType={profile.selectedCharacter.id}
           coins={profile.coins}
+          stageId={Number(params.stageId)}
         />
       </div>
     </main>

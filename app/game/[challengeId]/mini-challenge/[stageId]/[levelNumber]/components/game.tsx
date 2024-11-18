@@ -10,14 +10,25 @@ import { CharacterState } from "@/types";
 import Image from "next/image";
 import { nextLevel } from "@/actions/stages";
 import { GameOver } from "@/app/game/[challengeId]/components/game-over";
+import { useAudioPlayer, useGlobalAudioPlayer } from "react-use-audio-player";
 
 type Props = {
   level: typeof levels.$inferSelect;
   characterType: number;
   coins: number;
+  stageId: number;
 };
 
-export const Game = ({ level, characterType, coins }: Props) => {
+const audioBg = {
+  1: "/audio/stage-1.mp3",
+  2: "/audio/stage-2.mp3",
+  3: "/audio/stage-3.mp3",
+  4: "/audio/stage-4.mp3",
+  5: "/audio/stage-5.mp3",
+};
+
+export const Game = ({ level, characterType, coins, stageId }: Props) => {
+  const { load } = useGlobalAudioPlayer();
   const [scope, animate] = useAnimate();
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -33,6 +44,13 @@ export const Game = ({ level, characterType, coins }: Props) => {
 
   useEffect(() => {
     setIsAnimating(true);
+
+    // added audio background
+    load(audioBg[stageId as keyof typeof audioBg], {
+      loop: true,
+      autoplay: true,
+    });
+
     const animateCharacter = async () => {
       await animate(
         "#character",
