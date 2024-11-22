@@ -1,5 +1,59 @@
 import { Characters, CharacterState } from "@/types";
 
+// import maleIdle from "@/public/characters/animations/male_homeless/idle.gif";
+// import maleAtk from "@/public/characters/animations/male_homeless/attack.gif";
+// import maleDead from "@/public/characters/animations/male_homeless/dead.gif";
+// import maleHurt from "@/public/characters/animations/male_homeless/hurt.gif";
+// import maleRun from "@/public/characters/animations/male_homeless/run.gif";
+// import maleWalk from "@/public/characters/animations/male_homeless/walk.gif";
+
+// import femaleIdle from "@/public/characters/animations/female_homeless/idle.gif";
+// import femaleAtk from "@/public/characters/animations/female_homeless/attack.gif";
+// import femaleDead from "@/public/characters/animations/female_homeless/dead.gif";
+// import femaleHurt from "@/public/characters/animations/female_homeless/hurt.gif";
+// import femaleRun from "@/public/characters/animations/female_homeless/run.gif";
+// import femaleWalk from "@/public/characters/animations/female_homeless/walk.gif";
+
+// import samuraiIdle from "@/public/characters/animations/samurai/idle.gif";
+// import samuraiAtk from "@/public/characters/animations/samurai/attack.gif";
+// import samuraiAtk2 from "@/public/characters/animations/samurai/attack-2.gif";
+// import samuraiDead from "@/public/characters/animations/samurai/dead.gif";
+// import samuraiHurt from "@/public/characters/animations/samurai/hurt.gif";
+// import samuraiRun from "@/public/characters/animations/samurai/run.gif";
+// import samuraiWalk from "@/public/characters/animations/samurai/walk.gif";
+
+// import shinobiIdle from "@/public/characters/animations/shinobi/idle.gif";
+// import shinobiAtk from "@/public/characters/animations/shinobi/attack.gif";
+// import shinobiAtk2 from "@/public/characters/animations/shinobi/attack-2.gif";
+// import shinobiDead from "@/public/characters/animations/shinobi/dead.gif";
+// import shinobiHurt from "@/public/characters/animations/shinobi/hurt.gif";
+// import shinobiRun from "@/public/characters/animations/shinobi/run.gif";
+// import shinobiWalk from "@/public/characters/animations/shinobi/walk.gif";
+
+// import fighterIdle from "@/public/characters/animations/fighter/idle.gif";
+// import fighterAtk from "@/public/characters/animations/fighter/attack.gif";
+// import fighterAtk2 from "@/public/characters/animations/fighter/attack-2.gif";
+// import fighterDead from "@/public/characters/animations/fighter/dead.gif";
+// import fighterHurt from "@/public/characters/animations/fighter/hurt.gif";
+// import fighterRun from "@/public/characters/animations/fighter/run.gif";
+// import fighterWalk from "@/public/characters/animations/fighter/walk.gif";
+
+// import fireMageIdle from "@/public/characters/animations/fire_mage/idle.gif";
+// import fireMageAtk from "@/public/characters/animations/fire_mage/attack.gif";
+// import fireMageAtk2 from "@/public/characters/animations/fire_mage/attack-2.gif";
+// import fireMageDead from "@/public/characters/animations/fire_mage/dead.gif";
+// import fireMageHurt from "@/public/characters/animations/fire_mage/hurt.gif";
+// import fireMageRun from "@/public/characters/animations/fire_mage/run.gif";
+// import fireMageWalk from "@/public/characters/animations/fire_mage/walk.gif";
+
+// import lightningMageIdle from "@/public/characters/animations/lightning_mage/idle.gif";
+// import lightningMageAtk from "@/public/characters/animations/lightning_mage/attack.gif";
+// import lightningMageAtk2 from "@/public/characters/animations/lightning_mage/attack-2.gif";
+// import lightningMageDead from "@/public/characters/animations/lightning_mage/dead.gif";
+// import lightningMageHurt from "@/public/characters/animations/lightning_mage/hurt.gif";
+// import lightningMageRun from "@/public/characters/animations/lightning_mage/run.gif";
+// import lightningMageWalk from "@/public/characters/animations/lightning_mage/walk.gif";
+
 export const getCharacter = (
   characterState: CharacterState,
   size: number,

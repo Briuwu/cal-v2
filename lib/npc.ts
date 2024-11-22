@@ -50,3 +50,30 @@ export const getNPC = (NPCState: NPCState, size: number, stage: number) => {
     height,
   };
 };
+
+export const getNPCImage = (stage: number) => {
+  let stageName;
+
+  switch (stage) {
+    case 1:
+      stageName = "stage-1";
+      break;
+    case 2:
+      stageName = "stage-2";
+      break;
+    case 3:
+      stageName = "stage-3";
+      break;
+    case 4:
+      stageName = "stage-4";
+      break;
+    case 5:
+      stageName = "stage-5";
+      break;
+    default:
+      stageName = "stage-1";
+      break;
+  }
+
+  return `/npc/${stageName}/idle.gif`;
+};

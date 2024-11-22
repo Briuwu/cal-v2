@@ -22,6 +22,7 @@ type Props = {
   }[];
   playerName: string;
   stageId: number;
+  charSrc: string;
 };
 
 const audioBg = {
@@ -38,6 +39,7 @@ export const Game = ({
   dialogues,
   playerName,
   stageId,
+  charSrc,
 }: Props) => {
   const { load } = useGlobalAudioPlayer();
   const [scope, animate] = useAnimate();
@@ -86,6 +88,12 @@ export const Game = ({
     }
   };
 
+  const handlePreviousDialogue = () => {
+    if (dialogueIdx > 0) {
+      setDialogueIdx(dialogueIdx - 1);
+    }
+  };
+
   const handleSkipDialogue = async () => {
     setIsDialogue(false);
     let x = isSmallDevice ? 450 : isMediumDevice ? 600 : 1150;
@@ -114,8 +122,11 @@ export const Game = ({
         <Dialogue
           dialogue={dialogues[dialogueIdx]}
           onNextDialogue={handleNextDialogue}
+          onPreviousDialogue={handlePreviousDialogue}
           onSkipDialogue={handleSkipDialogue}
           playerName={playerName}
+          charSrc={charSrc}
+          stageId={stageId}
         />
       )}
       <Button
