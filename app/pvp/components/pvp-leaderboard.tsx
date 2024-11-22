@@ -16,9 +16,7 @@ export const PvpLeaderboard = ({ leaderboard, getUsername }: Props) => {
             <span className="mr-1">{rank}.</span>
             <div>
               <span className="mr-1 font-bold">{username}</span>
-              <span className="text-xs opacity-50">
-                {user.score}pt - {user.time}s
-              </span>
+              <span className="text-xs opacity-50">{user.score}pt</span>
             </div>
             <span className="ml-auto">{user.totalPoints} pts</span>
           </li>
