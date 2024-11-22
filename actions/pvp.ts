@@ -2,7 +2,7 @@
 
 import { db } from "@/db";
 import { pvpLeaderboard, pvpQuestions } from "@/db/schema";
-import { calculateTotalPoints } from "@/lib/utils";
+// import { calculateTotalPoints } from "@/lib/utils";
 import { sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { cache } from "react";
@@ -13,18 +13,12 @@ export const getAllPvpQuestions = cache(async () => {
   return data;
 });
 
-export const submitToLeaderboard = async (
-  userId: string,
-  score: number,
-  time: number,
-) => {
-  // calculate the total points by having the score and the lower time is better but the higher the score the better
-  const totalPoints = Math.floor(calculateTotalPoints(score, time)) * 100;
+export const submitToLeaderboard = async (userId: string, score: number) => {
+  const totalPoints = score * 0.7;
 
   await db.insert(pvpLeaderboard).values({
     userId,
     score,
-    time,
     totalPoints,
   });
 

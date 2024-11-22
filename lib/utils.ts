@@ -28,23 +28,23 @@ export function shuffle(array: string[]) {
   return array;
 }
 
-export function calculateTotalPoints(
-  totalScore: number,
-  timeTaken: number,
-  weightScore = 0.7,
-  weightTime = 0.3,
-) {
-  // Fixed default bounds for time normalization
-  const DEFAULT_MIN_TIME = 0;
-  const DEFAULT_MAX_TIME = 600; // Adjust based on expected maximum time
+// export function calculateTotalPoints(
+//   totalScore: number,
+//   timeTaken: number,
+//   weightScore = 0.7,
+//   weightTime = 0.3,
+// ) {
+//   // Fixed default bounds for time normalization
+//   const DEFAULT_MIN_TIME = 0;
+//   const DEFAULT_MAX_TIME = 600; // Adjust based on expected maximum time
 
-  // Normalize the time
-  let normalizedTime =
-    (timeTaken - DEFAULT_MIN_TIME) / (DEFAULT_MAX_TIME - DEFAULT_MIN_TIME);
-  // Calculate the inverse time score
-  let inverseTimeScore = 1 - normalizedTime;
-  // Calculate the total points
-  let totalPoints = weightScore * totalScore + weightTime * inverseTimeScore;
+//   // Normalize the time
+//   let normalizedTime =
+//     (timeTaken - DEFAULT_MIN_TIME) / (DEFAULT_MAX_TIME - DEFAULT_MIN_TIME);
+//   // Calculate the inverse time score
+//   let inverseTimeScore = 1 - normalizedTime;
+//   // Calculate the total points
+//   let totalPoints = weightScore * totalScore + weightTime * inverseTimeScore;
 
-  return totalPoints;
-}
+//   return totalPoints;
+// }

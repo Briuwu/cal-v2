@@ -213,7 +213,6 @@ export const pvpLeaderboard = pgTable("pvp_leaderboard", {
       onUpdate: "cascade",
     })
     .notNull(),
-  time: integer("time").notNull(),
   score: integer("score").notNull(),
   totalPoints: integer("total_points").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),

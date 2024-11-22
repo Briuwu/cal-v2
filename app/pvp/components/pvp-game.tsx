@@ -16,15 +16,18 @@ type Props = {
 };
 
 export const PvpGame = ({ data, userId }: Props) => {
-  let player1 = false;
+  const [player1, setPlayer1] = useState(false);
+  const [choices, setChoices] = useState({
+    p1: "",
+    p2: "",
+  });
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [isJoining, setIsJoining] = useState(false);
   const [joined, setJoined] = useState(false);
   const [roomUniqueId, setRoomUniqueId] = useState("");
-  const [choiceMade, setChoiceMade] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const { totalSeconds, seconds, minutes, isRunning, start, pause, reset } =
-    useStopwatch();
+  // const { totalSeconds, seconds, minutes, isRunning, start, pause, reset } =
+  //   useStopwatch();
   const [startGame, setStartGame] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<string[]>([]);
@@ -46,7 +49,6 @@ export const PvpGame = ({ data, userId }: Props) => {
 
     function handlePlayersConnected() {
       setJoined(true);
-      start();
     }
 
     socket.on("connection", handleConnect);
@@ -56,44 +58,54 @@ export const PvpGame = ({ data, userId }: Props) => {
     });
     socket.on("playersConnected", handlePlayersConnected);
 
-    socket.on("p1Choice", (data) => {
-      if (!player1) {
-        setChoiceMade(true);
-      }
-    });
-
-    socket.on("p2Choice", (data) => {
-      if (player1) {
-        setChoiceMade(true);
-      }
-    });
-
     return () => {
       socket.off("connection", handleConnect);
       socket.off("disconnect", handleDisconnect);
       socket.off("newGame");
       socket.off("playersConnected", handlePlayersConnected);
-      socket.off("p1Choice");
-      socket.off("p2Choice");
     };
   }, [socket]);
 
-  const handleNextQuestion = (answer: string) => {
+  const handleNextQuestion = () => {
     setQuestionIndex((prev) => prev + 1);
-    setAnswers((prev) => [...prev, answer]);
 
     if (questionIndex === data.length - 1) {
-      pause();
       setStartGame(false);
       setGameOver(true);
     }
   };
 
+  useEffect(() => {
+    function handleP1Choice(data: { value: string }) {
+      setChoices((prev) => ({ ...prev, p1: data.value }));
+      socket.emit("nextQuestion", {
+        value: data.value,
+        roomUniqueId: roomUniqueId,
+      });
+    }
+
+    function handleP2Choice(data: { value: string }) {
+      setChoices((prev) => ({ ...prev, p2: data.value }));
+      socket.emit("nextQuestion", {
+        value: data.value,
+        roomUniqueId: roomUniqueId,
+      });
+    }
+
+    socket.on("p1Choice", handleP1Choice);
+    socket.on("p2Choice", handleP2Choice);
+
+    return () => {
+      socket.off("p1Choice", handleP1Choice);
+      socket.off("p2Choice", handleP2Choice);
+    };
+  }, [socket.on]);
+
   const handleStartGame = () => {
     // reset();
     setStartGame(true);
     // start();
-    player1 = true;
+    setPlayer1(true);
     socket.emit("createGame");
   };
 
@@ -110,30 +122,28 @@ export const PvpGame = ({ data, userId }: Props) => {
 
   const handleSubmitScore = () => {
     startTransition(async () => {
-      await submitToLeaderboard(userId, answeredCorrectly.length, totalSeconds);
+      await submitToLeaderboard(userId, answeredCorrectly.length);
       toast.success("Score submitted successfully!");
-      reset();
       setAnswers([]);
       setQuestionIndex(0);
       setGameOver(false);
-      pause();
     });
   };
 
-  console.log("player1 choice", choiceMade);
+  const sendChoice = (choice: string) => {
+    const choiceEvent = player1 ? "p1Choice" : "p2Choice";
+    socket.emit(choiceEvent, {
+      value: choice,
+      roomUniqueId: roomUniqueId,
+    });
+  };
 
   return (
     <div className="text-white">
-      <Stopwatch isRunning={isRunning} seconds={seconds} minutes={minutes} />
-      {choiceMade && <p>Player 1 has made a choice</p>}
       <div className="mx-auto grid min-h-screen max-w-[500px] place-content-center">
         {gameOver ? (
           <div className="space-y-3 rounded-md bg-white p-4 text-black">
             <h3 className="text-2xl font-bold uppercase">Game Over!</h3>
-            <p>
-              Your total time is:{" "}
-              <span className="font-bold">{totalSeconds}</span> seconds.
-            </p>
             <p>
               Your total score is:{" "}
               <span className="font-bold">
@@ -155,7 +165,7 @@ export const PvpGame = ({ data, userId }: Props) => {
         ) : (
           <div>
             {!startGame ? (
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <Button onClick={handleStartGame}>Game Start</Button>
                 <Button onClick={() => setIsJoining(true)}>Join Game</Button>
                 {isJoining && (
@@ -180,6 +190,16 @@ export const PvpGame = ({ data, userId }: Props) => {
               </div>
             ) : (
               <div className="space-y-10 text-center">
+                {choices.p1 && (
+                  <div className="text-2xl font-bold">
+                    Player 1 has made a choice
+                  </div>
+                )}
+                {choices.p2 && (
+                  <div className="text-2xl font-bold">
+                    Player 2 has made a choice
+                  </div>
+                )}
                 <h2 className="text-3xl font-bold">
                   {currentQuestion.question}
                 </h2>
@@ -190,7 +210,7 @@ export const PvpGame = ({ data, userId }: Props) => {
                       className={cn(
                         "cursor-pointer border border-black bg-white p-2 text-black transition hover:scale-105",
                       )}
-                      onClick={() => handleNextQuestion(option)}
+                      onClick={() => sendChoice(option)}
                     >
                       {option}
                     </li>
