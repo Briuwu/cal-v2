@@ -57,7 +57,6 @@ export const GameQuestion = ({
       toast.success("Correct answer!");
     } else {
       onWrong();
-      form.reset();
       toast.error("Wrong answer!");
     }
   }

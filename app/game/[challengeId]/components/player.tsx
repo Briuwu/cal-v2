@@ -26,7 +26,7 @@ export const Player = ({
   return (
     <>
       <Image
-        src={src}
+        src={src!}
         alt=""
         width={width}
         height={height}
@@ -35,7 +35,6 @@ export const Player = ({
           "absolute -left-20 top-[120px] z-40 md:top-[375px] lg:-left-40 lg:bottom-[105px] lg:top-auto",
           levelType === "reward" && "top-[150px]",
         )}
-        unoptimized
         priority
       />
     </>

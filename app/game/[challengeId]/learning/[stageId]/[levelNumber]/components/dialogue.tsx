@@ -20,6 +20,7 @@ type Props = {
   dialogue: {
     name: string;
     text: string;
+    image?: string;
   };
   onNextDialogue: () => void;
   onPreviousDialogue: () => void;
@@ -106,7 +107,7 @@ export const Dialogue = ({
         height={100}
         className="absolute right-6 top-0 translate-y-16"
       />
-      <div className="relative z-[99] grid min-h-60 grid-rows-[auto,1fr,auto] rounded-xl bg-white p-5">
+      <div className="relative z-[99] grid min-h-56 grid-rows-[auto,1fr,auto] rounded-xl bg-white p-5">
         <p
           className={cn(
             "font-bold uppercase",
@@ -118,9 +119,17 @@ export const Dialogue = ({
           {dialogue.name === "player" ? playerName : dialogue.name}
         </p>
         <div className="p-2">
-          <p className="text-center text-2xl leading-relaxed tracking-wide">
+          <p className="text-center leading-relaxed tracking-wide">
             {dialogue.text}
           </p>
+          {dialogue.image && (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={`/${dialogue.image}`}
+              alt=""
+              className="mx-auto w-[500px]"
+            />
+          )}
         </div>
         <div className="flex justify-between border-t-2 border-black pt-4">
           <Button

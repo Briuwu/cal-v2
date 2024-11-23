@@ -25,7 +25,6 @@ export const Boss = ({
         height={height}
         id="boss"
         className="absolute right-5 top-[100px] md:right-40 md:top-[390px] lg:bottom-[110px] lg:top-auto"
-        unoptimized
       />
     </>
   );

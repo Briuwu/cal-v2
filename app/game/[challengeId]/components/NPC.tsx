@@ -37,7 +37,6 @@ export const NPC = ({
         height={height}
         id="npc"
         className="absolute right-10 top-[115px] z-40 scale-x--1 md:top-[375px] lg:bottom-[105px] lg:right-40 lg:top-auto"
-        unoptimized
       />
     </>
   );
