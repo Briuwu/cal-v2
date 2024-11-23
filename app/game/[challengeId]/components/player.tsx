@@ -1,5 +1,6 @@
 "use client";
 import { getCharacter } from "@/lib/character";
+import { cn } from "@/lib/utils";
 import { Characters, CharacterState } from "@/types";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import Image from "next/image";
@@ -7,9 +8,11 @@ import Image from "next/image";
 export const Player = ({
   characterState,
   characterType,
+  levelType,
 }: {
   characterState: CharacterState;
   characterType: number;
+  levelType?: string;
 }) => {
   const isLargeDevice = useMediaQuery("only screen and (min-width : 1024px)");
   let size = isLargeDevice ? 2.5 : 3.85;
@@ -28,7 +31,10 @@ export const Player = ({
         width={width}
         height={height}
         id="character"
-        className="absolute -left-20 top-[105px] z-40 md:top-[375px] lg:-left-40 lg:bottom-[105px] lg:top-auto"
+        className={cn(
+          "absolute -left-20 top-[120px] z-40 md:top-[375px] lg:-left-40 lg:bottom-[105px] lg:top-auto",
+          levelType === "reward" && "top-[150px]",
+        )}
         unoptimized
         priority
       />

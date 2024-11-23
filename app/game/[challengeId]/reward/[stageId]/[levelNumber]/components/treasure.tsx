@@ -17,7 +17,7 @@ export const Treasure = () => {
         height={235 / size}
         id="chest"
         className={cn(
-          "absolute right-1/2 top-[145px] z-40 translate-x-1/2 md:top-[395px] lg:bottom-[105px] lg:top-auto",
+          "absolute right-1/2 top-[175px] z-40 translate-x-1/2 md:top-[395px] lg:bottom-[105px] lg:top-auto",
         )}
       />
       <Image
@@ -27,7 +27,7 @@ export const Treasure = () => {
         height={281 / size}
         id="animatedChest"
         className={cn(
-          "absolute right-1/2 top-[135px] z-40 translate-x-1/2 opacity-0 md:top-[385px] lg:bottom-[105px] lg:top-auto",
+          "absolute right-1/2 top-[165px] z-40 translate-x-1/2 opacity-0 md:top-[385px] lg:bottom-[105px] lg:top-auto",
         )}
       />
     </>

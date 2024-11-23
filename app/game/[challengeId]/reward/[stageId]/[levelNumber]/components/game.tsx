@@ -130,7 +130,11 @@ export const Game = ({ level, characterType, stageId }: Props) => {
       ref={scope}
       className="z-20 overflow-hidden lg:absolute lg:inset-0 lg:p-4"
     >
-      <Player characterState={characterState} characterType={characterType} />
+      <Player
+        characterState={characterState}
+        characterType={characterType}
+        levelType={level.type}
+      />
       <Treasure />
       <Button
         disabled={isAnimating}
@@ -141,14 +145,14 @@ export const Game = ({ level, characterType, stageId }: Props) => {
         Open Chest
       </Button>
       <Rewards reward={currentReward!} />
-      <div>
+      {/* <div>
         <div className="bottom-4 left-4 flex lg:absolute">
           {lifes > 0 &&
             Array.from({ length: lifes }).map((_, idx) => (
               <Image key={idx} src="/heart.png" alt="" width={50} height={50} />
             ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
