@@ -3,15 +3,85 @@ import Image from "next/image";
 import brianPic from "@/public/members/about_bry.png";
 import jeranPic from "@/public/members/about_jeran.png";
 import ijPic from "@/public/members/about_ij.png";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+const faq = [
+  {
+    question: "How can I earn rewards?",
+    answer:
+      "Students can earn rewards by completing various tasks and challenges within the game. These rewards can be used to purchase characters and other items in the shop.",
+  },
+  {
+    question: "What is PvP (speedrun) mode?",
+    answer:
+      "PvP (speedrun) mode allows students to duel against each other by completing tasks as quickly as possible. The student who completes the tasks in the shortest time wins the duel.",
+  },
+  {
+    question: "How do I purchase characters?",
+    answer:
+      "Characters can be purchased in the shop using the rewards earned from completing tasks and challenges within the game.",
+  },
+  {
+    question: "Is CTRL+ALT+LEARN accessible?",
+    answer:
+      "Yes. It adheres to the WAI-ARIA design pattern to ensure accessibility for all users. It is also optimized for mobile devices.",
+  },
+  {
+    question: "Can I track my progress?",
+    answer:
+      "Yes, the platform allows students to track their progress, view their achievements, and see their ranking in PvP mode.",
+  },
+  {
+    question: "What kind of learning materials are available?",
+    answer:
+      "The platform provides a variety of learning materials including tutorials, quizzes, and interactive challenges to help students learn web development.",
+  },
+];
 
 export default function About() {
   return (
     <main className="container mb-10 space-y-10">
+      <div className="rounded-lg bg-gray-100 p-10">
+        <h1 className="mb-4 text-center font-bold md:text-left md:text-4xl">
+          What is CTRL + ALT + LEARN?
+        </h1>
+        <p className="text-center md:text-left md:text-lg">
+          CTRL+ALT+LEARN is about tackling web development, where students can
+          learn web development by playing this game. They can earn rewards,
+          achievements, and participate in PvP (speedrun) to duel against other
+          students. It also has a shop functionality where the students can buy
+          characters that they can use for the game.
+        </p>
+        <div>
+          <h2 className="mb-4 mt-6 text-center font-bold md:text-left md:text-3xl">
+            Frequently Asked Questions
+          </h2>
+          <Accordion type="single" collapsible>
+            {faq.map(({ question, answer }, index) => (
+              <AccordionItem
+                key={index}
+                value={question}
+                className="md:text-lg"
+              >
+                <AccordionTrigger>{question}</AccordionTrigger>
+                <AccordionContent className="text-center md:text-left md:text-lg">
+                  {answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
       <p className="text-center text-xl">
         Get to know the creators of <br />
         <span className="text-2xl font-bold">CTRL + ALT + LEARN</span>
       </p>
-      <div className="grid justify-center space-y-5 rounded-xl border-2 border-black p-5 md:grid-cols-3 md:place-items-center">
+      <div className="grid justify-center space-y-5 rounded-xl border-2 border-black p-5 shadow-lg md:grid-cols-3 md:place-items-center">
         <div className="max-w-96 space-y-3">
           <p className="text-center font-bold md:text-left md:text-2xl">
             MILLONTE, <br /> BRIAN LAURENCE E.
@@ -46,7 +116,7 @@ export default function About() {
           </p>
         </div>
       </div>
-      <div className="grid justify-center space-y-5 rounded-xl border-2 border-black p-5 md:grid-cols-3 md:place-items-center">
+      <div className="grid justify-center space-y-5 rounded-xl border-2 border-black p-5 shadow-lg md:grid-cols-3 md:place-items-center">
         <div className="max-w-96 space-y-3">
           <p className="text-center font-bold md:text-left md:text-2xl">
             MERINO, <br /> JERAN CHRISTOPHER D.
@@ -82,7 +152,7 @@ export default function About() {
           </p>
         </div>
       </div>
-      <div className="grid justify-center space-y-5 rounded-xl border-2 border-black p-5 md:grid-cols-3 md:place-items-center">
+      <div className="grid justify-center space-y-5 rounded-xl border-2 border-black p-5 shadow-lg md:grid-cols-3 md:place-items-center">
         <div className="max-w-96 space-y-3">
           <p className="text-center font-bold md:text-left md:text-2xl">
             MARASIGAN, <br /> ISAAC JAMES B.
