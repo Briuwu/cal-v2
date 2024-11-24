@@ -1,5 +1,25 @@
 import { BossState } from "@/types";
 
+import { StaticImageData } from "next/image";
+
+import bloatedAtk from "@/public/boss/bloated/attack.gif";
+import bloatedDeath from "@/public/boss/bloated/death.gif";
+import bloatedHurt from "@/public/boss/bloated/hurt.gif";
+import bloatedIdle from "@/public/boss/bloated/idle.gif";
+import bloatedWalk from "@/public/boss/bloated/walk.gif";
+
+import centipedeAtk from "@/public/boss/centipede/attack.gif";
+import centipedeDeath from "@/public/boss/centipede/death.gif";
+import centipedeHurt from "@/public/boss/centipede/hurt.gif";
+import centipedeIdle from "@/public/boss/centipede/idle.gif";
+import centipedeWalk from "@/public/boss/centipede/walk.gif";
+
+import turtleAtk from "@/public/boss/turtle/attack.gif";
+import turtleDeath from "@/public/boss/turtle/death.gif";
+import turtleHurt from "@/public/boss/turtle/hurt.gif";
+import turtleIdle from "@/public/boss/turtle/idle.gif";
+import turtleWalk from "@/public/boss/turtle/walk.gif";
+
 export const getBoss = (
   bossState: BossState,
   size: number,
@@ -14,7 +34,12 @@ export const getBoss = (
     attack_width,
     attack_height,
     walk_width,
-    walk_height;
+    walk_height,
+    idleSrc,
+    hurtSrc,
+    deathSrc,
+    attackSrc,
+    walkSrc;
 
   const boss = bossName.toLowerCase();
 
@@ -30,6 +55,13 @@ export const getBoss = (
       idle_height = 328;
       walk_width = 313;
       walk_height = 322;
+
+      idleSrc = bloatedIdle;
+      hurtSrc = bloatedHurt;
+      deathSrc = bloatedDeath;
+      attackSrc = bloatedAtk;
+      walkSrc = bloatedWalk;
+
       break;
     case "centipede":
       attack_width = 426;
@@ -42,6 +74,13 @@ export const getBoss = (
       idle_height = 247;
       walk_width = 332;
       walk_height = 247;
+
+      idleSrc = centipedeIdle;
+      hurtSrc = centipedeHurt;
+      deathSrc = centipedeDeath;
+      attackSrc = centipedeAtk;
+      walkSrc = centipedeWalk;
+
       break;
     case "turtle":
       attack_width = 423;
@@ -54,31 +93,38 @@ export const getBoss = (
       idle_height = 249;
       walk_width = 396;
       walk_height = 271;
+
+      idleSrc = turtleIdle;
+      hurtSrc = turtleHurt;
+      deathSrc = turtleDeath;
+      attackSrc = turtleAtk;
+      walkSrc = turtleWalk;
+
       break;
   }
   const images = {
     idle: {
-      src: `/boss/${boss}/idle.gif`,
+      src: idleSrc,
       width: idle_width ?? 0,
       height: idle_height ?? 0,
     },
     hurt: {
-      src: `/boss/${boss}/hurt.gif`,
+      src: hurtSrc,
       width: hurt_width ?? 0,
       height: hurt_height ?? 0,
     },
     death: {
-      src: `/boss/${boss}/death.gif`,
+      src: deathSrc,
       width: death_width ?? 0,
       height: death_height ?? 0,
     },
     attack: {
-      src: `/boss/${boss}/attack.gif`,
+      src: attackSrc,
       width: attack_width ?? 0,
       height: attack_height ?? 0,
     },
     walk: {
-      src: `/boss/${boss}/walk.gif`,
+      src: walkSrc,
       width: walk_width ?? 0,
       height: walk_height ?? 0,
     },
