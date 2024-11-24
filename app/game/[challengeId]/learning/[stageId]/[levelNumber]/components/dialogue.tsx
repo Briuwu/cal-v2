@@ -5,6 +5,7 @@ import { getNPCImage } from "@/lib/npc";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import Image from "next/image";
+import { useState } from "react";
 
 type Props = {
   dialogue: {
@@ -27,6 +28,7 @@ export const Dialogue = ({
   stageId,
   onPreviousDialogue,
 }: Props) => {
+  const [open, setOpen] = useState(true);
   const npcImage = getNPCImage(stageId);
   const isLargeDevice = useMediaQuery("only screen and (min-width : 1024px)");
   return !isLargeDevice ? (
@@ -91,17 +93,22 @@ export const Dialogue = ({
         >
           {dialogue.name === "player" ? playerName : dialogue.name}
         </p>
-        <div className="p-2">
+        <div className="flex flex-col gap-2 p-2">
           <p className="text-center leading-relaxed tracking-wide">
             {dialogue.text}
           </p>
           {dialogue.image && (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={`/${dialogue.image}`}
-              alt=""
-              className="absolute left-0 right-0 top-0 mx-auto max-w-[450px] -translate-y-80 border-4 border-white"
-            />
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant={"default"} className="mx-auto">
+                  View Example
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`/${dialogue.image}`} alt="" className="max-w-full" />
+              </DialogContent>
+            </Dialog>
           )}
         </div>
         <div className="flex justify-between border-t-2 border-black pt-4">
@@ -113,7 +120,10 @@ export const Dialogue = ({
             Previous
           </Button>
           <Button
-            onClick={onNextDialogue}
+            onClick={() => {
+              onNextDialogue();
+              setOpen(true);
+            }}
             variant={"default"}
             className="w-fit text-xs transition hover:scale-105 active:scale-95"
           >
