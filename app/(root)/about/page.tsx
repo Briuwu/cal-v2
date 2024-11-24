@@ -47,7 +47,7 @@ export default function About() {
   return (
     <main className="container mb-10 space-y-10">
       <div className="grid gap-10 rounded-lg bg-slate-200 p-10 md:grid-cols-2">
-        <div className="border-r-2 border-black">
+        <div className="border-black md:border-r-2">
           <h1 className="mb-4 text-center font-bold md:text-left md:text-4xl">
             What is CTRL + ALT + LEARN?
           </h1>
