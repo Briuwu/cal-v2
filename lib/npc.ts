@@ -1,40 +1,79 @@
 import { NPCState } from "@/types";
 
+import stage1Idle from "@/public/npc/stage-1/idle.gif";
+import stage1Dialogue from "@/public/npc/stage-1/dialogue.gif";
+
+import stage2Idle from "@/public/npc/stage-2/idle.gif";
+import stage2Dialogue from "@/public/npc/stage-2/dialogue.gif";
+
+import stage3Idle from "@/public/npc/stage-3/idle.gif";
+import stage3Dialogue from "@/public/npc/stage-3/dialogue.gif";
+import { StaticImageData } from "next/image";
+
+// import stage4Idle from '@/public/npc/stage-4/idle.gif';
+// import stage4Dialogue from '@/public/npc/stage-4/dialogue.gif';
+
+// import stage5Idle from '@/public/npc/stage-5/idle.gif';
+// import stage5Dialogue from '@/public/npc/stage-5/dialogue.gif';
+
 export const getNPC = (NPCState: NPCState, size: number, stage: number) => {
-  let stageName;
+  let stageName, idleSrc, dialogueSrc;
 
   switch (stage) {
     case 1:
       stageName = "stage-1";
+
+      idleSrc = stage1Idle;
+      dialogueSrc = stage1Dialogue;
+
       break;
     case 2:
       stageName = "stage-2";
+
+      idleSrc = stage2Idle;
+      dialogueSrc = stage2Dialogue;
+
       break;
     case 3:
       stageName = "stage-3";
+
+      idleSrc = stage3Idle;
+      dialogueSrc = stage3Dialogue;
+
       break;
     case 4:
       stageName = "stage-4";
+
+      // idleSrc = stage4Idle;
+      // dialogueSrc = stage4Dialogue;
+
       break;
     case 5:
       stageName = "stage-5";
+
+      // idleSrc = stage5Idle;
+      // dialogueSrc = stage5Dialogue;
+
       break;
     default:
       stageName = "stage-1";
+
+      idleSrc = stage1Idle;
+      dialogueSrc = stage1Dialogue;
       break;
   }
 
   const images: Record<
     NPCState,
-    { src: string; width: number; height: number }
+    { src?: StaticImageData; width: number; height: number }
   > = {
     idle: {
-      src: `/npc/${stageName}/idle.gif`,
+      src: idleSrc,
       width: 171,
       height: 308,
     },
     dialogue: {
-      src: `/npc/${stageName}/dialogue.gif`,
+      src: dialogueSrc,
       width: 263,
       height: 306,
     },
