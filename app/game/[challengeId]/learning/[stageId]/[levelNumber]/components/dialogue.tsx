@@ -1,16 +1,6 @@
 "use client";
-// import {
-//   AlertDialog,
-//   AlertDialogAction,
-//   AlertDialogCancel,
-//   AlertDialogContent,
-//   AlertDialogDescription,
-//   AlertDialogFooter,
-//   AlertDialogHeader,
-//   AlertDialogTitle,
-//   AlertDialogTrigger,
-// } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { getNPCImage } from "@/lib/npc";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from "@uidotdev/usehooks";
@@ -32,7 +22,6 @@ type Props = {
 export const Dialogue = ({
   dialogue,
   onNextDialogue,
-  onSkipDialogue,
   playerName,
   charSrc,
   stageId,
@@ -47,34 +36,18 @@ export const Dialogue = ({
       </p>
       <hr />
       <p className="text-black/75">{dialogue.text}</p>
+      {dialogue.image && (
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant={"default"}>View Example</Button>
+          </DialogTrigger>
+          <DialogContent>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`/${dialogue.image}`} alt="" className="max-w-full" />
+          </DialogContent>
+        </Dialog>
+      )}
       <div className="flex items-center justify-between border-t-2 border-black pt-4">
-        {/* <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button
-              variant={"destructive"}
-              className="transition hover:scale-105 active:scale-95"
-            >
-              Skip Dialogue
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>
-                Are you absolutely sure you want to skip the dialogue?
-              </AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. You will miss out on important
-                information.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={onSkipDialogue}>
-                Yes, skip it
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog> */}
         <Button
           onClick={onPreviousDialogue}
           variant={"destructive"}
