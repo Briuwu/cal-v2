@@ -18,6 +18,7 @@ import { Questions } from "@/types";
 import { toast } from "sonner";
 import { useState } from "react";
 import { onClueUse } from "@/actions/level";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   answer: z.string().min(2),
@@ -89,13 +90,14 @@ export const GameQuestion = ({
                 <FormItem>
                   <FormLabel className="text-sm">{data.question}</FormLabel>
                   <FormControl>
-                    <Input
+                    <Textarea
                       placeholder={
                         showClue ? `clue: ${data.clue}` : "Enter answer here..."
                       }
                       {...field}
                       className="mx-auto max-w-80 text-center text-sm"
                       disabled={isAnimating}
+                      rows={3}
                     />
                   </FormControl>
                   <span className="text-center text-sm text-red-500">
