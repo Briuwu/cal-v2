@@ -46,30 +46,37 @@ const faq = [
 export default function About() {
   return (
     <main className="container mb-10 space-y-10">
-      <div className="rounded-lg bg-gray-100 p-10">
-        <h1 className="mb-4 text-center font-bold md:text-left md:text-4xl">
-          What is CTRL + ALT + LEARN?
-        </h1>
-        <p className="text-center md:text-left md:text-lg">
-          CTRL+ALT+LEARN is about tackling web development, where students can
-          learn web development by playing this game. They can earn rewards,
-          achievements, and participate in PvP (speedrun) to duel against other
-          students. It also has a shop functionality where the students can buy
-          characters that they can use for the game.
-        </p>
+      <div className="grid gap-10 rounded-lg bg-slate-200 p-10 md:grid-cols-2">
+        <div className="border-r-2 border-black">
+          <h1 className="mb-4 text-center font-bold md:text-left md:text-4xl">
+            What is CTRL + ALT + LEARN?
+          </h1>
+          <p className="text-center tracking-wide md:text-left md:text-lg md:leading-loose">
+            <span className="font-semibold">CTRL+ALT+LEARN</span> is about
+            tackling web development, where students can learn web development
+            by playing this game. They can earn rewards, achievements, and
+            participate in PvP (speedrun) to duel against other students. It
+            also has a shop functionality where the students can buy characters
+            that they can use for the game. The platform is designed to be
+            engaging and educational, providing students with a fun and
+            interactive way to learn web development.
+          </p>
+        </div>
         <div>
-          <h2 className="mb-4 mt-6 text-center font-bold md:text-left md:text-3xl">
+          <h2 className="mb-4 text-center font-bold md:text-left md:text-3xl">
             Frequently Asked Questions
           </h2>
-          <Accordion type="single" collapsible>
+          <Accordion type="single" collapsible defaultValue={faq[0].question}>
             {faq.map(({ question, answer }, index) => (
               <AccordionItem
                 key={index}
                 value={question}
                 className="md:text-lg"
               >
-                <AccordionTrigger>{question}</AccordionTrigger>
-                <AccordionContent className="text-center md:text-left md:text-lg">
+                <AccordionTrigger className="font-semibold">
+                  {question}
+                </AccordionTrigger>
+                <AccordionContent className="text-center italic md:text-left md:text-lg">
                   {answer}
                 </AccordionContent>
               </AccordionItem>
