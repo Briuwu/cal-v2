@@ -127,7 +127,7 @@ export const Dialogue = ({
             <img
               src={`/${dialogue.image}`}
               alt=""
-              className="absolute left-0 right-0 top-0 mx-auto max-w-[500px] -translate-y-80 border-4 border-white"
+              className="absolute left-0 right-0 top-0 mx-auto max-w-[450px] -translate-y-80 border-4 border-white"
             />
           )}
         </div>
