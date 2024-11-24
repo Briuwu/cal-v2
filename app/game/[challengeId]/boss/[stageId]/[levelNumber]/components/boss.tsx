@@ -19,7 +19,7 @@ export const Boss = ({
   return (
     <>
       <Image
-        src={src}
+        src={src!}
         alt=""
         width={width}
         height={height}
