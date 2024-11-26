@@ -1,8 +1,6 @@
 "use client";
 import { useMemo, useState, useTransition, useEffect } from "react";
 
-import { useStopwatch } from "react-timer-hook";
-import { Stopwatch } from "./stopwatch";
 import { pvpQuestions } from "@/db/schema";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -26,11 +24,10 @@ export const PvpGame = ({ data, userId }: Props) => {
   const [joined, setJoined] = useState(false);
   const [roomUniqueId, setRoomUniqueId] = useState("");
   const [isPending, startTransition] = useTransition();
-  // const { totalSeconds, seconds, minutes, isRunning, start, pause, reset } =
-  //   useStopwatch();
   const [startGame, setStartGame] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState<string[]>([]);
+  const [p1Answers, setP1Answers] = useState<string[]>([]);
+  const [p2Answers, setP2Answers] = useState<string[]>([]);
   const [gameOver, setGameOver] = useState(false);
 
   const currentQuestion = useMemo(
@@ -55,6 +52,7 @@ export const PvpGame = ({ data, userId }: Props) => {
     socket.on("disconnect", handleDisconnect);
     socket.on("newGame", (data) => {
       setRoomUniqueId(data.roomUniqueId);
+      setPlayer1(true);
     });
     socket.on("playersConnected", handlePlayersConnected);
 
@@ -64,48 +62,42 @@ export const PvpGame = ({ data, userId }: Props) => {
       socket.off("newGame");
       socket.off("playersConnected", handlePlayersConnected);
     };
-  }, [socket]);
+  }, []);
+
+  useEffect(() => {
+    if (questionIndex === data.length) {
+      setGameOver(true);
+      setStartGame(false);
+    }
+    socket.on("choicesMade", (data) => {
+      handleNextQuestion();
+      socket.emit("resetChoices", { roomUniqueId: data.roomUniqueId });
+      setChoices({ p1: "", p2: "" });
+    });
+
+    socket.on("p1Choice", (data) => {
+      setChoices((prev) => ({ ...prev, p1: data.value }));
+    });
+
+    socket.on("p2Choice", (data) => {
+      setChoices((prev) => ({ ...prev, p2: data.value }));
+    });
+
+    return () => {
+      socket.off("choicesMade");
+      socket.off("p1Choice");
+      socket.off("p2Choice");
+    };
+  }, [data.length, questionIndex, choices]);
 
   const handleNextQuestion = () => {
     setQuestionIndex((prev) => prev + 1);
-
-    if (questionIndex === data.length - 1) {
-      setStartGame(false);
-      setGameOver(true);
-    }
   };
-
-  useEffect(() => {
-    function handleP1Choice(data: { value: string }) {
-      setChoices((prev) => ({ ...prev, p1: data.value }));
-      socket.emit("nextQuestion", {
-        value: data.value,
-        roomUniqueId: roomUniqueId,
-      });
-    }
-
-    function handleP2Choice(data: { value: string }) {
-      setChoices((prev) => ({ ...prev, p2: data.value }));
-      socket.emit("nextQuestion", {
-        value: data.value,
-        roomUniqueId: roomUniqueId,
-      });
-    }
-
-    socket.on("p1Choice", handleP1Choice);
-    socket.on("p2Choice", handleP2Choice);
-
-    return () => {
-      socket.off("p1Choice", handleP1Choice);
-      socket.off("p2Choice", handleP2Choice);
-    };
-  }, [socket.on]);
 
   const handleStartGame = () => {
     // reset();
     setStartGame(true);
     // start();
-    setPlayer1(true);
     socket.emit("createGame");
   };
 
@@ -115,16 +107,29 @@ export const PvpGame = ({ data, userId }: Props) => {
     setStartGame(true);
   };
 
-  const answeredCorrectly = useMemo(
-    () => answers.filter((answer, index) => answer === data[index].answer),
-    [answers, data],
+  const p1AnsweredCorrectly = useMemo(
+    () => p1Answers.filter((answer, index) => answer === data[index].answer),
+    [p1Answers, data],
   );
+
+  const p2AnsweredCorrectly = useMemo(
+    () => p2Answers.filter((answer, index) => answer === data[index].answer),
+    [p2Answers, data],
+  );
+
+  console.log("p1", p1Answers);
+  console.log("p2", p2Answers);
 
   const handleSubmitScore = () => {
     startTransition(async () => {
-      await submitToLeaderboard(userId, answeredCorrectly.length);
+      if (player1) {
+        await submitToLeaderboard(userId, p1AnsweredCorrectly.length);
+      } else {
+        await submitToLeaderboard(userId, p2AnsweredCorrectly.length);
+      }
       toast.success("Score submitted successfully!");
-      setAnswers([]);
+      setP1Answers([]);
+      setP2Answers([]);
       setQuestionIndex(0);
       setGameOver(false);
     });
@@ -136,6 +141,11 @@ export const PvpGame = ({ data, userId }: Props) => {
       value: choice,
       roomUniqueId: roomUniqueId,
     });
+    if (player1) {
+      setP1Answers((prev) => [...prev, choice]);
+    } else {
+      setP2Answers((prev) => [...prev, choice]);
+    }
   };
 
   return (
@@ -147,7 +157,10 @@ export const PvpGame = ({ data, userId }: Props) => {
             <p>
               Your total score is:{" "}
               <span className="font-bold">
-                {answeredCorrectly.length}/{data.length}
+                {player1
+                  ? p1AnsweredCorrectly.length
+                  : p2AnsweredCorrectly.length}
+                /{data.length}
               </span>
             </p>
             <div>
@@ -201,10 +214,10 @@ export const PvpGame = ({ data, userId }: Props) => {
                   </div>
                 )}
                 <h2 className="text-3xl font-bold">
-                  {currentQuestion.question}
+                  {currentQuestion?.question}
                 </h2>
                 <ul className="space-y-5">
-                  {currentQuestion.options!.map((option, index) => (
+                  {currentQuestion?.options!.map((option, index) => (
                     <li
                       key={index}
                       className={cn(

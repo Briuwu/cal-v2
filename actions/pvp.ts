@@ -14,11 +14,11 @@ export const getAllPvpQuestions = cache(async () => {
 });
 
 export const submitToLeaderboard = async (userId: string, score: number) => {
-  const totalPoints = score * 0.7;
+  const totalPoints = score * 10;
 
   await db.insert(pvpLeaderboard).values({
     userId,
-    score,
+    score: totalPoints,
     totalPoints,
   });
 
