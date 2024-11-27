@@ -35,51 +35,69 @@ export const Levels = ({ levels, userProgress }: Props) => {
         progress.userId === userId,
     );
 
-    if (progress) {
-      return (
-        <div key={level.id} className="relative">
-          {progress.status === "unlocked" && (
-            <Image
-              src="/stages/levels/start-pointer.png"
-              alt=""
-              width={82}
-              height={54}
-              className="absolute -top-10 z-20 animate-bounce"
-            />
-          )}
-          <Link
-            href={`/game/${level.id}/${level.type}/${level.stageId}/${level.levelNumber}`}
-            aria-disabled={progress.status === "completed"}
-            className={cn(
-              "relative",
-              progress.status === "completed" &&
-                "pointer-events-none opacity-50",
-            )}
-          >
-            <Image
-              src={
-                progress.status === "completed"
-                  ? "/stages/levels/completed.png"
-                  : imgSrc
-              }
-              alt=""
-              width={70}
-              height={65}
-            />
-          </Link>
-        </div>
-      );
-    } else {
-      return (
+    return (
+      <div key={level.id} className="relative">
         <Image
-          src="/stages/levels/locked-level.png"
+          src="/stages/levels/start-pointer.png"
           alt=""
-          key={level.id}
-          width={70}
-          height={65}
+          width={82}
+          height={54}
+          className="absolute -top-10 z-20 animate-bounce"
         />
-      );
-    }
+        <Link
+          href={`/game/${level.id}/${level.type}/${level.stageId}/${level.levelNumber}`}
+          className={cn("relative")}
+        >
+          <Image src={imgSrc} alt="" width={70} height={65} />
+        </Link>
+      </div>
+    );
+
+    // if (progress) {
+    //   return (
+    //     <div key={level.id} className="relative">
+    //       {progress.status === "unlocked" && (
+    //         <Image
+    //           src="/stages/levels/start-pointer.png"
+    //           alt=""
+    //           width={82}
+    //           height={54}
+    //           className="absolute -top-10 z-20 animate-bounce"
+    //         />
+    //       )}
+    //       <Link
+    //         href={`/game/${level.id}/${level.type}/${level.stageId}/${level.levelNumber}`}
+    //         aria-disabled={progress.status === "completed"}
+    //         className={cn(
+    //           "relative",
+    //           progress.status === "completed" &&
+    //             "pointer-events-none opacity-50",
+    //         )}
+    //       >
+    //         <Image
+    //           src={
+    //             progress.status === "completed"
+    //               ? "/stages/levels/completed.png"
+    //               : imgSrc
+    //           }
+    //           alt=""
+    //           width={70}
+    //           height={65}
+    //         />
+    //       </Link>
+    //     </div>
+    //   );
+    // } else {
+    //   return (
+    //     <Image
+    //       src="/stages/levels/locked-level.png"
+    //       alt=""
+    //       key={level.id}
+    //       width={70}
+    //       height={65}
+    //     />
+    //   );
+    // }
   });
   return (
     <div className="grid grid-flow-col justify-between [&>*:nth-child(even)]:mt-28">
