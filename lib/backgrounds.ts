@@ -1,13 +1,37 @@
-import stage1Level1 from "@/public/stages/stage-1.png";
-import stage2Level1 from "@/public/stages/stage-2.png";
-import stage3Level1 from "@/public/stages/stage-3.png";
-import stage4Level1 from "@/public/stages/stage-4.png";
-import stage5Level1 from "@/public/stages/stage-5.png";
-
 export const backgroundImg = {
-  1: stage1Level1,
-  2: stage2Level1,
-  3: stage3Level1,
-  4: stage4Level1,
-  5: stage5Level1,
+  1: "/stages/stage-1.png",
+  2: "/stages/stage-1-2.png",
+  3: "/stages/stage-1-2.png",
+  4: "/stages/stage-1-3.png",
+  5: "/stages/stage-1-4.png",
+  6: "/stages/stage-1-5.png",
+  7: "/stages/stage-1-5.png",
+  8: "/stages/stage-2.png",
+  9: "/stages/stage-2-2.png",
+  10: "/stages/stage-2-2.png",
+  11: "/stages/stage-2-3.png",
+  12: "/stages/stage-2-4.png",
+  13: "/stages/stage-2-5.png",
+  14: "/stages/stage-2-5.png",
+  15: "/stages/stage-3.png",
+  16: "/stages/stage-3-2.png",
+  17: "/stages/stage-3-2.png",
+  18: "/stages/stage-3-3.png",
+  19: "/stages/stage-3-4.png",
+  20: "/stages/stage-3-5.png",
+  21: "/stages/stage-3-5.png",
+  22: "/stages/stage-4.png",
+  23: "/stages/stage-4-2.png",
+  24: "/stages/stage-4-2.png",
+  25: "/stages/stage-4-3.png",
+  26: "/stages/stage-4-4.png",
+  27: "/stages/stage-4-5.png",
+  28: "/stages/stage-4-5.png",
+  29: "/stages/stage-5.png",
+  30: "/stages/stage-5-2.png",
+  31: "/stages/stage-5-2.png",
+  32: "/stages/stage-5-3.png",
+  33: "/stages/stage-5-4.png",
+  34: "/stages/stage-5-5.png",
+  35: "/stages/stage-5-5.png",
 };

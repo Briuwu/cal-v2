@@ -15,7 +15,7 @@ export const Player = ({
   levelType?: string;
 }) => {
   const isLargeDevice = useMediaQuery("only screen and (min-width : 1024px)");
-  let size = isLargeDevice ? 2.5 : 3.85;
+  let size = isLargeDevice ? 2.5 : 4.25;
 
   const { src, width, height } = getCharacter(
     characterState,
@@ -35,6 +35,7 @@ export const Player = ({
           "absolute -left-20 top-[120px] z-40 md:top-[375px] lg:-left-40 lg:bottom-[105px] lg:top-auto",
           levelType === "reward" && "top-[150px]",
           characterType === 1 && "top-[105px]",
+          characterType === 3 && "top-[105px]",
         )}
         unoptimized
         priority

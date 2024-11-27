@@ -16,7 +16,10 @@ export const BackButton = () => {
   };
 
   return (
-    <Button onClick={onBack} className="left-0 top-0 m-4 text-sm lg:absolute">
+    <Button
+      onClick={onBack}
+      className="left-0 top-0 z-50 m-4 text-sm lg:absolute"
+    >
       <ChevronLeft className="w-5" />
       Go Back
     </Button>

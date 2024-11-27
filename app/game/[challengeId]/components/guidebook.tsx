@@ -32,7 +32,7 @@ export const Guidebook = ({ stageName }: Props) => {
     <Sheet>
       <SheetTrigger
         asChild
-        className="left-0 m-4 text-sm lg:absolute lg:bottom-0"
+        className="left-0 z-50 m-4 text-sm lg:absolute lg:bottom-0"
       >
         <Button>Guidebook</Button>
       </SheetTrigger>

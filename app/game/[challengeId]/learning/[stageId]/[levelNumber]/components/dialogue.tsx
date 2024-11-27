@@ -78,9 +78,12 @@ export const Dialogue = ({
       <Image
         src={npcImage}
         alt=""
-        width={100}
-        height={100}
-        className="absolute right-6 top-0 translate-y-16"
+        width={125}
+        height={125}
+        className={cn(
+          "absolute right-6 top-0 translate-y-16",
+          stageId === 2 && "w-[250px] translate-y-28",
+        )}
       />
       <div className="relative z-[99] grid min-h-56 grid-rows-[auto,1fr,auto] rounded-xl bg-white p-5">
         <p
