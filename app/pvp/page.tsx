@@ -10,6 +10,7 @@ import { PvpGame } from "./components/pvp-game";
 import { getAllPvpQuestions, getPvpLeaderboard } from "@/actions/pvp";
 import { shuffle } from "@/lib/utils";
 import { PvpLeaderboard } from "./components/pvp-leaderboard";
+import Image from "next/image";
 
 async function PVPPage() {
   const userId = handleAuth();
@@ -46,29 +47,8 @@ async function PVPPage() {
   };
 
   return (
-    <main className="min-h-screen pb-10">
-      <header className="flex items-center justify-between p-4">
-        <Button asChild>
-          <Link href={"/start"}>Back</Link>
-        </Button>
-        <PvpMenu leaderboard={leaderboard} getUsername={getUsername} />
-      </header>
-      <div className="container grid gap-10 lg:grid-cols-[1fr_.25fr]">
-        <section
-          className="rounded border-2 border-black bg-cover bg-center bg-no-repeat p-4"
-          style={{
-            backgroundImage: "url('./stages/stage-1.png')",
-          }}
-        >
-          <PvpGame data={updatedData} userId={userId} />
-        </section>
-        <section className="hidden h-96 scroll-auto rounded border-2 border-black p-4 lg:block">
-          <h1 className="mb-2 border-b-4 border-black pb-2 text-sm font-bold">
-            PVP (Speed Run) Leaderboard
-          </h1>
-          <PvpLeaderboard leaderboard={leaderboard} getUsername={getUsername} />
-        </section>
-      </div>
+    <main className="min-h-screen py-10">
+      <PvpGame data={updatedData} userId={userId} />
     </main>
   );
 }

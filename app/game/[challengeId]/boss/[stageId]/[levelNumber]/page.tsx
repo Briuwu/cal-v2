@@ -8,6 +8,7 @@ import { ChevronLeft } from "lucide-react";
 import { getProfile } from "@/actions/profile";
 import { Guidebook } from "@/app/game/[challengeId]/components/guidebook";
 import { BackButton } from "@/components/back-btn";
+import { backgroundImg } from "@/lib/backgrounds";
 
 async function BossPage({
   params,
@@ -30,13 +31,28 @@ async function BossPage({
   }
 
   return (
-    <main className="grid min-h-dvh place-content-center bg-green-300">
+    <main className="relative grid min-h-dvh place-content-center bg-green-300">
+      <div className="absolute inset-0">
+        {/* eslint-disable-next-line @next/next/no-img-element*/}
+        <img
+          src={level.stage.stageBgUrl}
+          alt="Background"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black opacity-70"></div>
+      </div>
       <div className="flex items-center justify-between">
         <BackButton />
         <Guidebook stageName={level.name} />
       </div>
       <div className="relative max-w-[320px] overflow-hidden border-2 border-black md:max-w-[768px] lg:max-w-full">
-        <Image src={level.stage.stageBgUrl} alt="" width={925} height={660} />
+        <Image
+          src={backgroundImg[level.id as keyof typeof backgroundImg]}
+          alt=""
+          width={925}
+          height={660}
+          className="border-2 border-white"
+        />
         <Game
           level={level}
           characterType={profile.selectedCharacter.id}

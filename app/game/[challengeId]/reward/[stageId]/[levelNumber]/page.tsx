@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { getProfile } from "@/actions/profile";
+import { backgroundImg } from "@/lib/backgrounds";
 
 async function RewardPage({
   params,
@@ -28,7 +29,16 @@ async function RewardPage({
   }
 
   return (
-    <main className="grid min-h-dvh place-content-center bg-green-300">
+    <main className="relative grid min-h-dvh place-content-center bg-green-300">
+      <div className="absolute inset-0">
+        {/* eslint-disable-next-line @next/next/no-img-element*/}
+        <img
+          src={level.stage.stageBgUrl}
+          alt="Background"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black opacity-70"></div>
+      </div>
       <Button asChild>
         <Link href="/stages" className="left-0 top-0 m-4 text-sm lg:absolute">
           <ChevronLeft className="w-5" />
@@ -36,7 +46,13 @@ async function RewardPage({
         </Link>
       </Button>
       <div className="relative max-w-[375px] overflow-hidden border-2 border-black md:max-w-[768px] lg:max-w-full">
-        <Image src={level.stage.stageBgUrl} alt="" width={925} height={660} />
+        <Image
+          src={backgroundImg[level.id as keyof typeof backgroundImg]}
+          alt=""
+          width={925}
+          height={660}
+          className="border-2 border-white"
+        />
         <Game
           level={level}
           characterType={profile.selectedCharacter.id}

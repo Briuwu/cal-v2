@@ -15,7 +15,7 @@ export const StartGameBtn = () => {
   return (
     <Button
       onClick={handleClick}
-      className="w-full border border-black bg-green-500 py-7 font-bold uppercase hover:bg-green-300"
+      className="gameBtn w-full bg-green-300 text-black"
     >
       Start Game
     </Button>

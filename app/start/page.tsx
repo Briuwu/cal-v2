@@ -37,16 +37,10 @@ async function StartPage() {
         </div>
         <div className="mx-auto flex max-w-sm flex-col items-center space-y-5">
           <StartGameBtn />
-          <Button
-            asChild
-            className="w-full border border-black bg-white py-7 font-bold uppercase text-black hover:bg-black hover:text-white"
-          >
+          <Button asChild className="gameBtn w-full bg-blue-300 text-black">
             <Link href="/pvp">PvP (Speed Run)</Link>
           </Button>
-          <Button
-            asChild
-            className="w-full border border-black bg-red-500 py-7 font-bold uppercase hover:bg-red-300"
-          >
+          <Button asChild className="gameBtn w-full bg-red-500">
             <SignOutButton>Logout</SignOutButton>
           </Button>
         </div>

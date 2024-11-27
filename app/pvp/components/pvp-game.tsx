@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { submitToLeaderboard } from "@/actions/pvp";
 import { toast } from "sonner";
 import { socket } from "@/lib/socket";
+import Link from "next/link";
 
 type Props = {
   data: (typeof pvpQuestions.$inferSelect)[];
@@ -48,18 +49,20 @@ export const PvpGame = ({ data, userId }: Props) => {
       setJoined(true);
     }
 
-    socket.on("connection", handleConnect);
-    socket.on("disconnect", handleDisconnect);
-    socket.on("newGame", (data) => {
+    function handleNewGame(data: { roomUniqueId: string }) {
       setRoomUniqueId(data.roomUniqueId);
       setPlayer1(true);
-    });
+    }
+
+    socket.on("connection", handleConnect);
+    socket.on("disconnect", handleDisconnect);
+    socket.on("newGame", handleNewGame);
     socket.on("playersConnected", handlePlayersConnected);
 
     return () => {
       socket.off("connection", handleConnect);
       socket.off("disconnect", handleDisconnect);
-      socket.off("newGame");
+      socket.off("newGame", handleNewGame);
       socket.off("playersConnected", handlePlayersConnected);
     };
   }, []);
@@ -69,24 +72,27 @@ export const PvpGame = ({ data, userId }: Props) => {
       setGameOver(true);
       setStartGame(false);
     }
-    socket.on("choicesMade", (data) => {
+    const handleChoicesMade = (data: { roomUniqueId: string }) => {
       handleNextQuestion();
       socket.emit("resetChoices", { roomUniqueId: data.roomUniqueId });
       setChoices({ p1: "", p2: "" });
-    });
+    };
+    socket.on("choicesMade", handleChoicesMade);
 
-    socket.on("p1Choice", (data) => {
+    const handleP1Choice = (data: { value: string }) => {
       setChoices((prev) => ({ ...prev, p1: data.value }));
-    });
+    };
+    socket.on("p1Choice", handleP1Choice);
 
-    socket.on("p2Choice", (data) => {
+    const handleP2Choice = (data: { value: string }) => {
       setChoices((prev) => ({ ...prev, p2: data.value }));
-    });
+    };
+    socket.on("p2Choice", handleP2Choice);
 
     return () => {
-      socket.off("choicesMade");
-      socket.off("p1Choice");
-      socket.off("p2Choice");
+      socket.off("choicesMade", handleChoicesMade);
+      socket.off("p1Choice", handleP1Choice);
+      socket.off("p2Choice", handleP2Choice);
     };
   }, [data.length, questionIndex, choices]);
 
@@ -95,9 +101,7 @@ export const PvpGame = ({ data, userId }: Props) => {
   };
 
   const handleStartGame = () => {
-    // reset();
     setStartGame(true);
-    // start();
     socket.emit("createGame");
   };
 
@@ -116,9 +120,6 @@ export const PvpGame = ({ data, userId }: Props) => {
     () => p2Answers.filter((answer, index) => answer === data[index].answer),
     [p2Answers, data],
   );
-
-  console.log("p1", p1Answers);
-  console.log("p2", p2Answers);
 
   const handleSubmitScore = () => {
     startTransition(async () => {
@@ -149,8 +150,31 @@ export const PvpGame = ({ data, userId }: Props) => {
   };
 
   return (
-    <div className="text-white">
-      <div className="mx-auto grid min-h-screen max-w-[500px] place-content-center">
+    <div className="container">
+      <section
+        className="shadow-dark grid min-h-screen grid-rows-[auto,1fr] border-2 border-black bg-[#FFF9E4]"
+        style={{
+          backgroundImage: "url('/stages/stage-1.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <header className="relative flex items-center justify-between border-b-2 border-black bg-blue-300 p-5">
+          <h1 className="text-xl font-bold uppercase md:text-3xl">
+            <Link href="/pvp">PVP Game</Link>
+          </h1>
+          <Button className="gameBtn bg-green-300 p-5 text-black">
+            Leaderboard
+          </Button>
+          <div className="absolute left-0 right-0 mx-auto w-fit">
+            {choices.p1 && (
+              <p className="text-2xl font-bold">Player 1 has made a choice</p>
+            )}
+            {choices.p2 && (
+              <p className="text-2xl font-bold">Player 2 has made a choice</p>
+            )}
+          </div>
+        </header>
         {gameOver ? (
           <div className="space-y-3 rounded-md bg-white p-4 text-black">
             <h3 className="text-2xl font-bold uppercase">Game Over!</h3>
@@ -176,11 +200,27 @@ export const PvpGame = ({ data, userId }: Props) => {
             </div>
           </div>
         ) : (
-          <div>
+          <div className="place-self-center">
             {!startGame ? (
-              <div className="flex flex-wrap items-center gap-2">
-                <Button onClick={handleStartGame}>Game Start</Button>
-                <Button onClick={() => setIsJoining(true)}>Join Game</Button>
+              <div className="flex w-full flex-col items-center gap-2 md:min-w-[286px]">
+                <Button
+                  className="gameBtn w-full bg-green-300 text-black"
+                  onClick={handleStartGame}
+                >
+                  PVP Start
+                </Button>
+                <Button
+                  className="gameBtn w-full bg-blue-300 text-black"
+                  onClick={() => setIsJoining(true)}
+                >
+                  Join Game
+                </Button>
+                <Button
+                  asChild
+                  className="gameBtn w-full bg-red-500 text-black"
+                >
+                  <Link href={"/start"}>Back</Link>
+                </Button>
                 {isJoining && (
                   <div className="flex gap-2">
                     <input
@@ -196,44 +236,34 @@ export const PvpGame = ({ data, userId }: Props) => {
               </div>
             ) : !joined ? (
               <div>
-                <p>
+                <p className="text-white md:text-2xl">
                   Waiting for other players to join using the code:{" "}
                   {roomUniqueId}
                 </p>
               </div>
             ) : (
-              <div className="space-y-10 text-center">
-                {choices.p1 && (
-                  <div className="text-2xl font-bold">
-                    Player 1 has made a choice
-                  </div>
-                )}
-                {choices.p2 && (
-                  <div className="text-2xl font-bold">
-                    Player 2 has made a choice
-                  </div>
-                )}
-                <h2 className="text-3xl font-bold">
-                  {currentQuestion?.question}
-                </h2>
-                <ul className="space-y-5">
-                  {currentQuestion?.options!.map((option, index) => (
-                    <li
-                      key={index}
-                      className={cn(
-                        "cursor-pointer border border-black bg-white p-2 text-black transition hover:scale-105",
-                      )}
-                      onClick={() => sendChoice(option)}
-                    >
-                      {option}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <>
+                <div className="mx-auto mt-5 max-w-[700px] text-center">
+                  <p className="mb-5 border-b-2 border-white pb-5 text-xl font-bold text-white md:text-2xl">
+                    {currentQuestion?.question}
+                  </p>
+                  <ul className="space-y-10">
+                    {currentQuestion?.options!.map((option, index) => (
+                      <li
+                        key={index}
+                        className={cn("gameBtn bg-white text-black")}
+                        onClick={() => sendChoice(option)}
+                      >
+                        {option}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </>
             )}
           </div>
         )}
-      </div>
+      </section>
     </div>
   );
 };
