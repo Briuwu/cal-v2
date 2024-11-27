@@ -1,7 +1,7 @@
 "use client";
 import { useMemo, useState, useTransition, useEffect } from "react";
 
-import { pvpQuestions } from "@/db/schema";
+import { pvpLeaderboard, pvpQuestions } from "@/db/schema";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { submitToLeaderboard } from "@/actions/pvp";
@@ -20,6 +20,8 @@ export const PvpGame = ({ data, userId }: Props) => {
     p1: "",
     p2: "",
   });
+  const [hasAnswered, setHasAnswered] = useState(false);
+  const [playerChoice, setPlayerChoice] = useState("");
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [isJoining, setIsJoining] = useState(false);
   const [joined, setJoined] = useState(false);
@@ -76,6 +78,8 @@ export const PvpGame = ({ data, userId }: Props) => {
       handleNextQuestion();
       socket.emit("resetChoices", { roomUniqueId: data.roomUniqueId });
       setChoices({ p1: "", p2: "" });
+      setHasAnswered(false);
+      setPlayerChoice("");
     };
     socket.on("choicesMade", handleChoicesMade);
 
@@ -99,13 +103,13 @@ export const PvpGame = ({ data, userId }: Props) => {
   const handleNextQuestion = () => {
     setQuestionIndex((prev) => prev + 1);
   };
-
   const handleStartGame = () => {
     setStartGame(true);
     socket.emit("createGame");
   };
 
   const joinGame = () => {
+    if (!roomUniqueId) return;
     setJoined(true);
     socket.emit("joinGame", { roomUniqueId: roomUniqueId });
     setStartGame(true);
@@ -141,42 +145,34 @@ export const PvpGame = ({ data, userId }: Props) => {
     socket.emit(choiceEvent, {
       value: choice,
       roomUniqueId: roomUniqueId,
+      score: player1 ? p1AnsweredCorrectly.length : p2AnsweredCorrectly.length,
     });
     if (player1) {
       setP1Answers((prev) => [...prev, choice]);
     } else {
       setP2Answers((prev) => [...prev, choice]);
     }
+    setPlayerChoice(choice);
+    setHasAnswered(true);
   };
 
   return (
     <div className="container">
       <section
-        className="shadow-dark grid min-h-screen grid-rows-[auto,1fr] border-2 border-black bg-[#FFF9E4]"
+        className="grid min-h-screen grid-rows-[auto,1fr] border-2 border-black bg-[#FFF9E4] shadow-dark"
         style={{
           backgroundImage: "url('/stages/stage-1.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <header className="relative flex items-center justify-between border-b-2 border-black bg-blue-300 p-5">
+        <header className="relative flex items-center justify-center border-b-2 border-black bg-blue-300 p-5">
           <h1 className="text-xl font-bold uppercase md:text-3xl">
-            <Link href="/pvp">PVP Game</Link>
+            <Link href="/pvp">PVP</Link>
           </h1>
-          <Button className="gameBtn bg-green-300 p-5 text-black">
-            Leaderboard
-          </Button>
-          <div className="absolute left-0 right-0 mx-auto w-fit">
-            {choices.p1 && (
-              <p className="text-2xl font-bold">Player 1 has made a choice</p>
-            )}
-            {choices.p2 && (
-              <p className="text-2xl font-bold">Player 2 has made a choice</p>
-            )}
-          </div>
         </header>
         {gameOver ? (
-          <div className="space-y-3 rounded-md bg-white p-4 text-black">
+          <div className="space-y-3 place-self-center rounded-md bg-white p-4 text-center text-black">
             <h3 className="text-2xl font-bold uppercase">Game Over!</h3>
             <p>
               Your total score is:{" "}
@@ -215,12 +211,7 @@ export const PvpGame = ({ data, userId }: Props) => {
                 >
                   Join Game
                 </Button>
-                <Button
-                  asChild
-                  className="gameBtn w-full bg-red-500 text-black"
-                >
-                  <Link href={"/start"}>Back</Link>
-                </Button>
+
                 {isJoining && (
                   <div className="flex gap-2">
                     <input
@@ -236,28 +227,53 @@ export const PvpGame = ({ data, userId }: Props) => {
               </div>
             ) : !joined ? (
               <div>
-                <p className="text-white md:text-2xl">
+                <p className="text-center text-white md:text-2xl">
                   Waiting for other players to join using the code:{" "}
                   {roomUniqueId}
                 </p>
               </div>
             ) : (
               <>
+                <div className="left-0 right-0 top-20 mx-auto w-fit uppercase text-green-300">
+                  {choices.p1 && (
+                    <p className="text-2xl font-bold">
+                      Player 1 has made a choice
+                    </p>
+                  )}
+                  {choices.p2 && (
+                    <p className="text-2xl font-bold">
+                      Player 2 has made a choice
+                    </p>
+                  )}
+                </div>
                 <div className="mx-auto mt-5 max-w-[700px] text-center">
                   <p className="mb-5 border-b-2 border-white pb-5 text-xl font-bold text-white md:text-2xl">
                     {currentQuestion?.question}
                   </p>
-                  <ul className="space-y-10">
+                  <div className="space-y-10">
                     {currentQuestion?.options!.map((option, index) => (
-                      <li
+                      <button
                         key={index}
-                        className={cn("gameBtn bg-white text-black")}
+                        className={cn(
+                          "text-blac block w-full rounded-full border-2 border-black bg-white p-5",
+                          playerChoice === option && "bg-green-300",
+                          hasAnswered &&
+                            playerChoice !== option &&
+                            "cursor-not-allowed",
+                          hasAnswered &&
+                            playerChoice !== option &&
+                            "opacity-50",
+                          playerChoice !== option &&
+                            !hasAnswered &&
+                            "hover:border-blue-300 hover:bg-blue-300",
+                        )}
                         onClick={() => sendChoice(option)}
+                        disabled={hasAnswered}
                       >
                         {option}
-                      </li>
+                      </button>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               </>
             )}
