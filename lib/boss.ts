@@ -20,6 +20,12 @@ import turtleHurt from "@/public/boss/turtle/hurt.gif";
 import turtleIdle from "@/public/boss/turtle/idle.gif";
 import turtleWalk from "@/public/boss/turtle/walk.gif";
 
+import twoheadAtk from "@/public/boss/twohead/attack.gif";
+import twoheadDeath from "@/public/boss/twohead/death.gif";
+import twoheadHurt from "@/public/boss/twohead/hurt.gif";
+import twoheadIdle from "@/public/boss/twohead/idle.gif";
+import twoheadWalk from "@/public/boss/twohead/walk.gif";
+
 export const getBoss = (
   bossState: BossState,
   size: number,
@@ -99,6 +105,25 @@ export const getBoss = (
       deathSrc = turtleDeath;
       attackSrc = turtleAtk;
       walkSrc = turtleWalk;
+
+      break;
+    case "twohead":
+      attack_width = 574;
+      attack_height = 291;
+      death_width = 450;
+      death_height = 279;
+      hurt_width = 403;
+      hurt_height = 291;
+      idle_width = 410;
+      idle_height = 291;
+      walk_width = 437;
+      walk_height = 278;
+
+      idleSrc = twoheadIdle;
+      hurtSrc = twoheadHurt;
+      deathSrc = twoheadDeath;
+      attackSrc = twoheadAtk;
+      walkSrc = twoheadWalk;
 
       break;
   }
