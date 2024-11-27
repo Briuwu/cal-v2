@@ -42,13 +42,12 @@ async function ChallengePage({
         <BackButton />
         <Guidebook stageName={level.name} />
       </div>
-      <div className="relative max-w-[320px] overflow-hidden border-2 border-black md:max-w-[768px] lg:max-w-full">
+      <div className="relative max-w-[320px] overflow-hidden border-2 border-white md:max-w-[768px] lg:max-w-full">
         <Image
           src={backgroundImg[level.levelNumber as keyof typeof backgroundImg]}
           alt=""
           width={925}
           height={660}
-          className="border-2 border-white"
         />
         <Game
           level={level}

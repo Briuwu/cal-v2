@@ -45,20 +45,22 @@ async function LearningPage({
       </div>
       <div className="flex items-center justify-between">
         <Button asChild>
-          <Link href="/stages" className="left-0 top-0 m-4 text-sm lg:absolute">
+          <Link
+            href="/stages"
+            className="left-0 top-0 z-50 m-4 text-sm lg:absolute"
+          >
             <ChevronLeft className="w-5" />
             Go Back
           </Link>
         </Button>
         <Guidebook stageName={level.name} />
       </div>
-      <div className="relative max-w-[320px] overflow-hidden border-2 border-black md:max-w-[768px] lg:max-w-full">
+      <div className="relative max-w-[320px] overflow-hidden border-2 border-white md:max-w-[768px] lg:max-w-full">
         <Image
           src={backgroundImg[level.levelNumber as keyof typeof backgroundImg]}
           alt=""
           width={925}
           height={660}
-          className="border-2 border-white"
         />
         <Game
           level={level}

@@ -32,10 +32,15 @@ export const Player = ({
         height={height}
         id="character"
         className={cn(
-          "absolute -left-20 top-[120px] z-40 md:top-[375px] lg:-left-40 lg:bottom-[105px] lg:top-auto",
+          "absolute -left-20 z-40 md:top-[375px] lg:-left-40 lg:bottom-[105px] lg:top-auto",
           levelType === "reward" && "top-[150px]",
-          characterType === 1 && "top-[105px]",
+          characterType === 1 && "top-[112px]",
+          characterType === 2 && "top-[127px]",
           characterType === 3 && "top-[105px]",
+          characterType === 4 && "top-[105px]",
+          characterType === 5 && "top-[105px]",
+          characterType === 6 && "top-[125px]",
+          characterType === 7 && "top-[120px]",
         )}
         unoptimized
         priority
