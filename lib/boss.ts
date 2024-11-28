@@ -26,6 +26,12 @@ import twoheadHurt from "@/public/boss/twohead/hurt.gif";
 import twoheadIdle from "@/public/boss/twohead/idle.gif";
 import twoheadWalk from "@/public/boss/twohead/walk.gif";
 
+import dragonAtk from "@/public/boss/dragon/attack.gif";
+import dragonDeath from "@/public/boss/dragon/death.gif";
+import dragonHurt from "@/public/boss/dragon/hurt.gif";
+import dragonIdle from "@/public/boss/dragon/idle.gif";
+import dragonWalk from "@/public/boss/dragon/walk.gif";
+
 export const getBoss = (
   bossState: BossState,
   size: number,
@@ -124,6 +130,26 @@ export const getBoss = (
       deathSrc = twoheadDeath;
       attackSrc = twoheadAtk;
       walkSrc = twoheadWalk;
+
+      break;
+
+    case "dragon":
+      attack_width = 1026;
+      attack_height = 557;
+      death_width = 710;
+      death_height = 303;
+      hurt_width = 699;
+      hurt_height = 317;
+      idle_width = 724;
+      idle_height = 395;
+      walk_width = 666;
+      walk_height = 328;
+
+      idleSrc = dragonIdle;
+      hurtSrc = dragonHurt;
+      deathSrc = dragonDeath;
+      attackSrc = dragonAtk;
+      walkSrc = dragonWalk;
 
       break;
   }

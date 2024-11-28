@@ -3,6 +3,8 @@ import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 
+import banner from "@/public/hero-banner.webp";
+
 function Home() {
   return (
     <main className="container">
@@ -34,7 +36,7 @@ function Home() {
             </Button>
           </SignedOut>
         </div>
-        <Image src="/hero-banner.png" alt="" width={518} height={699} />
+        <Image src={banner} alt="" width={518} height={699} />
       </div>
     </main>
   );

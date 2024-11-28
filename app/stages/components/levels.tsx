@@ -16,16 +16,16 @@ export const Levels = ({ levels, userProgress }: Props) => {
     let imgSrc;
     switch (level.type) {
       case "learning":
-        imgSrc = "/stages/levels/study-active.png";
+        imgSrc = "/stages/levels/webp/study-active.webp";
         break;
       case "mini-challenge":
-        imgSrc = "/stages/levels/next-level.png";
+        imgSrc = "/stages/levels/webp/next-level.webp";
         break;
       case "boss":
-        imgSrc = "/stages/levels/boss.png";
+        imgSrc = "/stages/levels/webp/boss.webp";
         break;
       case "reward":
-        imgSrc = "/stages/levels/treasure.png";
+        imgSrc = "/stages/levels/webp/treasure.webp";
         break;
     }
 
@@ -38,7 +38,7 @@ export const Levels = ({ levels, userProgress }: Props) => {
     return (
       <div key={level.id} className="relative">
         <Image
-          src="/stages/levels/start-pointer.png"
+          src="/stages/levels/webp/start-pointer.webp"
           alt=""
           width={82}
           height={54}
@@ -58,7 +58,7 @@ export const Levels = ({ levels, userProgress }: Props) => {
     //     <div key={level.id} className="relative">
     //       {progress.status === "unlocked" && (
     //         <Image
-    //           src="/stages/levels/start-pointer.png"
+    //           src="/stages/levels/webp/start-pointer.webp"
     //           alt=""
     //           width={82}
     //           height={54}
@@ -77,7 +77,7 @@ export const Levels = ({ levels, userProgress }: Props) => {
     //         <Image
     //           src={
     //             progress.status === "completed"
-    //               ? "/stages/levels/completed.png"
+    //               ? "/stages/levels/webp/completed.webp"
     //               : imgSrc
     //           }
     //           alt=""
@@ -90,7 +90,7 @@ export const Levels = ({ levels, userProgress }: Props) => {
     // } else {
     //   return (
     //     <Image
-    //       src="/stages/levels/locked-level.png"
+    //       src="/stages/levels/webp/locked-level.webp"
     //       alt=""
     //       key={level.id}
     //       width={70}

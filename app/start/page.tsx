@@ -23,7 +23,7 @@ async function StartPage() {
   return (
     <main
       style={{
-        backgroundImage: "url('/start/bg.png')",
+        backgroundImage: "url('/start/bg.webp')",
       }}
       className="grid min-h-dvh place-content-center bg-cover bg-bottom"
     >

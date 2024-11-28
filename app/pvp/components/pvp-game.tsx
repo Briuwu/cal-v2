@@ -161,7 +161,7 @@ export const PvpGame = ({ data, userId }: Props) => {
       <section
         className="grid min-h-screen grid-rows-[auto,1fr] border-2 border-black bg-[#FFF9E4] shadow-dark"
         style={{
-          backgroundImage: "url('/stages/stage-1.png')",
+          backgroundImage: "url('/stages/webp/stage-1.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

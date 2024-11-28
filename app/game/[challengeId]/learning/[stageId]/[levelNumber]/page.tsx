@@ -36,10 +36,11 @@ async function LearningPage({
     <main className="relative grid min-h-dvh place-content-center bg-green-300">
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element*/}
-        <img
+        <Image
           src={level.stage.stageBgUrl}
           alt="Background"
           className="h-full w-full object-cover"
+          fill
         />
         <div className="absolute inset-0 bg-black opacity-70"></div>
       </div>
