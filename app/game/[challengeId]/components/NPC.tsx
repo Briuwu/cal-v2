@@ -42,21 +42,19 @@ export const NPC = ({
   const { src, width, height } = getNPC(NPCState, size, stage);
 
   return (
-    <>
-      <Image
-        src={src!}
-        alt=""
-        width={width}
-        height={height}
-        id="npc"
-        className={cn(
-          "absolute right-10 top-[115px] z-40 scale-x--1 md:top-[375px] lg:bottom-[105px] lg:right-40 lg:top-auto",
-          stage === 2 && "top-[125px]",
-          stage === 3 && "top-[120px]",
-          stage === 4 && "top-[105px]",
-        )}
-        unoptimized
-      />
-    </>
+    <Image
+      src={src!}
+      alt=""
+      width={width}
+      height={height}
+      id="npc"
+      className={cn(
+        "absolute right-10 top-[115px] z-40 scale-x--1 md:top-[375px] lg:bottom-[105px] lg:right-40 lg:top-auto",
+        stage === 2 && "top-[125px]",
+        stage === 3 && "top-[120px]",
+        stage === 4 && "top-[105px]",
+      )}
+      unoptimized
+    />
   );
 };
