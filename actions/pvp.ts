@@ -12,7 +12,7 @@ export const getAllPvpQuestions = cache(async () => {
     .select()
     .from(pvpQuestions)
     .limit(25)
-    .orderBy(sql`RAND()`);
+    .orderBy(sql`RANDOM()`);
 
   return data;
 });
