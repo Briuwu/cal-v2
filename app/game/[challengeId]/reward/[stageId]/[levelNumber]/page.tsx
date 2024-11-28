@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { getProfile } from "@/actions/profile";
-import { backgroundImg } from "@/lib/backgrounds";
+import { backgroundImg, backgroundStage } from "@/lib/backgrounds";
 
 async function RewardPage({
   params,
@@ -32,8 +32,9 @@ async function RewardPage({
     <main className="relative grid min-h-dvh place-content-center bg-green-300">
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element*/}
-        <img
-          src={level.stage.stageBgUrl}
+        <Image
+          fill
+          src={backgroundStage[level.stageId as keyof typeof backgroundStage]}
           alt="Background"
           className="h-full w-full object-cover"
         />

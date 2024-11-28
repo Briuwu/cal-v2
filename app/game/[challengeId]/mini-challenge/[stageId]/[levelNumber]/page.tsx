@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { getProfile } from "@/actions/profile";
 import { Guidebook } from "@/app/game/[challengeId]/components/guidebook";
 import { BackButton } from "@/components/back-btn";
-import { backgroundImg } from "@/lib/backgrounds";
+import { backgroundImg, backgroundStage } from "@/lib/backgrounds";
 
 async function ChallengePage({
   params,
@@ -31,10 +31,11 @@ async function ChallengePage({
     <main className="relative grid min-h-dvh place-content-center bg-green-300">
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element*/}
-        <img
-          src={level.stage.stageBgUrl}
+        <Image
+          src={backgroundStage[level.stageId as keyof typeof backgroundStage]}
           alt="Background"
           className="h-full w-full object-cover"
+          fill
         />
         <div className="absolute inset-0 bg-black opacity-70"></div>
       </div>

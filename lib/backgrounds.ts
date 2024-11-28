@@ -35,3 +35,17 @@ export const backgroundImg = {
   34: "/stages/webp/stage-5-5.webp",
   35: "/stages/webp/stage-5-5.webp",
 };
+
+import stage1 from "@/public/stages/webp/stage-1.webp";
+import stage2 from "@/public/stages/webp/stage-2.webp";
+import stage3 from "@/public/stages/webp/stage-3.webp";
+import stage4 from "@/public/stages/webp/stage-4.webp";
+import stage5 from "@/public/stages/webp/stage-5.webp";
+
+export const backgroundStage = {
+  1: stage1,
+  2: stage2,
+  3: stage3,
+  4: stage4,
+  5: stage5,
+};

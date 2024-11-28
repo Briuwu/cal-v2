@@ -8,7 +8,7 @@ import { ChevronLeft } from "lucide-react";
 import { getProfile } from "@/actions/profile";
 import { dialogues as dataDialogues } from "@/lib/dialogues";
 import { Guidebook } from "@/app/game/[challengeId]/components/guidebook";
-import { backgroundImg } from "@/lib/backgrounds";
+import { backgroundImg, backgroundStage } from "@/lib/backgrounds";
 
 async function LearningPage({
   params,
@@ -37,7 +37,7 @@ async function LearningPage({
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element*/}
         <Image
-          src={level.stage.stageBgUrl}
+          src={backgroundStage[level.stageId as keyof typeof backgroundStage]}
           alt="Background"
           className="h-full w-full object-cover"
           fill

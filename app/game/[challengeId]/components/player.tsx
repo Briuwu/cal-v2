@@ -37,7 +37,7 @@ export const Player = ({
           characterType === 1 && "top-[112px]",
           characterType === 2 && "top-[127px]",
           characterType === 3 && "top-[105px]",
-          characterType === 4 && "top-[105px]",
+          characterType === 4 && "top-[110px]",
           characterType === 5 && "top-[105px]",
           characterType === 6 && "top-[125px]",
           characterType === 7 && "top-[120px]",

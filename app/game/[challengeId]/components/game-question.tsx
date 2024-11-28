@@ -95,7 +95,7 @@ export const GameQuestion = ({
                         showClue ? `clue: ${data.clue}` : "Enter answer here..."
                       }
                       {...field}
-                      className="mx-auto max-w-80 text-center text-sm"
+                      className="mx-auto max-w-80 text-sm"
                       disabled={isAnimating}
                       rows={3}
                     />
