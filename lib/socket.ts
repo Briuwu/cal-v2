@@ -6,4 +6,4 @@ const url =
     ? process.env.WEBSITE
     : "http://localhost:3001";
 
-export const socket = io(url!);
+export const socket = io("https://cal-server-1hjm.onrender.com/");
