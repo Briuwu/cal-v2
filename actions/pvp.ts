@@ -8,7 +8,11 @@ import { revalidatePath } from "next/cache";
 import { cache } from "react";
 
 export const getAllPvpQuestions = cache(async () => {
-  const data = await db.select().from(pvpQuestions).limit(25);
+  const data = await db
+    .select()
+    .from(pvpQuestions)
+    .limit(25)
+    .orderBy(sql`RAND()`);
 
   return data;
 });
