@@ -44,6 +44,7 @@ export const Game = ({
   const { load } = useGlobalAudioPlayer();
   const [scope, animate] = useAnimate();
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isTalking, setIsTalking] = useState(false);
   const [isDialogue, setIsDialogue] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterState>("walk");
   const [NPCState, setNPCState] = useState<NPCState>("idle");
@@ -111,6 +112,7 @@ export const Game = ({
     setCharacterState("idle");
     setNPCState("dialogue");
     setIsDialogue(true);
+    setIsTalking(true);
   };
   return (
     <div
@@ -137,7 +139,11 @@ export const Game = ({
       >
         Talk
       </Button>
-      <NPC NPCState={NPCState} stage={level.stageId} />
+      {isLargeDevice ? (
+        !isTalking && <NPC NPCState={NPCState} stage={level.stageId} />
+      ) : (
+        <NPC NPCState={NPCState} stage={level.stageId} />
+      )}
     </div>
   );
 };

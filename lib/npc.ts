@@ -10,11 +10,9 @@ import stage3Idle from "@/public/npc/stage-3/idle.gif";
 import stage3Dialogue from "@/public/npc/stage-3/dialogue.gif";
 import { StaticImageData } from "next/image";
 
-// import stage4Idle from '@/public/npc/stage-4/idle.gif';
-// import stage4Dialogue from '@/public/npc/stage-4/dialogue.gif';
+import stage4Idle from "@/public/npc/stage-4/idle.gif";
 
-// import stage5Idle from '@/public/npc/stage-5/idle.gif';
-// import stage5Dialogue from '@/public/npc/stage-5/dialogue.gif';
+import stage5Idle from "@/public/npc/stage-5/idle.gif";
 
 export const getNPC = (NPCState: NPCState, size: number, stage: number) => {
   let stageName, idleSrc, dialogueSrc;
@@ -44,15 +42,13 @@ export const getNPC = (NPCState: NPCState, size: number, stage: number) => {
     case 4:
       stageName = "stage-4";
 
-      // idleSrc = stage4Idle;
-      // dialogueSrc = stage4Dialogue;
+      idleSrc = stage4Idle;
 
       break;
     case 5:
       stageName = "stage-5";
 
-      // idleSrc = stage5Idle;
-      // dialogueSrc = stage5Dialogue;
+      idleSrc = stage5Idle;
 
       break;
     default:
@@ -73,7 +69,7 @@ export const getNPC = (NPCState: NPCState, size: number, stage: number) => {
       height: 308,
     },
     dialogue: {
-      src: dialogueSrc,
+      src: dialogueSrc ? dialogueSrc : idleSrc,
       width: 263,
       height: 306,
     },
