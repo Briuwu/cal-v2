@@ -7,7 +7,7 @@ import { eq } from "drizzle-orm";
 import { users } from "@/db/schema";
 import { PvpGame } from "./components/pvp-game";
 import { getAllPvpQuestions, getPvpLeaderboard } from "@/actions/pvp";
-import { shuffle } from "@/lib/utils";
+import { shuffle, shuffleData } from "@/lib/utils";
 
 import {
   Dialog,
@@ -76,7 +76,7 @@ async function PVPPage() {
           </DialogContent>
         </Dialog>
       </div>
-      <PvpGame data={updatedData} userId={userId} />
+      <PvpGame data={shuffleData(updatedData.slice(0, 25))} userId={userId} />
     </main>
   );
 }
