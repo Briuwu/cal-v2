@@ -1,13 +1,14 @@
 "use client";
 import { useMemo, useState, useTransition, useEffect } from "react";
 
-import { pvpLeaderboard, pvpQuestions } from "@/db/schema";
+import { pvpQuestions } from "@/db/schema";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { submitToLeaderboard } from "@/actions/pvp";
 import { toast } from "sonner";
 import { socket } from "@/lib/socket";
 import Link from "next/link";
+import { useGlobalAudioPlayer } from "react-use-audio-player";
 
 type Props = {
   data: (typeof pvpQuestions.$inferSelect)[];
@@ -32,6 +33,15 @@ export const PvpGame = ({ data, userId }: Props) => {
   const [p1Answers, setP1Answers] = useState<string[]>([]);
   const [p2Answers, setP2Answers] = useState<string[]>([]);
   const [gameOver, setGameOver] = useState(false);
+  const { load, stop } = useGlobalAudioPlayer();
+
+  useEffect(() => {
+    stop();
+    load("/audio/pvp-bg.mp3", {
+      loop: true,
+      autoplay: true,
+    });
+  }, []);
 
   const currentQuestion = useMemo(
     () => data[questionIndex],

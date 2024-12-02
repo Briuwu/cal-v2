@@ -32,6 +32,12 @@ export const StagesAside = () => {
       icon: "/stages/cart.png",
       active: pathname === "/stages/shop",
     },
+    {
+      label: "PVP",
+      link: "/pvp",
+      icon: "/stages/pvp.png",
+      active: pathname === "/pvp",
+    },
   ];
   return (
     <aside className="relative hidden h-full w-[300px] border-r-2 border-black p-5 lg:block">

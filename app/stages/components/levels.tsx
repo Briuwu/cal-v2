@@ -5,6 +5,13 @@ import { cn } from "@/lib/utils";
 import { levels, userProgress as userProgressData } from "@/db/schema";
 import { auth } from "@clerk/nextjs/server";
 
+import learningIcon from "@/public/stages/levels/webp/study-active.webp";
+import miniChallengeIcon from "@/public/stages/levels/webp/next-level.webp";
+import bossIcon from "@/public/stages/levels/webp/boss.webp";
+import rewardIcon from "@/public/stages/levels/webp/treasure.webp";
+import startPointer from "@/public/stages/levels/webp/start-pointer.webp";
+import lockedIcon from "@/public/stages/levels/webp/locked-level.webp";
+
 type Props = {
   levels: (typeof levels.$inferSelect)[];
   userProgress: (typeof userProgressData.$inferSelect)[];
@@ -16,16 +23,16 @@ export const Levels = ({ levels, userProgress }: Props) => {
     let imgSrc;
     switch (level.type) {
       case "learning":
-        imgSrc = "/stages/levels/webp/study-active.webp";
+        imgSrc = learningIcon;
         break;
       case "mini-challenge":
-        imgSrc = "/stages/levels/webp/next-level.webp";
+        imgSrc = miniChallengeIcon;
         break;
       case "boss":
-        imgSrc = "/stages/levels/webp/boss.webp";
+        imgSrc = bossIcon;
         break;
       case "reward":
-        imgSrc = "/stages/levels/webp/treasure.webp";
+        imgSrc = rewardIcon;
         break;
     }
 
@@ -38,7 +45,7 @@ export const Levels = ({ levels, userProgress }: Props) => {
     return (
       <div key={level.id} className="relative">
         <Image
-          src="/stages/levels/webp/start-pointer.webp"
+          src={startPointer}
           alt=""
           width={82}
           height={54}
@@ -58,7 +65,7 @@ export const Levels = ({ levels, userProgress }: Props) => {
     //     <div key={level.id} className="relative">
     //       {progress.status === "unlocked" && (
     //         <Image
-    //           src="/stages/levels/webp/start-pointer.webp"
+    //           src={startPointer}
     //           alt=""
     //           width={82}
     //           height={54}
@@ -90,7 +97,7 @@ export const Levels = ({ levels, userProgress }: Props) => {
     // } else {
     //   return (
     //     <Image
-    //       src="/stages/levels/webp/locked-level.webp"
+    //       src={lockedIcon}
     //       alt=""
     //       key={level.id}
     //       width={70}
