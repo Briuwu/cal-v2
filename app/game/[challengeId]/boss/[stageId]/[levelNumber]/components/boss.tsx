@@ -44,6 +44,7 @@ export const Boss = ({
           bossName === "dragon" && bossState === "attack" && "top-[50px]",
           bossName === "twohead" && "top-[95px]",
         )}
+        unoptimized
       />
     </>
   );

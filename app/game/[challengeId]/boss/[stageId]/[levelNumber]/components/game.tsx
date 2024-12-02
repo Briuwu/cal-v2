@@ -77,6 +77,9 @@ export const Game = ({ level, characterType, coins, stageId }: Props) => {
   const handleWrong = async () => {
     setIsAnimating(true);
     let xBossPosition = isSmallDevice ? 150 : isMediumDevice ? 400 : 500;
+    if (level.description === "dragon") {
+      xBossPosition = isSmallDevice ? 80 : isMediumDevice ? 300 : 375;
+    }
     let xBossOriginal = isSmallDevice ? 10 : 30;
     setBossState("walk");
     await animate("#boss", { x: -xBossPosition }, { duration: 2 });

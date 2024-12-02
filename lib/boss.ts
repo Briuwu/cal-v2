@@ -1,37 +1,5 @@
 import { BossState } from "@/types";
 
-import { StaticImageData } from "next/image";
-
-import bloatedAtk from "@/public/boss/bloated/attack.gif";
-import bloatedDeath from "@/public/boss/bloated/death.gif";
-import bloatedHurt from "@/public/boss/bloated/hurt.gif";
-import bloatedIdle from "@/public/boss/bloated/idle.gif";
-import bloatedWalk from "@/public/boss/bloated/walk.gif";
-
-import centipedeAtk from "@/public/boss/centipede/attack.gif";
-import centipedeDeath from "@/public/boss/centipede/death.gif";
-import centipedeHurt from "@/public/boss/centipede/hurt.gif";
-import centipedeIdle from "@/public/boss/centipede/idle.gif";
-import centipedeWalk from "@/public/boss/centipede/walk.gif";
-
-import turtleAtk from "@/public/boss/turtle/attack.gif";
-import turtleDeath from "@/public/boss/turtle/death.gif";
-import turtleHurt from "@/public/boss/turtle/hurt.gif";
-import turtleIdle from "@/public/boss/turtle/idle.gif";
-import turtleWalk from "@/public/boss/turtle/walk.gif";
-
-import twoheadAtk from "@/public/boss/twohead/attack.gif";
-import twoheadDeath from "@/public/boss/twohead/death.gif";
-import twoheadHurt from "@/public/boss/twohead/hurt.gif";
-import twoheadIdle from "@/public/boss/twohead/idle.gif";
-import twoheadWalk from "@/public/boss/twohead/walk.gif";
-
-import dragonAtk from "@/public/boss/dragon/attack.gif";
-import dragonDeath from "@/public/boss/dragon/death.gif";
-import dragonHurt from "@/public/boss/dragon/hurt.gif";
-import dragonIdle from "@/public/boss/dragon/idle.gif";
-import dragonWalk from "@/public/boss/dragon/walk.gif";
-
 export const getBoss = (
   bossState: BossState,
   size: number,
@@ -46,13 +14,7 @@ export const getBoss = (
     attack_width,
     attack_height,
     walk_width,
-    walk_height,
-    idleSrc,
-    hurtSrc,
-    deathSrc,
-    attackSrc,
-    walkSrc;
-
+    walk_height;
   const boss = bossName.toLowerCase();
 
   switch (boss) {
@@ -68,12 +30,6 @@ export const getBoss = (
       walk_width = 313;
       walk_height = 322;
 
-      idleSrc = bloatedIdle;
-      hurtSrc = bloatedHurt;
-      deathSrc = bloatedDeath;
-      attackSrc = bloatedAtk;
-      walkSrc = bloatedWalk;
-
       break;
     case "centipede":
       attack_width = 426;
@@ -86,13 +42,6 @@ export const getBoss = (
       idle_height = 247;
       walk_width = 332;
       walk_height = 247;
-
-      idleSrc = centipedeIdle;
-      hurtSrc = centipedeHurt;
-      deathSrc = centipedeDeath;
-      attackSrc = centipedeAtk;
-      walkSrc = centipedeWalk;
-
       break;
     case "turtle":
       attack_width = 423;
@@ -106,12 +55,6 @@ export const getBoss = (
       walk_width = 396;
       walk_height = 271;
 
-      idleSrc = turtleIdle;
-      hurtSrc = turtleHurt;
-      deathSrc = turtleDeath;
-      attackSrc = turtleAtk;
-      walkSrc = turtleWalk;
-
       break;
     case "twohead":
       attack_width = 574;
@@ -124,12 +67,6 @@ export const getBoss = (
       idle_height = 291;
       walk_width = 437;
       walk_height = 278;
-
-      idleSrc = twoheadIdle;
-      hurtSrc = twoheadHurt;
-      deathSrc = twoheadDeath;
-      attackSrc = twoheadAtk;
-      walkSrc = twoheadWalk;
 
       break;
 
@@ -145,37 +82,31 @@ export const getBoss = (
       walk_width = 666;
       walk_height = 328;
 
-      idleSrc = dragonIdle;
-      hurtSrc = dragonHurt;
-      deathSrc = dragonDeath;
-      attackSrc = dragonAtk;
-      walkSrc = dragonWalk;
-
       break;
   }
   const images = {
     idle: {
-      src: idleSrc,
+      src: `/boss/${boss}/idle.gif`,
       width: idle_width ?? 0,
       height: idle_height ?? 0,
     },
     hurt: {
-      src: hurtSrc,
+      src: `/boss/${boss}/hurt.gif`,
       width: hurt_width ?? 0,
       height: hurt_height ?? 0,
     },
     death: {
-      src: deathSrc,
+      src: `/boss/${boss}/death.gif`,
       width: death_width ?? 0,
       height: death_height ?? 0,
     },
     attack: {
-      src: attackSrc,
+      src: `/boss/${boss}/attack.gif`,
       width: attack_width ?? 0,
       height: attack_height ?? 0,
     },
     walk: {
-      src: walkSrc,
+      src: `/boss/${boss}/walk.gif`,
       width: walk_width ?? 0,
       height: walk_height ?? 0,
     },

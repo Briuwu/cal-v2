@@ -74,8 +74,6 @@ export const Game = ({ level, characterType, stageId }: Props) => {
     (reward) => reward.stageId === Number(level.stageId),
   );
 
-  console.log(currentReward);
-
   useEffect(() => {
     setIsAnimating(true);
 
