@@ -51,7 +51,7 @@ export default function Onboard() {
     if (!isButtonDisabled) {
       setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
       if (currentStep === steps.length - 1) {
-        router.push("/character-selection");
+        router.push("/start");
       }
       // Disable button temporarily after clicking
       setIsButtonDisabled(true);

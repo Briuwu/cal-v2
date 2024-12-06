@@ -39,6 +39,6 @@ export const createProfile = cache(
       characterId: selectedCharacter,
     });
 
-    redirect("/stages");
+    redirect("/onboarding");
   },
 );
