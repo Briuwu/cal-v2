@@ -3,6 +3,7 @@ import Image from "next/image";
 import brianPic from "@/public/members/about_bry.png";
 import jeranPic from "@/public/members/about_jeran.png";
 import ijPic from "@/public/members/about_ij.png";
+import shawnPic from "@/public/members/about_shawn.png";
 import {
   Accordion,
   AccordionContent,
@@ -101,7 +102,7 @@ export default function About() {
               UI/UX Designer
             </span>
             <span className="rounded-full bg-[#D8DBBD] px-2 py-1">
-              Team Leader
+              Team Manager
             </span>
           </div>
         </div>
@@ -118,7 +119,7 @@ export default function About() {
             functionality of the system. As a full stack developer, he designed
             and implemented both the front-end and back-end of the project. He
             also took charge of the UI/UX design, ensuring a seamless and
-            intuitive user experience. As the team leader, he coordinated the
+            intuitive user experience. As the team manager, he coordinated the
             efforts of the group to bring the project to fruition.
           </p>
         </div>
@@ -130,7 +131,7 @@ export default function About() {
           </p>
           <div className="mt-2 flex flex-wrap justify-center gap-2 md:justify-start">
             <span className="rounded-full bg-[#BFECFF] px-2 py-1">
-              Content Creator
+              Content Management
             </span>
             <span className="rounded-full bg-[#CDC1FF] px-2 py-1">
               Data Manager
@@ -174,6 +175,9 @@ export default function About() {
             <span className="rounded-full bg-[#EEEEEE] px-2 py-1">
               Background Designer
             </span>
+            <span className="rounded-full bg-[#FFD700] px-2 py-1">
+              Documentation Manager
+            </span>
           </div>
         </div>
         <Image src={ijPic} alt="" width={500} height={500} className="w-96" />
@@ -183,9 +187,41 @@ export default function About() {
             in the game. He animated all the characters, bosses, and NPCs,
             bringing them to life with his artistic skills. Additionally, he
             selected the background images and audio for the game, ensuring an
-            immersive and engaging experience for the players. His contributions
-            are essential in creating the visual and auditory elements of the
-            game.
+            immersive and engaging experience for the players. He also managed
+            the documentation for the thesis paper, handling all the necessary
+            documents and ensuring they were well-organized and comprehensive.
+          </p>
+        </div>
+      </div>
+      <div className="grid justify-center space-y-5 rounded-xl border-2 border-black p-5 shadow-lg md:grid-cols-3 md:place-items-center">
+        <div className="max-w-96 space-y-3">
+          <p className="text-center font-bold md:text-left md:text-2xl">
+            SORIANO, <br /> SHAWN GABRIEL B.
+          </p>
+          <div className="mt-2 flex flex-wrap justify-center gap-2 md:justify-start">
+            <span className="rounded-full bg-[#FFD700] px-2 py-1">
+              Story Creator
+            </span>
+            <span className="rounded-full bg-[#8A2BE2] px-2 py-1 text-white">
+              Background Designer
+            </span>
+          </div>
+        </div>
+        <Image
+          src={shawnPic}
+          alt=""
+          width={500}
+          height={500}
+          className="w-96"
+        />
+        <div className="max-w-96 text-center md:max-w-80 md:text-right">
+          <p>
+            Shawn Gabriel B. Soriano is the creative mind behind the story of
+            the game. He crafted an engaging and immersive storyline that
+            captivates the players. Additionally, he contributed to the
+            background image design, enhancing the visual appeal of the game.
+            His storytelling and design skills are vital in creating a
+            compelling and visually appealing game environment.
           </p>
         </div>
       </div>

@@ -96,13 +96,7 @@ export const Levels = ({ levels, userProgress }: Props) => {
     //   );
     // } else {
     //   return (
-    //     <Image
-    //       src={lockedIcon}
-    //       alt=""
-    //       key={level.id}
-    //       width={70}
-    //       height={65}
-    //     />
+    //     <Image src={lockedIcon} alt="" key={level.id} width={70} height={65} />
     //   );
     // }
   });
