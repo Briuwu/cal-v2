@@ -42,63 +42,63 @@ export const Levels = ({ levels, userProgress }: Props) => {
         progress.userId === userId,
     );
 
-    // return (
-    //   <div key={level.id} className="relative">
-    //     <Image
-    //       src={startPointer}
-    //       alt=""
-    //       width={82}
-    //       height={54}
-    //       className="absolute -top-10 z-20 animate-bounce"
-    //     />
-    //     <Link
-    //       href={`/game/${level.id}/${level.type}/${level.stageId}/${level.levelNumber}`}
-    //       className={cn("relative")}
-    //     >
-    //       <Image src={imgSrc} alt="" width={70} height={65} />
-    //     </Link>
-    //   </div>
-    // );
+    return (
+      <div key={level.id} className="relative">
+        <Image
+          src={startPointer}
+          alt=""
+          width={82}
+          height={54}
+          className="absolute -top-10 z-20 animate-bounce"
+        />
+        <Link
+          href={`/game/${level.id}/${level.type}/${level.stageId}/${level.levelNumber}`}
+          className={cn("relative")}
+        >
+          <Image src={imgSrc} alt="" width={70} height={65} />
+        </Link>
+      </div>
+    );
 
-    if (progress) {
-      return (
-        <div key={level.id} className="relative">
-          {progress.status === "unlocked" && (
-            <Image
-              src={startPointer}
-              alt=""
-              width={82}
-              height={54}
-              className="absolute -top-10 z-20 animate-bounce"
-            />
-          )}
-          <Link
-            href={`/game/${level.id}/${level.type}/${level.stageId}/${level.levelNumber}`}
-            aria-disabled={progress.status === "completed"}
-            className={cn(
-              "relative",
-              progress.status === "completed" &&
-                "pointer-events-none opacity-50",
-            )}
-          >
-            <Image
-              src={
-                progress.status === "completed"
-                  ? "/stages/levels/webp/completed.webp"
-                  : imgSrc
-              }
-              alt=""
-              width={70}
-              height={65}
-            />
-          </Link>
-        </div>
-      );
-    } else {
-      return (
-        <Image src={lockedIcon} alt="" key={level.id} width={70} height={65} />
-      );
-    }
+    // if (progress) {
+    //   return (
+    //     <div key={level.id} className="relative">
+    //       {progress.status === "unlocked" && (
+    //         <Image
+    //           src={startPointer}
+    //           alt=""
+    //           width={82}
+    //           height={54}
+    //           className="absolute -top-10 z-20 animate-bounce"
+    //         />
+    //       )}
+    //       <Link
+    //         href={`/game/${level.id}/${level.type}/${level.stageId}/${level.levelNumber}`}
+    //         aria-disabled={progress.status === "completed"}
+    //         className={cn(
+    //           "relative",
+    //           progress.status === "completed" &&
+    //             "pointer-events-none opacity-50",
+    //         )}
+    //       >
+    //         <Image
+    //           src={
+    //             progress.status === "completed"
+    //               ? "/stages/levels/webp/completed.webp"
+    //               : imgSrc
+    //           }
+    //           alt=""
+    //           width={70}
+    //           height={65}
+    //         />
+    //       </Link>
+    //     </div>
+    //   );
+    // } else {
+    //   return (
+    //     <Image src={lockedIcon} alt="" key={level.id} width={70} height={65} />
+    //   );
+    // }
   });
   return (
     <div className="grid grid-flow-col justify-between [&>*:nth-child(even)]:mt-28">
