@@ -81,18 +81,18 @@ export const getCharacter = (
   switch (type) {
     case 1:
       characterType = "male_homeless";
-      attack_width = 293;
-      attack_height = 295;
-      dead_width = 226;
-      dead_height = 287;
-      hurt_width = 226;
-      hurt_height = 287;
-      idle_width = 193;
-      idle_height = 328;
-      run_width = 248;
-      run_height = 292;
-      walk_width = 181;
-      walk_height = 323;
+      attack_width = 258;
+      attack_height = 276;
+      dead_width = 218;
+      dead_height = 261;
+      hurt_width = 196;
+      hurt_height = 266;
+      idle_width = 158;
+      idle_height = 281;
+      run_width = 244;
+      run_height = 279;
+      walk_width = 174;
+      walk_height = 289;
 
       walkSrc = maleWalk;
       runSrc = maleRun;
