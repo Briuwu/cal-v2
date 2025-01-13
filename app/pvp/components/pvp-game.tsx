@@ -1,5 +1,6 @@
 "use client";
 import { useMemo, useState, useTransition, useEffect } from "react";
+import { useStopwatch } from "react-timer-hook";
 
 import { pvpQuestions } from "@/db/schema";
 import { Button } from "@/components/ui/button";
@@ -35,6 +36,11 @@ export const PvpGame = ({ data, userId }: Props) => {
   const [gameOver, setGameOver] = useState(false);
   const { load, stop } = useGlobalAudioPlayer();
 
+  const DURATION = 15;
+
+  const { isRunning, seconds, minutes, pause, reset, start, totalSeconds } =
+    useStopwatch();
+
   useEffect(() => {
     stop();
     load("/audio/pvp-bg.mp3", {
@@ -49,6 +55,27 @@ export const PvpGame = ({ data, userId }: Props) => {
   );
 
   useEffect(() => {
+    if (totalSeconds >= DURATION && !hasAnswered) {
+      const randomChoice =
+        currentQuestion.options[
+          Math.floor(Math.random() * currentQuestion.options.length)
+        ];
+      sendChoice(randomChoice);
+      reset();
+    } else if (totalSeconds < DURATION && hasAnswered) {
+      pause();
+    }
+  }, [totalSeconds, hasAnswered, currentQuestion]);
+
+  const handleChoicesMade = (data: { roomUniqueId: string }) => {
+    handleNextQuestion();
+    socket.emit("resetChoices", { roomUniqueId: data.roomUniqueId });
+    setChoices({ p1: "", p2: "" });
+    setHasAnswered(false);
+    setPlayerChoice("");
+  };
+
+  useEffect(() => {
     function handleConnect() {
       setIsConnected(true);
     }
@@ -59,6 +86,7 @@ export const PvpGame = ({ data, userId }: Props) => {
 
     function handlePlayersConnected() {
       setJoined(true);
+      start();
     }
 
     function handleNewGame(data: { roomUniqueId: string }) {
@@ -84,13 +112,7 @@ export const PvpGame = ({ data, userId }: Props) => {
       setGameOver(true);
       setStartGame(false);
     }
-    const handleChoicesMade = (data: { roomUniqueId: string }) => {
-      handleNextQuestion();
-      socket.emit("resetChoices", { roomUniqueId: data.roomUniqueId });
-      setChoices({ p1: "", p2: "" });
-      setHasAnswered(false);
-      setPlayerChoice("");
-    };
+
     socket.on("choicesMade", handleChoicesMade);
 
     const handleP1Choice = (data: { value: string }) => {
@@ -112,6 +134,7 @@ export const PvpGame = ({ data, userId }: Props) => {
 
   const handleNextQuestion = () => {
     setQuestionIndex((prev) => prev + 1);
+    reset();
   };
   const handleStartGame = () => {
     setStartGame(true);
@@ -180,6 +203,17 @@ export const PvpGame = ({ data, userId }: Props) => {
           <h1 className="text-xl font-bold uppercase md:text-3xl">
             <Link href="/pvp">PVP</Link>
           </h1>
+          <div className="absolute left-3 rounded-xl bg-white p-2 text-center text-sm uppercase text-black">
+            <p className="font-bold">
+              Timer: {seconds} / {DURATION}
+            </p>
+          </div>
+          {/* create a div where it contains the count of the questions eg: 1/25 */}
+          <div className="absolute right-3 rounded-xl bg-white p-2 text-center text-sm uppercase text-black">
+            <p className="font-bold">
+              Question: {questionIndex + 1}/{data.length}
+            </p>
+          </div>
         </header>
         {gameOver ? (
           <div className="space-y-3 place-self-center rounded-md bg-white p-4 text-center text-black">
@@ -206,7 +240,7 @@ export const PvpGame = ({ data, userId }: Props) => {
             </div>
           </div>
         ) : (
-          <div className="place-self-center">
+          <div className="relative place-self-center">
             {!startGame ? (
               <div className="flex w-full flex-col items-center gap-2 md:min-w-[286px]">
                 <Button
@@ -244,19 +278,16 @@ export const PvpGame = ({ data, userId }: Props) => {
               </div>
             ) : (
               <>
-                <div className="left-0 right-0 top-20 mx-auto w-fit uppercase text-green-300">
+                <div className="absolute -top-[8%] left-0 right-0 mx-auto w-fit text-center text-sm uppercase text-green-300 lg:text-base">
                   {choices.p1 && (
-                    <p className="text-2xl font-bold">
-                      Player 1 has made a choice
-                    </p>
+                    <p className="font-bold">Player 1 has made a choice</p>
                   )}
                   {choices.p2 && (
-                    <p className="text-2xl font-bold">
-                      Player 2 has made a choice
-                    </p>
+                    <p className="font-bold">Player 2 has made a choice</p>
                   )}
                 </div>
-                <div className="mx-auto mt-5 max-w-[700px] text-center">
+
+                <div className="mx-auto mt-5 w-full max-w-[700px] text-wrap pt-10 text-center">
                   <p className="mb-5 border-b-2 border-white pb-5 text-xl font-bold text-white md:text-2xl">
                     {currentQuestion?.question}
                   </p>
@@ -265,7 +296,7 @@ export const PvpGame = ({ data, userId }: Props) => {
                       <button
                         key={index}
                         className={cn(
-                          "text-blac block w-full rounded-full border-2 border-black bg-white p-5",
+                          "block w-full max-w-[700px] rounded-full border-2 border-black bg-white p-5 text-black",
                           playerChoice === option && "bg-green-300",
                           hasAnswered &&
                             playerChoice !== option &&
