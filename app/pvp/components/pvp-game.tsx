@@ -199,17 +199,14 @@ export const PvpGame = ({ data, userId }: Props) => {
           backgroundPosition: "center",
         }}
       >
-        <header className="relative flex items-center justify-center border-b-2 border-black bg-blue-300 p-5">
-          <h1 className="text-xl font-bold uppercase md:text-3xl">
-            <Link href="/pvp">PVP</Link>
-          </h1>
-          <div className="absolute left-3 rounded-xl bg-white p-2 text-center text-sm uppercase text-black">
+        <header className="relative flex items-center justify-between border-b-2 border-black bg-blue-300 p-5">
+          <div className="rounded-xl bg-white p-2 text-center text-sm uppercase text-black">
             <p className="font-bold">
               Timer: {seconds} / {DURATION}
             </p>
           </div>
           {/* create a div where it contains the count of the questions eg: 1/25 */}
-          <div className="absolute right-3 rounded-xl bg-white p-2 text-center text-sm uppercase text-black">
+          <div className="rounded-xl bg-white p-2 text-center text-sm uppercase text-black">
             <p className="font-bold">
               Question: {questionIndex + 1}/{data.length}
             </p>
