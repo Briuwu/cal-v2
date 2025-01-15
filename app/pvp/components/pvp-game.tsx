@@ -201,9 +201,7 @@ export const PvpGame = ({ data, userId }: Props) => {
       >
         <header className="relative flex items-center justify-between border-b-2 border-black bg-blue-300 p-5">
           <div className="rounded-xl bg-white p-2 text-center text-sm uppercase text-black">
-            <p className="font-bold">
-              Timer: {seconds} / {DURATION}
-            </p>
+            <p className="font-bold">Time Left: {DURATION - seconds}</p>
           </div>
           {/* create a div where it contains the count of the questions eg: 1/25 */}
           <div className="rounded-xl bg-white p-2 text-center text-sm uppercase text-black">
